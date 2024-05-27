@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\model\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|c:\\users\\pssor\\onedrive\\desktop\\work\\github\\project-building-database\\chapeau app\\model\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -15,7 +15,7 @@
       "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|c:\\users\\pssor\\onedrive\\desktop\\work\\github\\project-building-database\\chapeau app\\model\\subbill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\model\\subbill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\subbill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -82,8 +82,7 @@
               "RelativeToolTip": "Model\\SubBill.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T07:39:59.502Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-21T07:39:59.502Z"
             },
             {
               "$type": "Document",
@@ -95,8 +94,7 @@
               "RelativeToolTip": "Model\\Bill.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T07:35:20.203Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-21T07:35:20.203Z"
             },
             {
               "$type": "Document",
@@ -130,7 +128,7 @@
               "RelativeDocumentMoniker": "Model\\Menu.cs",
               "ToolTip": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\Menu.cs",
               "RelativeToolTip": "Model\\Menu.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-21T07:14:16.195Z",
               "EditorCaption": ""
@@ -145,8 +143,7 @@
               "RelativeToolTip": "Model\\Employee.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T07:09:05.468Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-21T07:09:05.468Z"
             }
           ]
         }
