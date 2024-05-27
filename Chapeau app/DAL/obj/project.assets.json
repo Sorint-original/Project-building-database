@@ -699,6 +699,21 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
+      },
+      "Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.Data.SqlClient": "5.2.0",
+          "System.Configuration.ConfigurationManager": "8.0.0",
+          "System.Data.SqlClient": "4.8.6"
+        },
+        "compile": {
+          "bin/placeholder/Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Model.dll": {}
+        }
       }
     }
   },
@@ -2095,11 +2110,17 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Model/1.0.0": {
+      "type": "project",
+      "path": "../Model/Model.csproj",
+      "msbuildProject": "../Model/Model.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.Data.SqlClient >= 5.2.0",
+      "Model >= 1.0.0",
       "System.Configuration.ConfigurationManager >= 8.0.0",
       "System.Data.SqlClient >= 4.8.6"
     ]
@@ -2136,7 +2157,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\Model.csproj": {
+              "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\Model.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
