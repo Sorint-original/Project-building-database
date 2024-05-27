@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\Model.csproj",
-      "projectName": "Model",
-      "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\Model.csproj",
+      "projectUniqueName": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj",
+      "projectName": "DAL",
+      "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj",
       "packagesPath": "C:\\Users\\pssor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\obj\\",
+      "outputPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
