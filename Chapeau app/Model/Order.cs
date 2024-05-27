@@ -12,10 +12,8 @@ namespace Model
         public DateTime OrderTime { get; set; }
         public DateTime PreparationTime { get; set; }
         public OrderStatus Status { get; set; }
-        public int BillId { get; set; }
-        public Employee Waiter { get; set; }
-
-        public List<OrderItem> Items { get; set; }
+        public Bill Bill { get; set; }
+        public Employee Employee { get; set; }
     }
 }
 public enum OrderStatus
