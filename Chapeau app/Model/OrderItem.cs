@@ -8,9 +8,10 @@ namespace Model
 {
     internal class OrderItem
     {
-        public Employee Employee { get; set; }
-        public Order Order { get; set; }
+        public int EmployeeID { get; set; }
+        public int OrderID { get; set; }
         public MenuItem MenuItem { get; set; }
         public int Amount { get; set; } 
+        public OrderStatus Status { get; set; }
     }
 }
