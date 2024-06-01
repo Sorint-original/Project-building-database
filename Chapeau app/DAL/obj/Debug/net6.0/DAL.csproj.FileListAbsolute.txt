@@ -1,0 +1,16 @@
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\bin\Debug\net6.0\DAL.deps.json
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\bin\Debug\net6.0\DAL.dll
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\bin\Debug\net6.0\DAL.pdb
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\bin\Debug\net6.0\Model.dll
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\bin\Debug\net6.0\Model.pdb
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\DAL.csproj.AssemblyReference.cache
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\DAL.AssemblyInfoInputs.cache
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\DAL.AssemblyInfo.cs
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\DAL.csproj.CoreCompileInputs.cache
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\DAL.sourcelink.json
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\DAL.csproj.Up2Date
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\DAL.dll
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\refint\DAL.dll
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\DAL.pdb
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\DAL\obj\Debug\net6.0\ref\DAL.dll

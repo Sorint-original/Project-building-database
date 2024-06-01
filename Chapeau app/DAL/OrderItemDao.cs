@@ -14,7 +14,7 @@ namespace DAL
         public List<OrderItem> GetAllOrderItemsByOrder(int orderId)
         {
             string query;
-            query = "SELECT employee,order_id,menu_item,amount,status FROM ORDER_ITEM WHERE order_id = @orderId";
+            query = "SELECT order_id,menu_item,amount,status FROM ORDER_ITEM WHERE order_id = @orderId";
 
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@orderId", orderId);
@@ -45,11 +45,34 @@ namespace DAL
                 {
                     status = OrderStatus.Served;
                 }
-                OrderItem item = new OrderItem((int)dr["employee"], (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"],status);
+                OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"],status);
                 list.Add(item);
             }
 
             return list;
         }
+
+        public void DeleteByOrder(int order_id)
+        {
+            string command = "DELETE FROM ORDER_ITEM WHERE order_id = @Id ";
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@Id", order_id);
+
+            ExecuteEditQuery(command, sqlParameters);
+        }
+
+        public void AddOrderItem(OrderItem item)
+        {
+            string command = "INSERT INTO ORDER_ITEM VALUES (@order_id,@menu_item,@amount,@status)";
+            SqlParameter[] sqlParameters = new SqlParameter[4];
+            sqlParameters[0] = new SqlParameter("@StudentNumber", item.OrderID);
+            sqlParameters[1] = new SqlParameter("@FirstName", item.MenuItemID);
+            sqlParameters[2] = new SqlParameter("@SecondName", item.Amount);
+            sqlParameters[3] = new SqlParameter("@Phone", item.Status);
+
+            ExecuteEditQuery(command, sqlParameters);
+        }
+
     }
+
 }

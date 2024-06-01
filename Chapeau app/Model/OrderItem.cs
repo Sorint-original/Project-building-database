@@ -8,15 +8,13 @@ namespace Model
 {
     public class OrderItem
     {
-        public int EmployeeID { get; set; }
         public int OrderID { get; set; }
         public int MenuItemID { get; set; }
         public int Amount { get; set; } 
         public OrderStatus Status { get; set; }
 
-        public OrderItem(int employeeId,int orderId,int menuItem,int amount,OrderStatus status) 
+        public OrderItem(int orderId,int menuItem,int amount,OrderStatus status) 
         { 
-            EmployeeID = employeeId;
             OrderID = orderId;
             MenuItemID = menuItem;
             Amount = amount;

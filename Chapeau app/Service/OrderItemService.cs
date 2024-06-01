@@ -15,12 +15,23 @@ namespace Service
 
         public OrderItemService()
         {
-            orderItemDao = new OrderItemDao();  
+            orderItemDao = new OrderItemDao();
         }
 
         public List<OrderItem> GetAllOrderItemsByOrder(int orderId)
         {
             return orderItemDao.GetAllOrderItemsByOrder(orderId);
         }
+
+        public void DeleteByOrder(int order_id)
+        {
+            orderItemDao.DeleteByOrder(order_id);
+        }
+
+        public void AddOrderItem(OrderItem item)
+        {
+            orderItemDao.AddOrderItem(item);
+        }
+
     }
 }
