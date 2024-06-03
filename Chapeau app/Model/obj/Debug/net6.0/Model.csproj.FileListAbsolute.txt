@@ -1,0 +1,13 @@
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\bin\Debug\net6.0\Model.deps.json
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\bin\Debug\net6.0\Model.dll
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\bin\Debug\net6.0\Model.pdb
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\Model.csproj.AssemblyReference.cache
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\Model.AssemblyInfoInputs.cache
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\Model.AssemblyInfo.cs
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\Model.csproj.CoreCompileInputs.cache
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\Model.sourcelink.json
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\Model.dll
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\refint\Model.dll
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\Model.pdb
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\Model\obj\Debug\net6.0\ref\Model.dll

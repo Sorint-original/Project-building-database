@@ -1,7 +1,8 @@
+
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    "net6.0-windows7.0": {
       "Azure.Core/1.35.0": {
         "type": "package",
         "dependencies": {
@@ -155,18 +156,23 @@
       "Microsoft.Identity.Client/4.56.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.IdentityModel.Abstractions": "6.22.0"
+          "Microsoft.Identity.Client.NativeInterop": "0.13.8",
+          "Microsoft.IdentityModel.Abstractions": "6.22.0",
+          "Microsoft.Web.WebView2": "1.0.864.35"
         },
         "compile": {
-          "lib/net6.0/Microsoft.Identity.Client.dll": {
+          "lib/net6.0-windows7.0/Microsoft.Identity.Client.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/Microsoft.Identity.Client.dll": {
+          "lib/net6.0-windows7.0/Microsoft.Identity.Client.dll": {
             "related": ".xml"
           }
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
       },
       "Microsoft.Identity.Client.Extensions.Msal/4.56.0": {
         "type": "package",
@@ -183,6 +189,29 @@
         "runtime": {
           "lib/netstandard2.0/Microsoft.Identity.Client.Extensions.Msal.dll": {
             "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Identity.Client.NativeInterop/0.13.8": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Identity.Client.NativeInterop.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Identity.Client.NativeInterop.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/msalruntime_arm64.dll": {
+            "assetType": "native",
+            "rid": "win-arm64"
+          },
+          "runtimes/win-x64/native/msalruntime.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/msalruntime_x86.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
           }
         }
       },
@@ -314,6 +343,48 @@
         "runtime": {
           "lib/netstandard2.0/Microsoft.SqlServer.Server.dll": {
             "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Microsoft.Web.WebView2/1.0.864.35": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.dll": {
+            "related": ".xml"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.dll": {
+            "related": ".xml"
+          },
+          "lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/WebView2Loader.dll": {
+            "assetType": "native",
+            "rid": "win-arm64"
+          },
+          "runtimes/win-x64/native/WebView2Loader.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/WebView2Loader.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
           }
         }
       },
@@ -700,6 +771,22 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
+      "DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.Data.SqlClient": "5.2.0",
+          "Model": "1.0.0",
+          "System.Configuration.ConfigurationManager": "8.0.0",
+          "System.Data.SqlClient": "4.8.6"
+        },
+        "compile": {
+          "bin/placeholder/DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.dll": {}
+        }
+      },
       "Model/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
@@ -713,6 +800,23 @@
         },
         "runtime": {
           "bin/placeholder/Model.dll": {}
+        }
+      },
+      "Service/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "DAL": "1.0.0",
+          "Microsoft.Data.SqlClient": "5.2.0",
+          "Model": "1.0.0",
+          "System.Configuration.ConfigurationManager": "8.0.0",
+          "System.Data.SqlClient": "4.8.6"
+        },
+        "compile": {
+          "bin/placeholder/Service.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Service.dll": {}
         }
       }
     }
@@ -1010,6 +1114,24 @@
         "microsoft.identity.client.extensions.msal.nuspec"
       ]
     },
+    "Microsoft.Identity.Client.NativeInterop/0.13.8": {
+      "sha512": "eccVwaDOan12YJrh6ntIBIXeKTNoWz+af2/c13lhvrDoX0ydVXitCXMJVz0dh2eJK5y2KJ7IfkEvNilB/A9V7A==",
+      "type": "package",
+      "path": "microsoft.identity.client.nativeinterop/0.13.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/net461/Microsoft.Identity.Client.NativeInterop.props",
+        "buildtransitive/net461/Microsoft.Identity.Client.NativeInterop.targets",
+        "lib/net461/Microsoft.Identity.Client.NativeInterop.dll",
+        "lib/netstandard2.0/Microsoft.Identity.Client.NativeInterop.dll",
+        "microsoft.identity.client.nativeinterop.0.13.8.nupkg.sha512",
+        "microsoft.identity.client.nativeinterop.nuspec",
+        "runtimes/win-arm64/native/msalruntime_arm64.dll",
+        "runtimes/win-x64/native/msalruntime.dll",
+        "runtimes/win-x86/native/msalruntime_x86.dll"
+      ]
+    },
     "Microsoft.IdentityModel.Abstractions/6.35.0": {
       "sha512": "xuR8E4Rd96M41CnUSCiOJ2DBh+z+zQSmyrYHdYhD6K4fXBcQGVnRCFQ0efROUYpP+p0zC1BLKr0JRpVuujTZSg==",
       "type": "package",
@@ -1197,6 +1319,51 @@
         "lib/netstandard2.0/Microsoft.SqlServer.Server.xml",
         "microsoft.sqlserver.server.1.0.0.nupkg.sha512",
         "microsoft.sqlserver.server.nuspec"
+      ]
+    },
+    "Microsoft.Web.WebView2/1.0.864.35": {
+      "sha512": "V1qyLRiAZ31qmOOCFCjoONgaUfvJRiTHWcJWkT3V7pluM2+P6QAgqmbE4UX7Gt4sh6eN34wqM30OnTZ6HXI/sw==",
+      "type": "package",
+      "path": "microsoft.web.webview2/1.0.864.35",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "WebView2.idl",
+        "WebView2.tlb",
+        "build/Common.targets",
+        "build/Microsoft.Web.WebView2.targets",
+        "build/native/Microsoft.Web.WebView2.targets",
+        "build/native/arm64/WebView2Loader.dll",
+        "build/native/arm64/WebView2Loader.dll.lib",
+        "build/native/arm64/WebView2LoaderStatic.lib",
+        "build/native/include/WebView2.h",
+        "build/native/include/WebView2EnvironmentOptions.h",
+        "build/native/x64/WebView2Loader.dll",
+        "build/native/x64/WebView2Loader.dll.lib",
+        "build/native/x64/WebView2LoaderStatic.lib",
+        "build/native/x86/WebView2Loader.dll",
+        "build/native/x86/WebView2Loader.dll.lib",
+        "build/native/x86/WebView2LoaderStatic.lib",
+        "lib/net45/Microsoft.Web.WebView2.Core.dll",
+        "lib/net45/Microsoft.Web.WebView2.Core.xml",
+        "lib/net45/Microsoft.Web.WebView2.WinForms.dll",
+        "lib/net45/Microsoft.Web.WebView2.WinForms.xml",
+        "lib/net45/Microsoft.Web.WebView2.Wpf.dll",
+        "lib/net45/Microsoft.Web.WebView2.Wpf.xml",
+        "lib/netcoreapp3.0/Microsoft.Web.WebView2.Core.dll",
+        "lib/netcoreapp3.0/Microsoft.Web.WebView2.Core.xml",
+        "lib/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.dll",
+        "lib/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.xml",
+        "lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll",
+        "lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.xml",
+        "microsoft.web.webview2.1.0.864.35.nupkg.sha512",
+        "microsoft.web.webview2.nuspec",
+        "runtimes/win-arm64/native/WebView2Loader.dll",
+        "runtimes/win-x64/native/WebView2Loader.dll",
+        "runtimes/win-x86/native/WebView2Loader.dll",
+        "tools/VisualStudioToolsManifest.xml"
       ]
     },
     "Microsoft.Win32.Registry/4.7.0": {
@@ -2111,49 +2278,70 @@
         "version.txt"
       ]
     },
+    "DAL/1.0.0": {
+      "type": "project",
+      "path": "../DAL/DAL.csproj",
+      "msbuildProject": "../DAL/DAL.csproj"
+    },
     "Model/1.0.0": {
       "type": "project",
       "path": "../Model/Model.csproj",
       "msbuildProject": "../Model/Model.csproj"
+    },
+    "Service/1.0.0": {
+      "type": "project",
+      "path": "../Service/Service.csproj",
+      "msbuildProject": "../Service/Service.csproj"
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
-      "Microsoft.Data.SqlClient >= 5.2.0",
+    "net6.0-windows7.0": [
+      "DAL >= 1.0.0",
       "Model >= 1.0.0",
-      "System.Configuration.ConfigurationManager >= 8.0.0",
-      "System.Data.SqlClient >= 4.8.6"
+      "Service >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danylozhadyk\\.nuget\\packages\\": {}
+    "C:\\Users\\pssor\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj",
-      "projectName": "DAL",
-      "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\ChapeauUI\\ChapeauUI.csproj",
+      "projectName": "ChapeauUI",
+      "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\ChapeauUI\\ChapeauUI.csproj",
       "packagesPath": "C:\\Users\\pssor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\obj\\",
+      "outputPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\ChapeauUI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\pssor\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net6.0-windows"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {}
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "Y:\\Desktop\\ProjectBuildingApplication\\Project-building-database\\Chapeau app\\Model\\Model.csproj": {
-              "projectPath": "Y:\\Desktop\\ProjectBuildingApplication\\Project-building-database\\Chapeau app\\Model\\Model.csproj"
+            "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj": {
+              "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj"
+            },
+            "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\Model.csproj": {
+              "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\Model.csproj"
+            },
+            "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Service\\Service.csproj": {
+              "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Service\\Service.csproj"
             }
           }
         }
@@ -2170,22 +2358,8 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
-        "dependencies": {
-          "Microsoft.Data.SqlClient": {
-            "target": "Package",
-            "version": "[5.2.0, )"
-          },
-          "System.Configuration.ConfigurationManager": {
-            "target": "Package",
-            "version": "[8.0.0, )"
-          },
-          "System.Data.SqlClient": {
-            "target": "Package",
-            "version": "[4.8.6, )"
-          }
-        },
+      "net6.0-windows7.0": {
+        "targetAlias": "net6.0-windows",
         "imports": [
           "net461",
           "net462",
@@ -2197,22 +2371,15 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[6.0.28, 6.0.28]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[6.0.28, 6.0.28]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WindowsForms": {
+            "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
       }
     }
   }

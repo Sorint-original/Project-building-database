@@ -6,11 +6,19 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    internal class OrderItem
+    public class OrderItem
     {
-        public Employee Employee { get; set; }
-        public Order Order { get; set; }
-        public MenuItem MenuItem { get; set; }
+        public int OrderID { get; set; }
+        public int MenuItemID { get; set; }
         public int Amount { get; set; } 
+        public OrderStatus Status { get; set; }
+
+        public OrderItem(int orderId,int menuItem,int amount,OrderStatus status) 
+        { 
+            OrderID = orderId;
+            MenuItemID = menuItem;
+            Amount = amount;
+            Status = status;
+        }  
     }
 }
