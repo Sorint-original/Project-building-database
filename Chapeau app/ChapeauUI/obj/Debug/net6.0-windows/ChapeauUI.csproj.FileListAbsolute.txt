@@ -74,3 +74,4 @@ C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau ap
 C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.pdb
 C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.genruntimeconfig.cache
 C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ref\ChapeauUI.dll
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\bin\Debug\net6.0-windows\System.ClientModel.dll
