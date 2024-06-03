@@ -15,9 +15,11 @@ namespace Model
         public int BillID { get; set; }
         public int EmployeeID { get; set; }
 
+        public string PreparationLocation { get; set; }
+
         public List<OrderItem> Items { get; set; }
 
-        public Order(int id, DateTime orderTime,int preparationTime,OrderStatus status,int billId,int employeeId)
+        public Order(int id, DateTime orderTime,int preparationTime,OrderStatus status,int billId,int employeeId,string PrepLocation=null)
         {
             Id = id;
             OrderTime = orderTime;
@@ -26,6 +28,7 @@ namespace Model
             BillID = billId;
             EmployeeID = employeeId;
             Items = new List<OrderItem>();
+            PreparationLocation= PrepLocation;
         }
     }
 }

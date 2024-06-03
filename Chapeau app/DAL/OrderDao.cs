@@ -17,7 +17,7 @@ namespace DAL
         public List<Order> GetOrdersByStatus(string status)
         {
             string query;
-            query = "SELECT order_id,order_time,preparation_time,status,employee,bill FROM [ORDER] WHERE status = @status ORDER BY order_time";
+            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE status = @status ORDER BY order_time";
 
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@status",status);
@@ -30,7 +30,7 @@ namespace DAL
         public List<Order> GetOrdersOfToday(DateTime Today)
         {
             string query;
-            query = "SELECT order_id,order_time,preparation_time,status,employee,bill FROM [ORDER] WHERE order_time > @Today ORDER BY order_time";
+            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE order_time > @Today ORDER BY order_time";
 
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@Today", Today);
@@ -42,7 +42,7 @@ namespace DAL
         public Order GetOrderById(int Id)
         {
             string query;
-            query = "SELECT order_id,order_time,preparation_time,status,employee,bill FROM [ORDER] WHERE order_id = @ID ORDER BY order_time";
+            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE order_id = @ID ORDER BY order_time";
 
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@ID", Id);
@@ -81,7 +81,7 @@ namespace DAL
                 {
                     status = OrderStatus.Served;
                 }
-                Order order = new Order((int)dr["order_id"], (DateTime)dr["order_time"], (int)dr["preparation_time"], status, (int)dr["employee"], (int)dr["bill"]);
+                Order order = new Order((int)dr["order_id"], (DateTime)dr["order_time"], (int)dr["preparation_time"], status, (int)dr["employee"], (int)dr["bill"], (string)dr["preparation_location"]);
                 list.Add(order);
             }
 
@@ -100,21 +100,22 @@ namespace DAL
 
         public void AddOrder(Order order)
         {
-            string command = "INSERT INTO [ORDER] VALUES (@order_id,@order_time,@preparation_time,@status,@employee,@bill)";
-            SqlParameter[] sqlParameters = new SqlParameter[6];
+            string command = "INSERT INTO [ORDER] VALUES (@order_id,@order_time,@preparation_time,@status,@employee,@bill,@preparation_location)";
+            SqlParameter[] sqlParameters = new SqlParameter[7];
             sqlParameters[0] = new SqlParameter("@order_id", order.Id);
             sqlParameters[1] = new SqlParameter("@order_time", order.OrderTime);
             sqlParameters[2] = new SqlParameter("@preparation_time", order.PreparationTime);
             sqlParameters[3] = new SqlParameter("@status", order.Status);
             sqlParameters[4] = new SqlParameter("@employee", order.EmployeeID);
             sqlParameters[5] = new SqlParameter("@bill", order.BillID);
+            sqlParameters[6] = new SqlParameter("@preparation_location", order.PreparationLocation);
 
             ExecuteEditQuery(command, sqlParameters);
         }
 
         public void UpdateOrder(Order order)
         {
-            string command = "UPDATE [ORDER] SET order_id = @order_id, order_time = @order_time, preparation_time = @preparation_time, status = @status, employee = @employee, bill = @bill";
+            string command = "UPDATE [ORDER] SET order_id = @order_id, order_time = @order_time, preparation_time = @preparation_time, status = @status, employee = @employee, bill = @bill, preparation_location = @preparation_location";
 
 
             SqlParameter[] sqlParameters = new SqlParameter[6];
@@ -124,6 +125,7 @@ namespace DAL
             sqlParameters[3] = new SqlParameter("@status", order.Status);
             sqlParameters[4] = new SqlParameter("@employee", order.EmployeeID);
             sqlParameters[5] = new SqlParameter("@bill", order.BillID);
+            sqlParameters[6] = new SqlParameter("@preparation_location", order.PreparationLocation);
 
             ExecuteEditQuery(command, sqlParameters);
         }
