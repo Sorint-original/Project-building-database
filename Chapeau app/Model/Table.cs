@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    internal class Table
+    public class Table
     {
         public int Id { get; set; }
         public TableStatus Status { get; set; }
