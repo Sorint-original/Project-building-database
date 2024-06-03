@@ -27,7 +27,8 @@ public class TableDao : BaseDao
 
             {
                 Id = Convert.ToInt32(dr["Id"]),
-                Status = dr["Status"] != null ? GetStatusFromString(dr["Status"].ToString()) : TableStatus.Empty                Capacity = Convert.ToInt32(dr["Capacity"])
+                Status = dr["Status"] != null ? GetStatusFromString(dr["Status"].ToString()) : TableStatus.Empty,                
+                Capacity = Convert.ToInt32(dr["Capacity"])
             };
             tables.Add(table);
         }
@@ -66,10 +67,12 @@ public class TableDao : BaseDao
             table = new Table
             {
                 Id = Convert.ToInt32(row["Id"]),
-                Status = row["Status"].ToString(),
+                Status = (TableStatus)row["Status"],
                 Capacity = Convert.ToInt32(row["Capacity"]),
             };
+            return table;
         }
+        return null;
     }
 
     public void DeleteById(int ID)
@@ -124,7 +127,7 @@ public class TableDao : BaseDao
              Table table = new Table()
              {
                  Id = Convert.ToInt32(dr["Id"]),
-                 Status = dr["Status"].ToString(),
+                 Status = (TableStatus)dr["Status"],
                  Capacity = Convert.ToInt32(dr["Capacity"]),
              };
             tables.Add(table);

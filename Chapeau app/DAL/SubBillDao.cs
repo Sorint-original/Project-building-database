@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using DAL;
-;
+using Model;
 
-namespace SomerenDAL
+
+namespace DAL
 {
     public class SubBillDao : BaseDao
     {
@@ -21,10 +22,10 @@ namespace SomerenDAL
         {
             string query = "INSERT INTO SUB_BILL (sub_bill_id, total_price, vat, bill) VALUES (@subBillId, @totalPrice, @vat, @bill)";
             SqlParameter[] sqlParameters = new SqlParameter[4];
-            sqlParameters[0] = new SqlParameter("@subBillId", subBill.SubBillId);
+            sqlParameters[0] = new SqlParameter("@subBillId", subBill.Id);
             sqlParameters[1] = new SqlParameter("@totalPrice", subBill.TotalPrice);
             sqlParameters[2] = new SqlParameter("@vat", subBill.Vat);
-            sqlParameters[3] = new SqlParameter("@bill", subBill.Bill);
+            sqlParameters[3] = new SqlParameter("@bill", subBill.BillId);
 
             ExecuteEditQuery(query, sqlParameters);
         }
@@ -33,10 +34,10 @@ namespace SomerenDAL
         {
             string query = "UPDATE SUB_BILL SET total_price = @totalPrice, vat = @vat, bill = @bill WHERE sub_bill_id = @subBillId";
             SqlParameter[] sqlParameters = new SqlParameter[4];
-            sqlParameters[0] = new SqlParameter("@subBillId", subBill.SubBillId);
+            sqlParameters[0] = new SqlParameter("@subBillId", subBill.Id);
             sqlParameters[1] = new SqlParameter("@totalPrice", subBill.TotalPrice);
             sqlParameters[2] = new SqlParameter("@vat", subBill.Vat);
-            sqlParameters[3] = new SqlParameter("@bill", subBill.Bill);
+            sqlParameters[3] = new SqlParameter("@bill", subBill.BillId);
 
             ExecuteEditQuery(query, sqlParameters);
         }
@@ -68,10 +69,10 @@ namespace SomerenDAL
             {
                 SubBill subBill = new SubBill()
                 {
-                    SubBillId = (int)dr["sub_bill_id"],
+                    Id = (int)dr["sub_bill_id"],
                     TotalPrice = (decimal)dr["total_price"],
-                    Vat = (decimal)dr["vat"],
-                    Bill = (int)dr["bill"]
+                    Vat = (float)dr["vat"],
+                    BillId = (int)dr["bill"]
                 };
                 subBills.Add(subBill);
             }

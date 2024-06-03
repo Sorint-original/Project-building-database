@@ -2263,23 +2263,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pssor\\.nuget\\packages\\": {},
+    "C:\\Users\\Vlad\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\ChapeauUI\\ChapeauUI.csproj",
+      "projectUniqueName": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\ChapeauUI\\ChapeauUI.csproj",
       "projectName": "ChapeauUI",
-      "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\ChapeauUI\\ChapeauUI.csproj",
-      "packagesPath": "C:\\Users\\pssor\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\ChapeauUI\\obj\\",
+      "projectPath": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\ChapeauUI\\ChapeauUI.csproj",
+      "packagesPath": "C:\\Users\\Vlad\\.nuget\\packages\\",
+      "outputPath": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\ChapeauUI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\pssor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Vlad\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2287,7 +2287,6 @@
         "net6.0-windows"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
@@ -2295,14 +2294,14 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj": {
-              "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj"
+            "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj": {
+              "projectPath": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj"
             },
-            "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\Model.csproj": {
-              "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Model\\Model.csproj"
+            "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Model.csproj": {
+              "projectPath": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Model.csproj"
             },
-            "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Service\\Service.csproj": {
-              "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\Service\\Service.csproj"
+            "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Service\\Service.csproj": {
+              "projectPath": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Service\\Service.csproj"
             }
           }
         }
@@ -2354,7 +2353,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
