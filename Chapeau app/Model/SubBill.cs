@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Model
 {
-    internal class SubBill: Bill
+    public class SubBill
     {
-        public Bill Bill { get; set; }
+        public int Id { get; set; }
+        public decimal TotalPrice { get; set; }
+
+        public float Vat { get; set; }
+
+        public int BillId { get; set; }
      
     }
 }

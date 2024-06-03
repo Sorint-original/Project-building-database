@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model
+﻿namespace Model
 {
-    internal class Bill
+    public class Bill
     {
         public int Id { get; set; }
-        public decimal TotalPrice {  get; set; }
-        public float Vat {  get; set; }
-        public int GuestNumber {  get; set; }
-        public Table Table { get; set; }
+        public decimal TotalPrice { get; set; }
+        public float Vat { get; set; }
+        public int GuestNumber { get; set; }
+        public Table Table { get; set; } // Add 'Model.' to match the accessibility
+        public string Feedback { get; set; }
+        public float Tip { get; set; }
+
+        public Bill(Table table, string feedback) // Add 'Model.' to match the accessibility
+        {
+            Table = table;
+            Feedback = feedback;
+        }
     }
+
+  
 }
