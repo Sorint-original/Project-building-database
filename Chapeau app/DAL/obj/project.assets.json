@@ -2131,14 +2131,15 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "Y:\\Desktop\\ProjectBuildingApplication\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "Y:\\Desktop\\ProjectBuildingApplication\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj",
-      "packagesPath": "C:\\Users\\danylozhadyk\\.nuget\\packages\\",
-      "outputPath": "Y:\\Desktop\\ProjectBuildingApplication\\Project-building-database\\Chapeau app\\DAL\\obj\\",
+      "projectPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\DAL.csproj",
+      "packagesPath": "C:\\Users\\pssor\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pssor\\OneDrive\\Desktop\\work\\github\\Project-building-database\\Chapeau app\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\danylozhadyk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pssor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2161,6 +2162,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -2191,6 +2197,16 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.28, 6.0.28]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.28, 6.0.28]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
