@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Model;
-using SomerenDAL;
+using DAL;
 
 namespace Service
 {
@@ -49,7 +49,7 @@ namespace Service
             catch (Exception ex)
             {
                
-                throw new Exception($"An error occurred while updating the sub-bill with ID {subBill.SubBillId}.", ex);
+                throw new Exception($"An error occurred while updating the sub-bill with ID {subBill.Id}.", ex);
             }
         }
 
