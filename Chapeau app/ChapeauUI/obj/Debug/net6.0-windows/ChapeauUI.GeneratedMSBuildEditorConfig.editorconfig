@@ -14,6 +14,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ChapeauUI
-build_property.ProjectDir = C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\
+build_property.ProjectDir = C:\Uni\uni\Project-building-application\Project-building-database\Chapeau app\ChapeauUI\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

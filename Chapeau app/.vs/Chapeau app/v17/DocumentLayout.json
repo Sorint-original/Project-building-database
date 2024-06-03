@@ -3,11 +3,31 @@
   "WorkspaceRootPath": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\model\\bill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\bill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|c:\\uni\\uni\\project-building-application\\project-building-database\\chapeau app\\dal\\tabledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|solutionrelative:dal\\tabledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|c:\\uni\\uni\\project-building-application\\project-building-database\\chapeau app\\dal\\subbilldao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|solutionrelative:dal\\subbilldao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|c:\\uni\\uni\\project-building-application\\project-building-database\\chapeau app\\dal\\billdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|solutionrelative:dal\\billdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\model\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9BFDA728-CAF5-4E54-87F2-558CDDC3CCE4}|Service\\Service.csproj|c:\\uni\\uni\\project-building-application\\project-building-database\\chapeau app\\service\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9BFDA728-CAF5-4E54-87F2-558CDDC3CCE4}|Service\\Service.csproj|solutionrelative:service\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|c:\\uni\\uni\\project-building-application\\project-building-database\\chapeau app\\dal\\employeedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\dal\\employeedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|solutionrelative:dal\\employeedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -17,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\dal\\basedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{199349FC-5B91-441F-91B3-56A360173232}|DAL\\DAL.csproj|solutionrelative:dal\\basedao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{73AF7D4D-3222-41E1-A3CE-87969A840CBE}|Solution Items{73AF7D4D-3222-41E1-A3CE-87969A840CBE}|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\App.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{73AF7D4D-3222-41E1-A3CE-87969A840CBE}|Solution Items{73AF7D4D-3222-41E1-A3CE-87969A840CBE}|solutionrelative:App.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\model\\orderitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,20 +51,16 @@
       "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\model\\bill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\bill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\model\\subbill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\subbill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\model\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\table.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\model\\menuitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1BEC34F-2A40-4046-A56F-8C29D0E7F844}|Model\\Model.csproj|solutionrelative:model\\menuitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\App.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:App.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,41 +70,67 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 9,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BillDao.cs",
+              "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\BillDao.cs",
+              "RelativeDocumentMoniker": "DAL\\BillDao.cs",
+              "ToolTip": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\BillDao.cs",
+              "RelativeToolTip": "DAL\\BillDao.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAABHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-03T12:18:14.982Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SubBillDao.cs",
+              "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\SubBillDao.cs",
+              "RelativeDocumentMoniker": "DAL\\SubBillDao.cs",
+              "ToolTip": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\SubBillDao.cs",
+              "RelativeToolTip": "DAL\\SubBillDao.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEkAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-03T12:17:05.624Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TableDao.cs",
+              "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\TableDao.cs",
+              "RelativeDocumentMoniker": "DAL\\TableDao.cs",
+              "ToolTip": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\TableDao.cs",
+              "RelativeToolTip": "DAL\\TableDao.cs",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAowIEAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-03T12:15:16.269Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "EmployeeService.cs",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Service\\EmployeeService.cs",
               "RelativeDocumentMoniker": "Service\\EmployeeService.cs",
               "ToolTip": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Service\\EmployeeService.cs",
               "RelativeToolTip": "Service\\EmployeeService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAjAAAA",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAAwAcAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-29T20:31:27.513Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EmployeeDao.cs",
-              "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\EmployeeDao.cs",
-              "RelativeDocumentMoniker": "DAL\\EmployeeDao.cs",
-              "ToolTip": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\EmployeeDao.cs",
-              "RelativeToolTip": "DAL\\EmployeeDao.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAcAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T20:29:20.672Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 14,
               "Title": "App.config",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\App.config",
               "RelativeDocumentMoniker": "App.config",
@@ -100,12 +138,11 @@
               "RelativeToolTip": "App.config",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-05-27T09:22:36.737Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-27T09:22:36.737Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "BaseDao.cs",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\BaseDao.cs",
               "RelativeDocumentMoniker": "DAL\\BaseDao.cs",
@@ -113,12 +150,11 @@
               "RelativeToolTip": "DAL\\BaseDao.cs",
               "ViewState": "AQIAABMAAAAAAAAAAAA3wCMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-27T09:11:29.002Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-27T09:11:29.002Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "OrderItem.cs",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\OrderItem.cs",
               "RelativeDocumentMoniker": "Model\\OrderItem.cs",
@@ -130,7 +166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "Order.cs",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Order.cs",
               "RelativeDocumentMoniker": "Model\\Order.cs",
@@ -142,7 +178,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 0,
+              "Title": "Bill.cs",
+              "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Bill.cs",
+              "RelativeDocumentMoniker": "Model\\Bill.cs",
+              "ToolTip": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Bill.cs",
+              "RelativeToolTip": "Model\\Bill.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-21T07:35:20.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EmployeeDao.cs",
+              "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\EmployeeDao.cs",
+              "RelativeDocumentMoniker": "DAL\\EmployeeDao.cs",
+              "ToolTip": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\DAL\\EmployeeDao.cs",
+              "RelativeToolTip": "DAL\\EmployeeDao.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAcAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T20:29:20.672Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "SubBill.cs",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\SubBill.cs",
               "RelativeDocumentMoniker": "Model\\SubBill.cs",
@@ -154,19 +215,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Bill.cs",
-              "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Bill.cs",
-              "RelativeDocumentMoniker": "Model\\Bill.cs",
-              "ToolTip": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Bill.cs",
-              "RelativeToolTip": "Model\\Bill.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T07:35:20.203Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
               "Title": "Table.cs",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Table.cs",
               "RelativeDocumentMoniker": "Model\\Table.cs",
@@ -174,11 +223,12 @@
               "RelativeToolTip": "Model\\Table.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T07:24:12.667Z"
+              "WhenOpened": "2024-05-21T07:24:12.667Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "Employee.cs",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Employee.cs",
               "RelativeDocumentMoniker": "Model\\Employee.cs",
@@ -186,16 +236,11 @@
               "RelativeToolTip": "Model\\Employee.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAADIAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T07:09:05.468Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+              "WhenOpened": "2024-05-21T07:09:05.468Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "MenuItem.cs",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\MenuItem.cs",
               "RelativeDocumentMoniker": "Model\\MenuItem.cs",
@@ -207,7 +252,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "Menu.cs",
               "DocumentMoniker": "C:\\Uni\\uni\\Project-building-application\\Project-building-database\\Chapeau app\\Model\\Menu.cs",
               "RelativeDocumentMoniker": "Model\\Menu.cs",

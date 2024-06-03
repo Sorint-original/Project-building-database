@@ -16,7 +16,7 @@ public class BillDao : BaseDao
         sqlParameters[0] = new SqlParameter("@total_price", bill.TotalPrice);
         sqlParameters[1] = new SqlParameter("@vat", bill.Vat);
         sqlParameters[2] = new SqlParameter("@guest_number", bill.GuestNumber);
-        sqlParameters[3] = new SqlParameter("@table_number", bill.Table.Number); // Assuming 'Table' has a 'Number' property
+        sqlParameters[3] = new SqlParameter("@table_number", bill.Table); // Assuming 'Table' has a 'Number' property
         sqlParameters[4] = new SqlParameter("@feedback", bill.Feedback);
         sqlParameters[5] = new SqlParameter("@tip_amount", bill.Tip);
 
@@ -75,7 +75,7 @@ public class BillDao : BaseDao
         List<Bill> bills = new List<Bill>();
         foreach (DataRow dr in dataTable.Rows)
         {
-            Bill bill = new Bill(new Table((int)dr["table_number"]), (string)dr["feedback"])
+            Bill bill = new Bill((int)dr["table_number"], (string)dr["feedback"])
             {
                 Id = (int)dr["bill_id"],
                 TotalPrice = (decimal)dr["total_price"],
@@ -85,4 +85,7 @@ public class BillDao : BaseDao
             };
             bills.Add(bill);
         }
+        return bills;
+    }
+}
      
