@@ -26,8 +26,8 @@ public class TableDao : BaseDao
             Table table = new Table()
 
             {
-                Id = Convert.ToInt32(dr["Id"]),
-                Status = dr["Status"] != null ? GetStatusFromString(dr["Status"].ToString()) : TableStatus.Empty,                
+                Number = Convert.ToInt32(dr["Id"]),
+                Status = dr["Status"] != null ? GetStatusFromString(dr["Status"].ToString()) : TableStatus.Empty,
                 Capacity = Convert.ToInt32(dr["Capacity"])
             };
             tables.Add(table);
@@ -52,22 +52,21 @@ public class TableDao : BaseDao
         }
     }
 
-    public Table GetTableById(int id)
+    public Table GetTableById(int number)
     {
-
-        Table table = null;
-        string query = "SELECT * FROM TABLE  WHERE TableId = @Table_Number;";
+        string query = "SELECT * FROM TABLE  WHERE table_number = @table_number;";
         SqlParameter[] sqlParameters = new SqlParameter[1];
 
-        sqlParameters[0] = new SqlParameter("@Table_Number", table.Id);
+        sqlParameters[0] = new SqlParameter("@table_number", number);
         DataTable dataTable = ExecuteSelectQuery(query, sqlParameters);
+
         if (dataTable.Rows.Count > 0)
         {
             DataRow row = dataTable.Rows[0];
-            table = new Table
+            Table table = new Table
             {
-                Id = Convert.ToInt32(row["Id"]),
-                Status = (TableStatus)row["Status"],
+                Number = Convert.ToInt32(row["table_number"]),
+                Status = GetStatusFromString((string)row["Status"]),
                 Capacity = Convert.ToInt32(row["Capacity"]),
             };
             return table;
@@ -89,7 +88,7 @@ public class TableDao : BaseDao
     {
         string query = "INSERT INTO TABLE (TableId, Status, Capacity) VALUES (@Table_number, @Status, @Capacity)";
         SqlParameter[] sqlParameters = new SqlParameter[3];
-        sqlParameters[0] = new SqlParameter("@Table_number", table.Id);
+        sqlParameters[0] = new SqlParameter("@Table_number", table.Number);
         sqlParameters[1] = new SqlParameter("@Status", table.Status);
         sqlParameters[2] = new SqlParameter("@Capacity", table.Capacity);
 
@@ -99,14 +98,15 @@ public class TableDao : BaseDao
 
     public void ChangeTableStatus(Table table)
     {
-        string query = "UPDATE TABLE " + "Set Status= @Status " + "WHERE TableId = @Table_number, TableId =@id ";
-        SqlParameter[] sqlParameters =
-        {
-         new SqlParameter("@id", table.Id),
-         new SqlParameter("@Capacity", table.Capacity),
-         new SqlParameter("@Status", table.Status),
-        };
-        ExecuteEditQuery(query, sqlParameters);
+        string query = "UPDATE TABLE SET status = @status WHERE table_number = @table_number";
+
+        SqlParameter[] parameters = new SqlParameter[]
+            {
+                new("@status", SqlDbType.VarChar) {Value = table.Status.ToString()},
+                new("@table_number", SqlDbType.Int) {Value = table.Number}
+            };
+
+        ExecuteEditQuery(query, parameters);
 
     }
 
@@ -124,16 +124,16 @@ public class TableDao : BaseDao
 
         foreach (DataRow dr in dataTable.Rows)
         {
-             Table table = new Table()
-             {
-                 Id = Convert.ToInt32(dr["Id"]),
-                 Status = (TableStatus)dr["Status"],
-                 Capacity = Convert.ToInt32(dr["Capacity"]),
-             };
+            Table table = new Table()
+            {
+                Number = Convert.ToInt32(dr["Id"]),
+                Status = (TableStatus)dr["Status"],
+                Capacity = Convert.ToInt32(dr["Capacity"]),
+            };
             tables.Add(table);
         }
         return tables;
-            
+
     }
 }
 
