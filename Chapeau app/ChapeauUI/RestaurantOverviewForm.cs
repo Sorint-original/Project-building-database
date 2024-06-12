@@ -152,7 +152,7 @@ namespace ChapeauUI
         {
             int count = 1;
 
-            foreach(Control control in TablesPanel.Controls)
+            foreach (Control control in TablesPanel.Controls)
             {
                 if (control is Button)
                 {
@@ -168,13 +168,13 @@ namespace ChapeauUI
             switch (tableStatus)
             {
                 case TableStatus.Occupied:
-                    control.BackColor = Color.Red;
+                    control.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("RedTable");
                     break;
                 case TableStatus.Reserved:
-                    control.BackColor = Color.Blue;
+                    control.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("BlueTable");
                     break;
                 case TableStatus.Empty:
-                    control.BackColor = Color.Green;
+                    control.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("GreenTable");
                     break;
             }
         }
@@ -233,6 +233,8 @@ namespace ChapeauUI
                 Table table = _tableService.GetTableById(i);
                 _tables.Add(table);
             }
+
+            //_tables[tableToChange.Number - 1] = _tableService.GetTableById(tableToChange.Number);
 
             ColoreTables();
             HideAllPanels();

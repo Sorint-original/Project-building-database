@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RestaurantOverviewForm));
             TablesPanel = new Panel();
             btnTable10 = new Button();
             btnTable9 = new Button();
@@ -88,7 +87,9 @@
             // 
             // btnTable10
             // 
+            btnTable10.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable10.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable10.ForeColor = Color.White;
             btnTable10.Location = new Point(1081, 391);
             btnTable10.Name = "btnTable10";
             btnTable10.Size = new Size(150, 150);
@@ -99,7 +100,9 @@
             // 
             // btnTable9
             // 
+            btnTable9.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable9.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable9.ForeColor = Color.White;
             btnTable9.Location = new Point(1081, 150);
             btnTable9.Name = "btnTable9";
             btnTable9.Size = new Size(150, 150);
@@ -110,7 +113,9 @@
             // 
             // btnTable8
             // 
+            btnTable8.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable8.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable8.ForeColor = Color.White;
             btnTable8.Location = new Point(850, 391);
             btnTable8.Name = "btnTable8";
             btnTable8.Size = new Size(150, 150);
@@ -121,7 +126,9 @@
             // 
             // btnTable7
             // 
+            btnTable7.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable7.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable7.ForeColor = Color.White;
             btnTable7.Location = new Point(850, 150);
             btnTable7.Name = "btnTable7";
             btnTable7.Size = new Size(150, 150);
@@ -132,7 +139,9 @@
             // 
             // btnTable6
             // 
+            btnTable6.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable6.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable6.ForeColor = Color.White;
             btnTable6.Location = new Point(616, 391);
             btnTable6.Name = "btnTable6";
             btnTable6.Size = new Size(150, 150);
@@ -143,7 +152,9 @@
             // 
             // btnTable5
             // 
+            btnTable5.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable5.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable5.ForeColor = Color.White;
             btnTable5.Location = new Point(616, 150);
             btnTable5.Name = "btnTable5";
             btnTable5.Size = new Size(150, 150);
@@ -154,7 +165,9 @@
             // 
             // btnTable4
             // 
+            btnTable4.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable4.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable4.ForeColor = Color.White;
             btnTable4.Location = new Point(383, 391);
             btnTable4.Name = "btnTable4";
             btnTable4.Size = new Size(150, 150);
@@ -165,7 +178,9 @@
             // 
             // btnTable3
             // 
+            btnTable3.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable3.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable3.ForeColor = Color.White;
             btnTable3.Location = new Point(383, 150);
             btnTable3.Name = "btnTable3";
             btnTable3.Size = new Size(150, 150);
@@ -176,7 +191,9 @@
             // 
             // btnTable2
             // 
+            btnTable2.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable2.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable2.ForeColor = Color.White;
             btnTable2.Location = new Point(154, 391);
             btnTable2.Name = "btnTable2";
             btnTable2.Size = new Size(150, 150);
@@ -187,7 +204,9 @@
             // 
             // btnTable1
             // 
+            btnTable1.BackgroundImageLayout = ImageLayout.Stretch;
             btnTable1.Font = new Font("Segoe UI", 19.875F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTable1.ForeColor = Color.White;
             btnTable1.Location = new Point(154, 150);
             btnTable1.Name = "btnTable1";
             btnTable1.Size = new Size(150, 150);
@@ -236,7 +255,8 @@
             // 
             // LogoPanel
             // 
-            LogoPanel.BackgroundImage = (Image)resources.GetObject("LogoPanel.BackgroundImage");
+            LogoPanel.BackgroundImage = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("Logo");
+            LogoPanel.BackgroundImageLayout = ImageLayout.Stretch;
             LogoPanel.Location = new Point(1198, 12);
             LogoPanel.Name = "LogoPanel";
             LogoPanel.Size = new Size(222, 112);
@@ -280,7 +300,9 @@
             // 
             // OccupiedTableImage
             // 
-            OccupiedTableImage.BackColor = Color.Red;
+            OccupiedTableImage.BackgroundImage = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("RedTable");
+            OccupiedTableImage.BackColor = Color.Transparent;
+            OccupiedTableImage.BackgroundImageLayout = ImageLayout.Stretch;
             OccupiedTableImage.Controls.Add(lblOccupiedTableNumber);
             OccupiedTableImage.Location = new Point(481, 65);
             OccupiedTableImage.Name = "OccupiedTableImage";
@@ -337,7 +359,9 @@
             // 
             // FreeTableImage
             // 
-            FreeTableImage.BackColor = Color.Green;
+            FreeTableImage.BackgroundImage = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("GreenTable");
+            FreeTableImage.BackColor = Color.Transparent;
+            FreeTableImage.BackgroundImageLayout = ImageLayout.Stretch;
             FreeTableImage.Controls.Add(lblFreeTableNumber);
             FreeTableImage.Location = new Point(481, 65);
             FreeTableImage.Name = "FreeTableImage";
@@ -394,7 +418,9 @@
             // 
             // ReservedTableImage
             // 
-            ReservedTableImage.BackColor = Color.Blue;
+            ReservedTableImage.BackgroundImage = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("BlueTable");
+            ReservedTableImage.BackColor = Color.Transparent;
+            ReservedTableImage.BackgroundImageLayout = ImageLayout.Stretch;
             ReservedTableImage.Controls.Add(lblReservedTableNumber);
             ReservedTableImage.Location = new Point(481, 65);
             ReservedTableImage.Name = "ReservedTableImage";
@@ -417,11 +443,12 @@
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1432, 882);
             Controls.Add(TablesPanel);
-            Controls.Add(FreeTablePanel);
-            Controls.Add(OccupiedTablePanel);
             Controls.Add(ReservedTablePanel);
+            Controls.Add(OccupiedTablePanel);
+            Controls.Add(FreeTablePanel);
             Controls.Add(LogoPanel);
             Controls.Add(lblTime);
             Controls.Add(lblDate);
