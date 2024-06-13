@@ -23,9 +23,9 @@ namespace Service
             return tableDao.GetTableById(number);
         }
 
-        public void ChangeTableStatus(Table table)
+        public void ChangeTableStatus(Table table, TableStatus tableStatus)
         {
-            tableDao.ChangeTableStatus(table);
+            tableDao.ChangeTableStatus(table, tableStatus);
         }
     }
 }

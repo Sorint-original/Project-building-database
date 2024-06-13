@@ -16,5 +16,5 @@ namespace Model
 
 public enum TableStatus
 {
-    Empty, Ocupied, Reserved
+    Empty, Occupied, Reserved
 }

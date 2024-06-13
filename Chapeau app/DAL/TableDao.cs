@@ -42,7 +42,7 @@ public class TableDao : BaseDao
             case "Empty":
                 return TableStatus.Empty;
             case "Occupied":
-                return TableStatus.Ocupied;
+                return TableStatus.Occupied;
             case "Reserved":
                 return TableStatus.Reserved;
             default:
@@ -54,7 +54,7 @@ public class TableDao : BaseDao
 
     public Table GetTableById(int number)
     {
-        string query = "SELECT * FROM TABLE  WHERE table_number = @table_number;";
+        string query = "SELECT * FROM [TABLE]  WHERE table_number = @table_number;";
         SqlParameter[] sqlParameters = new SqlParameter[1];
 
         sqlParameters[0] = new SqlParameter("@table_number", number);
@@ -66,8 +66,8 @@ public class TableDao : BaseDao
             Table table = new Table
             {
                 Number = Convert.ToInt32(row["table_number"]),
-                Status = GetStatusFromString((string)row["Status"]),
-                Capacity = Convert.ToInt32(row["Capacity"]),
+                Status = GetStatusFromString((string)row["status"]),
+                Capacity = Convert.ToInt32(row["capacity"]),
             };
             return table;
         }
@@ -96,13 +96,13 @@ public class TableDao : BaseDao
         ExecuteEditQuery(query, sqlParameters);
     }
 
-    public void ChangeTableStatus(Table table)
+    public void ChangeTableStatus(Table table, TableStatus tableStatus)
     {
-        string query = "UPDATE TABLE SET status = @status WHERE table_number = @table_number";
+        string query = "UPDATE [TABLE] SET status = @status WHERE table_number = @table_number";
 
         SqlParameter[] parameters = new SqlParameter[]
             {
-                new("@status", SqlDbType.VarChar) {Value = table.Status.ToString()},
+                new("@status", SqlDbType.VarChar) {Value = tableStatus.ToString()},
                 new("@table_number", SqlDbType.Int) {Value = table.Number}
             };
 

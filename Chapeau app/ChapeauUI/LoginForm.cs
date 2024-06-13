@@ -15,7 +15,6 @@ namespace ChapeauUI
 {
     public partial class LoginForm : Form
     {
-
         public LoginForm()
         {
             InitializeComponent();
@@ -31,7 +30,7 @@ namespace ChapeauUI
 
             if (employee != null)
             {
-                OpenDialogByEmployeeRole(employee.Role);
+                OpenDialogByEmployeeRole(employee);
             }
             else
             {
@@ -39,11 +38,14 @@ namespace ChapeauUI
             }
         }
 
-        private void OpenDialogByEmployeeRole(Role role)
+        private void OpenDialogByEmployeeRole(Employee employee)
         {
-            switch (role)
+            /*Form form;
+
+            switch (employee.Role)
             {
                 case Role.Waiter:
+                    form = new RestaurantOverviewForm(employee);
                     break;
                 case Role.Barman:
                     break;
@@ -52,6 +54,8 @@ namespace ChapeauUI
                 default:
                     break;
             }
+
+            form.ShowDialog();*/
         }
     }
 }
