@@ -74,6 +74,32 @@ namespace Service
                 orderItemDao.AddOrderItem(item);
             }
         }
+
+        public bool BillExistsForTable(int tableNumber)
+        { 
+            return orderDao.BillExistsForTable(tableNumber);
+        }
+
+        public int GetNextBillId()
+        { 
+            return orderDao.GetNextBillId();
+        }
+
+        public int GetNextOrderId()
+        { 
+            return orderDao.GetNextOrderId();
+        }
+
+        public int GetBillIdByTable(int tableNumber)
+        { 
+            return orderDao.GetBillIdByTable(tableNumber);
+        }
+
+        public int GetLastOrderId()
+        { 
+            return orderDao.GetLastOrderId();
+        }
+
         public void UpdateOrder(Order order)
         {
             orderDao.UpdateOrder(order);

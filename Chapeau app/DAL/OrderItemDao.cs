@@ -65,14 +65,35 @@ namespace DAL
         {
             string command = "INSERT INTO ORDER_ITEM VALUES (@order_id,@menu_item,@amount,@status)";
             SqlParameter[] sqlParameters = new SqlParameter[4];
-            sqlParameters[0] = new SqlParameter("@StudentNumber", item.OrderID);
-            sqlParameters[1] = new SqlParameter("@FirstName", item.MenuItemID);
-            sqlParameters[2] = new SqlParameter("@SecondName", item.Amount);
-            sqlParameters[3] = new SqlParameter("@Phone", item.Status);
+            sqlParameters[0] = new SqlParameter("@order_id", item.OrderID);
+            sqlParameters[1] = new SqlParameter("@menu_item", item.MenuItemID);
+            sqlParameters[2] = new SqlParameter("@amount", item.Amount);
+            sqlParameters[3] = new SqlParameter("@status", item.Status.ToString());
 
             ExecuteEditQuery(command, sqlParameters);
         }
 
+        public int GetOrderItemStock(string name)
+        {
+            string query = "SELECT stock FROM MENU_ITEM WHERE [name] = @name";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+            new SqlParameter("@name", name)
+            };
+            DataTable data = ExecuteSelectQuery(query, sqlParameters);
+            return Convert.ToInt32(data.Rows[0][0]);
+        }
+
+        public void RefreshOrderItemStock(string name, int amount)
+        {
+            string query = "UPDATE MENU_ITEM SET stock = stock - @amount WHERE [name] = @name";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@name", name),
+                new SqlParameter("@amount", amount)
+            };
+            ExecuteEditQuery(query, sqlParameters);
+        }
     }
 
 }

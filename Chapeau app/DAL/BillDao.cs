@@ -10,15 +10,19 @@ public class BillDao : BaseDao
 {
     public void AddBill(Bill bill)
     {
-        // Add bill to database
-        string query = "INSERT INTO Bill (total_price, vat, guest_number, table_number, feedback, tip_amount) VALUES (@total_price, @vat, @guest_number, @table_number, @feedback, @tip_amount)";
-        SqlParameter[] sqlParameters = new SqlParameter[6];
-        sqlParameters[0] = new SqlParameter("@total_price", bill.TotalPrice);
-        sqlParameters[1] = new SqlParameter("@vat", bill.Vat);
-        sqlParameters[2] = new SqlParameter("@guest_number", bill.GuestNumber);
-        sqlParameters[3] = new SqlParameter("@table_number", bill.Table); // Assuming 'Table' has a 'Number' property
-        sqlParameters[4] = new SqlParameter("@feedback", bill.Feedback);
-        sqlParameters[5] = new SqlParameter("@tip_amount", bill.Tip);
+
+        string query = "INSERT INTO BILL (bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount) " +
+                       "VALUES (@bill_id, @total_price, @vat, @guest_number, @table_number, @feedback, @tip_amount)";
+        SqlParameter[] sqlParameters = new SqlParameter[]
+        {
+            new SqlParameter("@bill_id", bill.Id),
+            new SqlParameter("@total_price", bill.TotalPrice),
+            new SqlParameter("@vat", bill.Vat),
+            new SqlParameter("@guest_number", bill.GuestNumber),
+            new SqlParameter("@table_number", bill.Table),
+            new SqlParameter("@feedback", bill.Feedback),
+            new SqlParameter("@tip_amount", bill.Tip)
+        };
 
         ExecuteEditQuery(query, sqlParameters);
     }
@@ -73,18 +77,22 @@ public class BillDao : BaseDao
     private List<Bill> ReadTable(DataTable dataTable)
     {
         List<Bill> bills = new List<Bill>();
+
         foreach (DataRow dr in dataTable.Rows)
         {
-            Bill bill = new Bill((int)dr["table_number"], (string)dr["feedback"])
-            {
-                Id = (int)dr["bill_id"],
-                TotalPrice = (decimal)dr["total_price"],
-                Vat = (float)dr["vat"],
-                GuestNumber = (int)dr["guest_number"],
-                Tip = (float)dr["tip_amount"]
-            };
+            Bill bill = new Bill(
+                (int)dr["bill_id"],
+                (decimal)dr["total_price"],
+                (float)dr["vat"],
+                (int)dr["guest_number"],
+                (int)dr["table_number"],
+                (string)dr["feedback"],
+                (float)dr["tip_amount"]
+            );
+
             bills.Add(bill);
         }
+
         return bills;
     }
 }

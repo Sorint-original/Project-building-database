@@ -12,14 +12,15 @@ namespace DAL
     public class MenuDao : BaseDao
     {
 
-        public List<MenuItem> GetMenu(int menuId)
+        public List<MenuItem> GetMenu(int menuId, string itemType)
         {
-            string query = GetQuery();
+            string query = GetQueryMenu();
 
             SqlParameter[] parameters = new SqlParameter[]
-                {
-                    new SqlParameter ("@MenuId", SqlDbType.Int) {Value = menuId}
-                };
+            {
+        new SqlParameter ("@MenuId", SqlDbType.Int) {Value = menuId},
+        new SqlParameter ("@MenuItemType", SqlDbType.VarChar) { Value = itemType}
+            };
 
             DataTable dataTable = ExecuteSelectQuery(query, parameters);
 
@@ -27,23 +28,23 @@ namespace DAL
             return menuItems;
         }
 
-        private string GetQuery()
+        private string GetQueryMenu()
         {
             return @"
-                SELECT 
-                    MENU_ITEM.item_id,
-                    MENU_ITEM.name,
-                    MENU_ITEM.type,
-                    MENU_ITEM.stock,
-                    MENU_ITEM.vat,
-                    MENU_ITEM.price,
-                    MENU_ITEM.preparation_time
-                FROM 
-                    MENU_ITEM
-                JOIN 
-                    CONTAINING ON MENU_ITEM.item_id = CONTAINING.menu_item
-                WHERE 
-                    CONTAINING.menu_id = @MenuId";
+        SELECT 
+            MENU_ITEM.item_id,
+            MENU_ITEM.name,
+            MENU_ITEM.type,
+            MENU_ITEM.stock,
+            MENU_ITEM.vat,
+            MENU_ITEM.price,
+            MENU_ITEM.preparation_time
+        FROM 
+            MENU_ITEM
+        JOIN 
+            CONTAINING ON MENU_ITEM.item_id = CONTAINING.menu_item
+        WHERE 
+            CONTAINING.menu_id = @MenuId AND MENU_ITEM.type = @MenuItemType";
         }
 
         private List<MenuItem> ConvertToList(DataTable table)
@@ -66,6 +67,28 @@ namespace DAL
             }
 
             return menuItems;
+        }
+
+        public int GetMenuItemByName(string name)
+        {
+            string query = "SELECT item_id FROM MENU_ITEM WHERE [name] = @name";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter ("@name", name)
+             };
+            DataTable dataTable = ExecuteSelectQuery(query, parameters);
+            return Convert.ToInt32(dataTable.Rows[0]["item_id"]);
+        }
+
+        public int GetPreparationTimeByName(string name)
+        {
+            string query = "SELECT preparation_time FROM MENU_ITEM WHERE [name] = @name";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter ("@name", name)
+             };
+            DataTable dataTable = ExecuteSelectQuery(query, parameters);
+            return Convert.ToInt32(dataTable.Rows[0]["preparation_time"]);
         }
     }
 }

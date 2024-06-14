@@ -34,5 +34,5 @@ namespace Model
 }
 public enum OrderStatus
 {
-    Preparing,Ready,Served
+    Placed, Preparing,Ready,Served
 }
