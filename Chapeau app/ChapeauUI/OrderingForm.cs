@@ -283,8 +283,8 @@ namespace ChapeauUI
         private void ClearElements()
         {
             listVOrder.Items.Clear();
-            comboBoxTables.Items.Clear();
-            comboBoxGuests.Items.Clear();
+            comboBoxGuests.SelectedIndex = -1;
+            comboBoxTables.SelectedIndex = -1;
         }
 
         private void btnLunchM_Click(object sender, EventArgs e)
