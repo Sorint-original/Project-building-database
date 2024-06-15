@@ -130,19 +130,6 @@ namespace DAL
             ExecuteEditQuery(command, sqlParameters);
         }
 
-        public bool BillExistsForTable(int tableNumber)
-        {
-            string query = "SELECT 1 FROM dbo.BILL WHERE table_number = @table_number";
-
-            SqlParameter[] sqlParameters = new SqlParameter[]
-            {
-                    new SqlParameter("@table_number", tableNumber)
-            };
-            DataTable data = ExecuteSelectQuery(query, sqlParameters);
-
-            return data.Rows.Count > 0;
-        }
-
         public int GetNextOrderId()
         {
             string query = "SELECT ISNULL(MAX(order_id), 0) + @one FROM [ORDER]";
@@ -150,28 +137,6 @@ namespace DAL
             {
                     new SqlParameter("@one", 1)
             };
-            DataTable data = ExecuteSelectQuery(query, sqlParameters);
-            return Convert.ToInt32(data.Rows[0][0]);
-        }
-
-        public int GetNextBillId()
-        {
-            string query = "SELECT ISNULL(MAX(bill_id), 0) + @one FROM dbo.BILL";
-            SqlParameter[] sqlParameters = new SqlParameter[]
-            {
-                    new SqlParameter("@one", 1)
-            };
-            DataTable data = ExecuteSelectQuery(query, sqlParameters);
-            return Convert.ToInt32(data.Rows[0][0]);
-        }
-
-        public int GetBillIdByTable(int tableNumber)
-        {
-            string query = "SELECT bill_id from BILL where table_number = @table";
-            SqlParameter[] sqlParameters = new SqlParameter[]
-{
-                    new SqlParameter("@table", tableNumber)
-};
             DataTable data = ExecuteSelectQuery(query, sqlParameters);
             return Convert.ToInt32(data.Rows[0][0]);
         }

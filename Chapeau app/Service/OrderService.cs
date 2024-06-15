@@ -75,24 +75,9 @@ namespace Service
             }
         }
 
-        public bool BillExistsForTable(int tableNumber)
-        { 
-            return orderDao.BillExistsForTable(tableNumber);
-        }
-
-        public int GetNextBillId()
-        { 
-            return orderDao.GetNextBillId();
-        }
-
         public int GetNextOrderId()
         { 
             return orderDao.GetNextOrderId();
-        }
-
-        public int GetBillIdByTable(int tableNumber)
-        { 
-            return orderDao.GetBillIdByTable(tableNumber);
         }
 
         public int GetLastOrderId()

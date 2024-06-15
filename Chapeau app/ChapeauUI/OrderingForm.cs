@@ -198,9 +198,9 @@ namespace ChapeauUI
             int selectedTable = int.Parse(comboBoxTables.SelectedItem.ToString());
 
             int billId;
-            if (orderService.BillExistsForTable(selectedTable))
+            if (billService.BillExistsForTable(selectedTable))
             {
-                billId = orderService.GetBillIdByTable(selectedTable);
+                billId = billService.GetBillIdByTable(selectedTable);
             }
             else
             {
@@ -236,7 +236,7 @@ namespace ChapeauUI
 
         private int CreateNewBill(int selectedTable, int guestNumber)
         {
-            int billId = orderService.GetNextBillId();
+            int billId = billService.GetNextBillId();
             billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, " ", 0));
             return billId;
         }

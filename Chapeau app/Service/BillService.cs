@@ -91,5 +91,20 @@ namespace Service
                 throw new Exception($"An error occurred while deleting the bill with ID {bill.Id}.", ex);
             }
         }
+
+        public int GetBillIdByTable(int tableNumber)
+        {
+            return _billDao.GetBillIdByTable(tableNumber);
+        }
+
+        public bool BillExistsForTable(int tableNumber)
+        {
+            return _billDao.BillExistsForTable(tableNumber);
+        }
+
+        public int GetNextBillId()
+        {
+            return _billDao.GetNextBillId();
+        }
     }
 }
