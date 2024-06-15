@@ -182,8 +182,9 @@ namespace ChapeauUI
         private void btnLogoff_Click(object sender, EventArgs e)
         {
             LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
-            Close();
+            this.Hide();
+            loginForm.Closed += (s, args) => this.Close();
+            loginForm.Show();
         }
 
         private void HideAllPanels()

@@ -30,7 +30,7 @@ public class BillDao : BaseDao
     public Bill GetBill(int id)
     {
         // Get bill from database
-        string query = "SELECT bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount FROM Bill WHERE bill_id = @id";
+        string query = "SELECT bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount FROM BILL WHERE bill_id = @id";
         SqlParameter[] sqlParameters = new SqlParameter[1];
         sqlParameters[0] = new SqlParameter("@id", id);
         List<Bill> bills = ReadTable(ExecuteSelectQuery(query, sqlParameters));
@@ -80,15 +80,33 @@ public class BillDao : BaseDao
 
         foreach (DataRow dr in dataTable.Rows)
         {
+            float vat;
+            float tip;
+            try
+            {
+                tip = (float)dr["tip_amount"];
+            }
+            catch
+            {
+                tip = 0;
+            }
+            try
+            {
+                vat = (float)dr["vat"];
+            }
+            catch
+            {
+                vat = 0;
+            }
             Bill bill = new Bill(
                 (int)dr["bill_id"],
                 (decimal)dr["total_price"],
-                (float)dr["vat"],
+                vat,
                 (int)dr["guest_number"],
                 (int)dr["table_number"],
                 (string)dr["feedback"],
-                (float)dr["tip_amount"]
-            );
+                tip
+            ); 
 
             bills.Add(bill);
         }

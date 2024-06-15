@@ -14,7 +14,7 @@ namespace DAL
         public List<OrderItem> GetAllOrderItemsByOrder(int orderId)
         {
             string query;
-            query = "SELECT order_id,menu_item,amount,status FROM ORDER_ITEM WHERE order_id = @orderId";
+            query = "SELECT order_id,menu_item,amount,status,comment FROM ORDER_ITEM WHERE order_id = @orderId";
 
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@orderId", orderId);
@@ -63,12 +63,13 @@ namespace DAL
 
         public void AddOrderItem(OrderItem item)
         {
-            string command = "INSERT INTO ORDER_ITEM VALUES (@order_id,@menu_item,@amount,@status)";
-            SqlParameter[] sqlParameters = new SqlParameter[4];
+            string command = "INSERT INTO ORDER_ITEM VALUES (@order_id,@menu_item,@amount,@status,@comment)";
+            SqlParameter[] sqlParameters = new SqlParameter[5];
             sqlParameters[0] = new SqlParameter("@order_id", item.OrderID);
             sqlParameters[1] = new SqlParameter("@menu_item", item.MenuItemID);
             sqlParameters[2] = new SqlParameter("@amount", item.Amount);
             sqlParameters[3] = new SqlParameter("@status", item.Status.ToString());
+            sqlParameters[4] = new SqlParameter("@comment", item.Comment);
 
             ExecuteEditQuery(command, sqlParameters);
         }

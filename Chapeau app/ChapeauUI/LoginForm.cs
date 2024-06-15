@@ -46,7 +46,7 @@ namespace ChapeauUI
 
         private void OpenDialogByEmployeeRole()
         {
-            /*Form form;
+            Form form = new Form();
 
             switch (GlobalVariables.CurrentEmployee.Role)
             {
@@ -56,12 +56,16 @@ namespace ChapeauUI
                 case Role.Barman:
                     break;
                 case Role.Chef:
+                    form = new KitchenOrders(employee);
                     break;
                 default:
                     break;
             }
 
-            form.ShowDialog();*/
+
+            this.Hide();
+            form.Closed += (s, args) => this.Close();
+            form.Show();
         }
 
         //Number buttons

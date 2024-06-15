@@ -38,10 +38,36 @@ namespace Service
             return GiveOrderItems(orderDao.GetOrdersByStatus(Status));
         }
 
+        public List<Order> GetOrdersByStatusAndPlace(OrderStatus status,string place)
+        {
+            string Status;
+            if (status == OrderStatus.Preparing)
+            {
+                Status = "Preparing";
+            }
+            else if (status == OrderStatus.Ready)
+            {
+                Status = "Ready";
+            }
+            else
+            {
+                Status = "Served";
+            }
+
+            return GiveOrderItems(orderDao.GetOrdersByStatusAndPlace(Status, place));
+        }
+
+
         public List<Order> GetOrdersOfToday()
         {
             DateTime Today = DateTime.Today;
             return GiveOrderItems(orderDao.GetOrdersOfToday(Today));
+        }
+
+        public List<Order> GetOrdersOfTodayAndPlace(string place)
+        {
+            DateTime Today = DateTime.Today;
+            return GiveOrderItems(orderDao.GetOrdersOfTodayAndPlace(Today,place));
         }
 
         public Order GetOrderById(int id)
