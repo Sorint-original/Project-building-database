@@ -13,6 +13,7 @@ namespace ChapeauUI
         {
             LoginForm loginForm = new LoginForm();
             loginForm.ShowDialog();
+
         }
     }
 }

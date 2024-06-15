@@ -74,6 +74,17 @@ namespace Service
                 orderItemDao.AddOrderItem(item);
             }
         }
+
+        public int GetNextOrderId()
+        { 
+            return orderDao.GetNextOrderId();
+        }
+
+        public int GetLastOrderId()
+        { 
+            return orderDao.GetLastOrderId();
+        }
+
         public void UpdateOrder(Order order)
         {
             orderDao.UpdateOrder(order);
