@@ -26,7 +26,20 @@ namespace DAL
 
         }
 
-         
+        public List<Order> GetOrdersByStatusAndPlace(string status,string place)
+        {
+            string query;
+            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE status = @status AND preparation_location = @place ORDER BY order_time";
+
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@status", status);
+            sqlParameters[1] = new SqlParameter("@place", place);
+
+            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
+
+        }
+
+
         public List<Order> GetOrdersOfToday(DateTime Today)
         {
             string query;
@@ -34,6 +47,19 @@ namespace DAL
 
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@Today", Today);
+
+            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
+
+        }
+
+        public List<Order> GetOrdersOfTodayAndPlace(DateTime Today,string place)
+        {
+            string query;
+            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE order_time > @Today AND preparation_location = @place ORDER BY order_time";
+
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@Today", Today);
+            sqlParameters[1] = new SqlParameter("@place", place);
 
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
 
