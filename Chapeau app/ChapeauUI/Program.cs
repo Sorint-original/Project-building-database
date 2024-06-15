@@ -11,7 +11,8 @@ namespace ChapeauUI
         [STAThread]
         static void Main()
         {
-            
+            LoginForm loginForm = new LoginForm();
+            loginForm.ShowDialog();
         }
     }
 }

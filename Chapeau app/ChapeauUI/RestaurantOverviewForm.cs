@@ -15,13 +15,11 @@ namespace ChapeauUI
 {
     public partial class RestaurantOverviewForm : Form
     {
-        private Employee _currentEmployee;
         private Timer _timer;
         private TableService _tableService;
         private List<Table> _tables;
-        public RestaurantOverviewForm(Employee currentEmployee)
+        public RestaurantOverviewForm()
         {
-            _currentEmployee = currentEmployee;
             _tableService = new TableService();
             _tables = new List<Table>();
 
@@ -42,7 +40,7 @@ namespace ChapeauUI
 
             ColoreTables();
 
-            lblName.Text = _currentEmployee.FirstName + " " + _currentEmployee.LastName;
+            lblName.Text = GlobalVariables.CurrentEmployee.FirstName + " " + GlobalVariables.CurrentEmployee.LastName;
         }
 
         //Timer
@@ -239,6 +237,11 @@ namespace ChapeauUI
             ColoreTables();
             HideAllPanels();
             TablesPanel.Show();
+        }
+
+        private void btnTableServe_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
