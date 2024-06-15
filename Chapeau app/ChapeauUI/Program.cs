@@ -11,8 +11,9 @@ namespace ChapeauUI
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
-            Application.Run(new OrderingForm());
+            LoginForm loginForm = new LoginForm();
+            loginForm.ShowDialog();
+
         }
     }
 }

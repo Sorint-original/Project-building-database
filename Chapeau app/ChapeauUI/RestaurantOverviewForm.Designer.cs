@@ -1,4 +1,6 @@
-﻿namespace ChapeauUI
+﻿using System.Windows.Forms;
+
+namespace ChapeauUI
 {
     partial class RestaurantOverviewForm
     {
@@ -45,6 +47,9 @@
             lblTime = new Label();
             LogoPanel = new Panel();
             OccupiedTablePanel = new Panel();
+            btnTableServe = new Button();
+            lblWaitingTime = new Label();
+            BarOrdersIcon = new Panel();
             btnOccupiedTableOrders = new Button();
             btnOccupiedTableCancel = new Button();
             OccupiedTableImage = new Panel();
@@ -59,6 +64,7 @@
             btnReservedTableCancel = new Button();
             ReservedTableImage = new Panel();
             lblReservedTableNumber = new Label();
+            KitchenOrdersIcon = new Panel();
             TablesPanel.SuspendLayout();
             OccupiedTablePanel.SuspendLayout();
             OccupiedTableImage.SuspendLayout();
@@ -264,6 +270,10 @@
             // 
             // OccupiedTablePanel
             // 
+            OccupiedTablePanel.Controls.Add(KitchenOrdersIcon);
+            OccupiedTablePanel.Controls.Add(btnTableServe);
+            OccupiedTablePanel.Controls.Add(lblWaitingTime);
+            OccupiedTablePanel.Controls.Add(BarOrdersIcon);
             OccupiedTablePanel.Controls.Add(btnOccupiedTableOrders);
             OccupiedTablePanel.Controls.Add(btnOccupiedTableCancel);
             OccupiedTablePanel.Controls.Add(OccupiedTableImage);
@@ -271,6 +281,39 @@
             OccupiedTablePanel.Name = "OccupiedTablePanel";
             OccupiedTablePanel.Size = new Size(1408, 727);
             OccupiedTablePanel.TabIndex = 12;
+            // 
+            // btnTableServe
+            // 
+            btnTableServe.BackColor = Color.Black;
+            btnTableServe.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTableServe.ForeColor = Color.White;
+            btnTableServe.Location = new Point(1192, 361);
+            btnTableServe.Name = "btnTableServe";
+            btnTableServe.Size = new Size(179, 75);
+            btnTableServe.TabIndex = 6;
+            btnTableServe.Text = "Serve";
+            btnTableServe.UseVisualStyleBackColor = false;
+            btnTableServe.Click += btnTableServe_Click;
+            // 
+            // lblWaitingTime
+            // 
+            lblWaitingTime.AutoSize = true;
+            lblWaitingTime.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblWaitingTime.Location = new Point(1163, 225);
+            lblWaitingTime.Name = "lblWaitingTime";
+            lblWaitingTime.Size = new Size(208, 45);
+            lblWaitingTime.TabIndex = 5;
+            lblWaitingTime.Text = "waiting time";
+            lblWaitingTime.TextAlign = ContentAlignment.TopRight;
+            // 
+            // BarOrdersIcon
+            // 
+            BarOrdersIcon.BackgroundImage = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
+            BarOrdersIcon.BackgroundImageLayout = ImageLayout.Stretch;
+            BarOrdersIcon.Location = new Point(1301, 52);
+            BarOrdersIcon.Name = "BarOrdersIcon";
+            BarOrdersIcon.Size = new Size(70, 70);
+            BarOrdersIcon.TabIndex = 4;
             // 
             // btnOccupiedTableOrders
             // 
@@ -439,12 +482,22 @@
             lblReservedTableNumber.TabIndex = 0;
             lblReservedTableNumber.Text = "1";
             // 
+            // KitchenOrdersIcon
+            // 
+            KitchenOrdersIcon.BackgroundImage = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
+            KitchenOrdersIcon.BackgroundImageLayout = ImageLayout.Stretch;
+            KitchenOrdersIcon.Location = new Point(1163, 52);
+            KitchenOrdersIcon.Name = "KitchenOrdersIcon";
+            KitchenOrdersIcon.Size = new Size(70, 70);
+            KitchenOrdersIcon.TabIndex = 5;
+            // 
             // RestaurantOverviewForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1432, 882);
+            Controls.Add(OccupiedTablePanel);
             Controls.Add(TablesPanel);
             Controls.Add(ReservedTablePanel);
             Controls.Add(OccupiedTablePanel);
@@ -459,6 +512,7 @@
             Load += RestaurantOverviewForm_Load;
             TablesPanel.ResumeLayout(false);
             OccupiedTablePanel.ResumeLayout(false);
+            OccupiedTablePanel.PerformLayout();
             OccupiedTableImage.ResumeLayout(false);
             OccupiedTableImage.PerformLayout();
             FreeTablePanel.ResumeLayout(false);
@@ -504,5 +558,9 @@
         private Button btnReservedTableCancel;
         private Panel ReservedTableImage;
         private Label lblReservedTableNumber;
+        private Button btnTableServe;
+        private Label lblWaitingTime;
+        private Panel BarOrdersIcon;
+        private Panel KitchenOrdersIcon;
     }
 }
