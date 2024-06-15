@@ -122,6 +122,7 @@ namespace ChapeauUI
                 orderItem.SubItems.Add(item.SubItems[1].Text);
                 orderItem.SubItems.Add(item.SubItems[2].Text);
                 orderItem.SubItems.Add("1");
+                orderItem.SubItems.Add("");
                 listVOrder.Items.Add(orderItem);
             }
         }
@@ -257,9 +258,11 @@ namespace ChapeauUI
                 int amount = int.Parse(item.SubItems[3].Text);
                 int menuItemId = menuService.GetMenuItemByName(itemName);
                 OrderStatus status = OrderStatus.Placed;
+                string comment = item.SubItems[4].Text;
+
 
                 orderItemService.RefreshOrderItemStock(itemName, amount);
-                orderItemService.AddOrderItem(new OrderItem(orderId, menuItemId, amount, status));
+                orderItemService.AddOrderItem(new OrderItem(orderId, menuItemId, amount, status, comment));
             }
         }
 
@@ -285,6 +288,7 @@ namespace ChapeauUI
             listVOrder.Items.Clear();
             comboBoxGuests.SelectedIndex = -1;
             comboBoxTables.SelectedIndex = -1;
+            textBoxComment.Clear();
         }
 
         private void btnLunchM_Click(object sender, EventArgs e)
@@ -300,6 +304,37 @@ namespace ChapeauUI
         private void btnDrinksM_Click(object sender, EventArgs e)
         {
             ShowMenu(3, new string[] { "Soft Drink", "Beer", "Wine", "Spirit Drink", "Coffee / Tea" }, new ListView[] { listVSoftDrinks, listVSpirit, listVBeers, listVWines, listVCoffee });
+        }
+
+        private void btnAddCom_Click(object sender, EventArgs e)
+        {
+            if (listVOrder.SelectedItems.Count > 0)
+            {
+                if (textBoxComment.Text == string.Empty)
+                {
+                    MessageBox.Show("Please write a comment!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                ListViewItem selectedItem = listVOrder.SelectedItems[0];
+                selectedItem.SubItems[4].Text = textBoxComment.Text;
+            }
+            else
+            {
+                MessageBox.Show("Please select an item!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRemoveCom_Click(object sender, EventArgs e)
+        {
+            if (listVOrder.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listVOrder.SelectedItems[0];
+                selectedItem.SubItems[4].Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Please select an item!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

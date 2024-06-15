@@ -84,6 +84,7 @@
             columnHeader50 = new ColumnHeader();
             columnHeader51 = new ColumnHeader();
             columnHeader52 = new ColumnHeader();
+            columnHeader53 = new ColumnHeader();
             label5 = new Label();
             label8 = new Label();
             pnlDrinks = new Panel();
@@ -124,6 +125,9 @@
             comboBoxTables = new ComboBox();
             comboBoxGuests = new ComboBox();
             label7 = new Label();
+            textBoxComment = new TextBox();
+            btnAddCom = new Button();
+            btnRemoveCom = new Button();
             pnlLunch.SuspendLayout();
             pnlDinner.SuspendLayout();
             pnlDrinks.SuspendLayout();
@@ -136,7 +140,7 @@
             btnLunchM.ForeColor = SystemColors.ControlLightLight;
             btnLunchM.Location = new Point(1028, 124);
             btnLunchM.Name = "btnLunchM";
-            btnLunchM.Size = new Size(137, 102);
+            btnLunchM.Size = new Size(199, 102);
             btnLunchM.TabIndex = 0;
             btnLunchM.Text = "Lunch";
             btnLunchM.UseVisualStyleBackColor = false;
@@ -147,9 +151,9 @@
             btnDinnerM.BackColor = SystemColors.ActiveCaptionText;
             btnDinnerM.Font = new Font("Times New Roman", 10.125F, FontStyle.Regular, GraphicsUnit.Point);
             btnDinnerM.ForeColor = SystemColors.ButtonHighlight;
-            btnDinnerM.Location = new Point(1294, 124);
+            btnDinnerM.Location = new Point(1401, 124);
             btnDinnerM.Name = "btnDinnerM";
-            btnDinnerM.Size = new Size(136, 102);
+            btnDinnerM.Size = new Size(199, 102);
             btnDinnerM.TabIndex = 1;
             btnDinnerM.Text = "Dinner";
             btnDinnerM.UseVisualStyleBackColor = false;
@@ -160,9 +164,9 @@
             btnDrinksM.BackColor = SystemColors.ActiveCaptionText;
             btnDrinksM.Font = new Font("Times New Roman", 10.125F, FontStyle.Regular, GraphicsUnit.Point);
             btnDrinksM.ForeColor = SystemColors.ControlLightLight;
-            btnDrinksM.Location = new Point(1562, 124);
+            btnDrinksM.Location = new Point(1742, 124);
             btnDrinksM.Name = "btnDrinksM";
-            btnDrinksM.Size = new Size(137, 102);
+            btnDrinksM.Size = new Size(199, 102);
             btnDrinksM.TabIndex = 2;
             btnDrinksM.Text = "Drinks";
             btnDrinksM.UseVisualStyleBackColor = false;
@@ -173,7 +177,7 @@
             btnClearAll.BackColor = SystemColors.ActiveCaptionText;
             btnClearAll.Font = new Font("Times New Roman", 10.125F, FontStyle.Regular, GraphicsUnit.Point);
             btnClearAll.ForeColor = SystemColors.ControlLightLight;
-            btnClearAll.Location = new Point(1028, 1138);
+            btnClearAll.Location = new Point(1028, 1243);
             btnClearAll.Name = "btnClearAll";
             btnClearAll.Size = new Size(199, 102);
             btnClearAll.TabIndex = 3;
@@ -186,7 +190,7 @@
             btnFinishOrder.BackColor = SystemColors.ActiveCaptionText;
             btnFinishOrder.Font = new Font("Times New Roman", 10.125F, FontStyle.Regular, GraphicsUnit.Point);
             btnFinishOrder.ForeColor = SystemColors.ControlLightLight;
-            btnFinishOrder.Location = new Point(1500, 1138);
+            btnFinishOrder.Location = new Point(1742, 1243);
             btnFinishOrder.Name = "btnFinishOrder";
             btnFinishOrder.Size = new Size(199, 102);
             btnFinishOrder.TabIndex = 4;
@@ -574,13 +578,13 @@
             // 
             // listVOrder
             // 
-            listVOrder.Columns.AddRange(new ColumnHeader[] { columnHeader49, columnHeader50, columnHeader51, columnHeader52 });
+            listVOrder.Columns.AddRange(new ColumnHeader[] { columnHeader49, columnHeader50, columnHeader51, columnHeader52, columnHeader53 });
             listVOrder.Font = new Font("Times New Roman", 10.125F, FontStyle.Regular, GraphicsUnit.Point);
             listVOrder.FullRowSelect = true;
-            listVOrder.Location = new Point(1028, 348);
+            listVOrder.Location = new Point(1028, 453);
             listVOrder.MultiSelect = false;
             listVOrder.Name = "listVOrder";
-            listVOrder.Size = new Size(671, 731);
+            listVOrder.Size = new Size(913, 731);
             listVOrder.TabIndex = 12;
             listVOrder.UseCompatibleStateImageBehavior = false;
             listVOrder.View = View.Details;
@@ -607,6 +611,11 @@
             columnHeader52.TextAlign = HorizontalAlignment.Center;
             columnHeader52.Width = 150;
             // 
+            // columnHeader53
+            // 
+            columnHeader53.Text = "Comment";
+            columnHeader53.Width = 250;
+            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -621,7 +630,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Times New Roman", 16.125F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(1294, 31);
+            label8.Location = new Point(1427, 34);
             label8.Name = "label8";
             label8.Size = new Size(147, 49);
             label8.TabIndex = 15;
@@ -892,7 +901,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(1501, 281);
+            label6.Location = new Point(1674, 281);
             label6.Name = "label6";
             label6.Size = new Size(109, 36);
             label6.TabIndex = 13;
@@ -903,7 +912,7 @@
             btnMinus.BackColor = SystemColors.ActiveCaptionText;
             btnMinus.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
             btnMinus.ForeColor = SystemColors.ControlLightLight;
-            btnMinus.Location = new Point(1244, 1138);
+            btnMinus.Location = new Point(1353, 1243);
             btnMinus.Name = "btnMinus";
             btnMinus.Size = new Size(108, 102);
             btnMinus.TabIndex = 16;
@@ -916,7 +925,7 @@
             btnPlus.BackColor = SystemColors.ActiveCaptionText;
             btnPlus.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
             btnPlus.ForeColor = SystemColors.ControlLightLight;
-            btnPlus.Location = new Point(1367, 1138);
+            btnPlus.Location = new Point(1492, 1243);
             btnPlus.Name = "btnPlus";
             btnPlus.Size = new Size(108, 102);
             btnPlus.TabIndex = 17;
@@ -929,7 +938,7 @@
             comboBoxTables.BackColor = SystemColors.HighlightText;
             comboBoxTables.FormattingEnabled = true;
             comboBoxTables.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" });
-            comboBoxTables.Location = new Point(1616, 277);
+            comboBoxTables.Location = new Point(1789, 277);
             comboBoxTables.Name = "comboBoxTables";
             comboBoxTables.Size = new Size(82, 40);
             comboBoxTables.TabIndex = 18;
@@ -939,7 +948,7 @@
             comboBoxGuests.BackColor = SystemColors.HighlightText;
             comboBoxGuests.FormattingEnabled = true;
             comboBoxGuests.Items.AddRange(new object[] { "1", "2", "3", "4" });
-            comboBoxGuests.Location = new Point(1379, 277);
+            comboBoxGuests.Location = new Point(1492, 277);
             comboBoxGuests.Name = "comboBoxGuests";
             comboBoxGuests.Size = new Size(82, 40);
             comboBoxGuests.TabIndex = 20;
@@ -948,17 +957,53 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(1176, 281);
+            label7.Location = new Point(1277, 281);
             label7.Name = "label7";
             label7.Size = new Size(197, 36);
             label7.TabIndex = 19;
             label7.Text = "Nr of guests :";
             // 
+            // textBoxComment
+            // 
+            textBoxComment.Location = new Point(1029, 370);
+            textBoxComment.Name = "textBoxComment";
+            textBoxComment.Size = new Size(398, 39);
+            textBoxComment.TabIndex = 21;
+            // 
+            // btnAddCom
+            // 
+            btnAddCom.BackColor = SystemColors.ActiveCaptionText;
+            btnAddCom.Font = new Font("Times New Roman", 10.125F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAddCom.ForeColor = SystemColors.ControlLightLight;
+            btnAddCom.Location = new Point(1455, 359);
+            btnAddCom.Name = "btnAddCom";
+            btnAddCom.Size = new Size(233, 62);
+            btnAddCom.TabIndex = 22;
+            btnAddCom.Text = "Add comment";
+            btnAddCom.UseVisualStyleBackColor = false;
+            btnAddCom.Click += btnAddCom_Click;
+            // 
+            // btnRemoveCom
+            // 
+            btnRemoveCom.BackColor = SystemColors.ActiveCaptionText;
+            btnRemoveCom.Font = new Font("Times New Roman", 10.125F, FontStyle.Regular, GraphicsUnit.Point);
+            btnRemoveCom.ForeColor = SystemColors.ControlLightLight;
+            btnRemoveCom.Location = new Point(1705, 359);
+            btnRemoveCom.Name = "btnRemoveCom";
+            btnRemoveCom.Size = new Size(236, 62);
+            btnRemoveCom.TabIndex = 23;
+            btnRemoveCom.Text = "Remove comment";
+            btnRemoveCom.UseVisualStyleBackColor = false;
+            btnRemoveCom.Click += btnRemoveCom_Click;
+            // 
             // OrderingForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1792, 1571);
+            ClientSize = new Size(2044, 1571);
+            Controls.Add(btnRemoveCom);
+            Controls.Add(btnAddCom);
+            Controls.Add(textBoxComment);
             Controls.Add(comboBoxGuests);
             Controls.Add(label7);
             Controls.Add(comboBoxTables);
@@ -1086,5 +1131,9 @@
         private ComboBox comboBoxTables;
         private ComboBox comboBoxGuests;
         private Label label7;
+        private ColumnHeader columnHeader53;
+        private TextBox textBoxComment;
+        private Button btnAddCom;
+        private Button btnRemoveCom;
     }
 }
