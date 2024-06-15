@@ -8,7 +8,7 @@ using DAL;
 
 namespace Service
 {
-    internal class OrderItemService
+    public class OrderItemService
     {
 
         private OrderItemDao orderItemDao;
@@ -33,5 +33,14 @@ namespace Service
             orderItemDao.AddOrderItem(item);
         }
 
+        public int GetOrderItemStock(string name)
+        {
+            return orderItemDao.GetOrderItemStock(name);
+        }
+
+        public void RefreshOrderItemStock(string name, int amount)
+        { 
+           orderItemDao.RefreshOrderItemStock(name, amount);
+        }
     }
 }

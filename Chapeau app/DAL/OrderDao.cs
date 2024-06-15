@@ -105,7 +105,7 @@ namespace DAL
             sqlParameters[0] = new SqlParameter("@order_id", order.Id);
             sqlParameters[1] = new SqlParameter("@order_time", order.OrderTime);
             sqlParameters[2] = new SqlParameter("@preparation_time", order.PreparationTime);
-            sqlParameters[3] = new SqlParameter("@status", order.Status);
+            sqlParameters[3] = new SqlParameter("@status", order.Status.ToString());
             sqlParameters[4] = new SqlParameter("@employee", order.EmployeeID);
             sqlParameters[5] = new SqlParameter("@bill", order.BillID);
             sqlParameters[6] = new SqlParameter("@preparation_location", order.PreparationLocation);
@@ -128,6 +128,28 @@ namespace DAL
             sqlParameters[6] = new SqlParameter("@preparation_location", order.PreparationLocation);
 
             ExecuteEditQuery(command, sqlParameters);
+        }
+
+        public int GetNextOrderId()
+        {
+            string query = "SELECT ISNULL(MAX(order_id), 0) + @one FROM [ORDER]";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                    new SqlParameter("@one", 1)
+            };
+            DataTable data = ExecuteSelectQuery(query, sqlParameters);
+            return Convert.ToInt32(data.Rows[0][0]);
+        }
+
+        public int GetLastOrderId()
+        {
+            string query = "SELECT ISNULL(MAX(order_id), 0) FROM [ORDER] WHERE employee = @one";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@one", 1)
+            };
+            DataTable data = ExecuteSelectQuery(query, sqlParameters);
+            return Convert.ToInt32(data.Rows[0][0]);
         }
     }
 }
