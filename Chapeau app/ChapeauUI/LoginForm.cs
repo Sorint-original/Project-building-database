@@ -40,7 +40,7 @@ namespace ChapeauUI
 
         private void OpenDialogByEmployeeRole(Employee employee)
         {
-            /*Form form;
+            Form form = new Form();
 
             switch (employee.Role)
             {
@@ -48,14 +48,19 @@ namespace ChapeauUI
                     form = new RestaurantOverviewForm(employee);
                     break;
                 case Role.Barman:
+                    form = new OrderView(employee);
                     break;
                 case Role.Chef:
+                    form = new OrderView(employee);
                     break;
                 default:
                     break;
             }
 
-            form.ShowDialog();*/
+
+            this.Hide();
+            form.Closed += (s, args) => this.Close();
+            form.Show();
         }
     }
 }

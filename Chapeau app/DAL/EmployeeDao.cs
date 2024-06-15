@@ -13,7 +13,7 @@ namespace DAL
     {
         public Employee GetEmployee(int id, string password)
         {
-            string query = "SELECT * WHERE id = @id AND password = @password";
+            string query = "SELECT * FROM EMPLOYEE WHERE id = @id AND password = @password";
 
             SqlParameter[] parameters = new SqlParameter[]
             {
@@ -32,11 +32,25 @@ namespace DAL
             {
                 DataRow dr = dataTable.Rows[0];
 
+
                 int id = (int)dr["id"];
-                Role role = (Role)dr["role"];
+                string roleTXT = (string)dr["role"];
+                Role role = new Role();
+                if (roleTXT == "waiter")
+                {
+                    role = Role.Waiter;
+                }
+                else if(roleTXT == "chef")
+                {
+                    role = Role.Chef;
+                }
+                else if(roleTXT =="barman")
+                {
+                    role = Role.Barman;
+                }
                 string firstName = (string)dr["first_name"];
                 string lastName = (string)dr["last_name"];
-                DateOnly dateOfBirth = (DateOnly)dr["date_of_birth"];
+                DateOnly dateOfBirth = DateOnly.FromDateTime((DateTime)dr["date_of_birth"]);
                 string password = (string)dr["password"];
 
                 return new Employee(id, role, firstName, lastName, dateOfBirth, password);
