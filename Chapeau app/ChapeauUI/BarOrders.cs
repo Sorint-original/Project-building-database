@@ -1,5 +1,4 @@
-﻿using DAL;
-using Model;
+﻿using Model;
 using Service;
 using System;
 using System.Collections.Generic;
@@ -11,13 +10,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Timer = System.Windows.Forms.Timer;
-
 
 namespace ChapeauUI
 {
-    public partial class KitchenOrders : Form
+    public partial class BarOrders : Form
     {
 
         private Timer timer;
@@ -28,20 +25,12 @@ namespace ChapeauUI
         private List<Order> CurrentOrders;
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
-        public KitchenOrders()
+        public BarOrders()
         {
             InitializeComponent();
             CommentPanel.Hide();
             SetPanel.Hide();
             SetData();
-        }
-
-        void btnLogoff_Click(object sender, EventArgs e)
-        {
-            LoginForm loginForm = new LoginForm();
-            this.Hide();
-            loginForm.Closed += (s, args) => this.Close();
-            loginForm.Show();
         }
 
         void SetData()
@@ -70,22 +59,18 @@ namespace ChapeauUI
             UpdateOrders();
         }
 
-        void ShowUn_Click(object sender, EventArgs e)
+        void btnLogoff_Click(object sender, EventArgs e)
         {
-            ShowUnprepared = true;
-            LShow.Text = "Showing unprepared orders";
-        }
-
-        void ShowTo_Click(object sender, EventArgs e)
-        {
-            ShowUnprepared = false;
-            LShow.Text = "Showing today's orders";
+            LoginForm loginForm = new LoginForm();
+            this.Hide();
+            loginForm.Closed += (s, args) => this.Close();
+            loginForm.Show();
         }
 
         List<Order> GetOrders()
         {
             List<Order> orders;
-            string place = "kitchen";
+            string place = "Bar";
             if (ShowUnprepared)
             {
                 orders = orderService.GetUnpreparedOrdersAndPlace(place);
@@ -96,6 +81,18 @@ namespace ChapeauUI
             }
 
             return orders;
+        }
+
+        private void ShowUn_Click(object sender, EventArgs e)
+        {
+            ShowUnprepared = true;
+            LShow.Text = "Showing unprepared orders";
+        }
+
+        private void ShowTo_Click(object sender, EventArgs e)
+        {
+            ShowUnprepared = false;
+            LShow.Text = "Showing today's orders";
         }
 
         void UpdateOrders()
@@ -113,12 +110,12 @@ namespace ChapeauUI
                 CommentPanel.Hide();
                 SetPanel.Hide();
             }
-            SetScrollPos(OrderTreeView.Handle, 0x1,0, true);
+            SetScrollPos(OrderTreeView.Handle, 0x1, 0, true);
         }
 
         void AddOrderNode(Order order)
         {
-            string orderText = OrderText( order);
+            string orderText = OrderText(order);
             TreeNode OrderNode = new TreeNode(orderText, GetOrderSubnotes(order));
             OrderNode.Tag = order;
             OrderTreeView.Nodes.Add(OrderNode);
@@ -126,81 +123,17 @@ namespace ChapeauUI
 
         TreeNode[] GetOrderSubnotes(Order order)
         {
-            bool desert = false, main = false, starter = false;
-            int nodecount = 0;
-            List<OrderItem> DesertItems = new List<OrderItem>();
-            List<OrderItem> MainItems = new List<OrderItem>();
-            List<OrderItem> StarterItems = new List<OrderItem>();
             //sort orders based on type
             for (int i = 0; i < order.Items.Count; i++)
             {
                 order.Items[i].AuxMenuItem = menuService.GetMenuItemByID(order.Items[i].MenuItemID);
-                if (order.Items[i].AuxMenuItem.Type == "Dessert")
-                {
-                    if (desert == false)
-                    {
-                        nodecount++;
-                    }
-                    desert = true;
-                    DesertItems.Add(order.Items[i]);
-                }
-                else if (order.Items[i].AuxMenuItem.Type == "Starter")
-                {
-                    if (starter == false)
-                    {
-                        nodecount++;
-                    }
-                    starter = true;
-                    StarterItems.Add(order.Items[i]);
-                }
-                else
-                {
-                    if (main == false)
-                    {
-                        nodecount++;
-                    }
-                    main = true;
-                    MainItems.Add(order.Items[i]);
-                }
             }
             //create subnodes by type
-            TreeNode[] nodes = new TreeNode[nodecount];
-            int currentNode = 0;
-            if (starter)
+            TreeNode[] nodes = new TreeNode[order.Items.Count];
+            for (int i = 0; i < order.Items.Count; i++)
             {
-                TreeNode[] starternodes = new TreeNode[StarterItems.Count];
-                for (int i = 0; i < StarterItems.Count; i++)
-                {
-                    starternodes[i] = new TreeNode(OrderItemText(StarterItems[i]));
-                    starternodes[i].Tag = StarterItems[i];
-                }
-                TreeNode StarterNode = new TreeNode("Starters", starternodes);
-                nodes[currentNode] = StarterNode;
-                currentNode++;
-            }
-            if (main)
-            {
-                TreeNode[] mainnodes = new TreeNode[MainItems.Count];
-                for (int i = 0; i < MainItems.Count; i++)
-                {
-                    mainnodes[i] = new TreeNode(OrderItemText(MainItems[i]));
-                    mainnodes[i].Tag = MainItems[i];
-                }
-                TreeNode MainNode = new TreeNode("Mains", mainnodes);
-                nodes[currentNode] = MainNode;
-                currentNode++;
-            }
-            if (desert)
-            {
-                TreeNode[] desertnodes = new TreeNode[DesertItems.Count];
-                for (int i = 0; i < DesertItems.Count; i++)
-                {
-                    desertnodes[i] = new TreeNode(OrderItemText(DesertItems[i]));
-                    desertnodes[i].Tag = DesertItems[i];
-                }
-                TreeNode DesertNode = new TreeNode("Desserts", desertnodes);
-                nodes[currentNode] = DesertNode;
-
+                nodes[i] = new TreeNode(OrderItemText(order.Items[i]));
+                nodes[i].Tag = order.Items[i];
             }
             return nodes;
         }
@@ -276,37 +209,29 @@ namespace ChapeauUI
         private void OrderTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             TreeNode SelectedNode = OrderTreeView.SelectedNode;
-            if (SelectedNode.Tag != null)
-            {
-                if (SelectedNode.Tag.GetType() == typeof(Order))
-                {
-                    CommentPanel.Hide();
-                    Order order = (Order)SelectedNode.Tag;
-                    if (order.Status != OrderStatus.Served)
-                    {
-                        SetPanel.Show();
-                        SetCheck(order.Status);
-                    }
-                }
-                else if (SelectedNode.Tag.GetType() == typeof(OrderItem))
-                {
-                    OrderItem item = (OrderItem)SelectedNode.Tag;
-                    if (item.Comment != null)
-                    {
-                        CommentPanel.Show();
-                        CommentBox.Text = item.Comment;
-                    }
-                    if (item.Status != OrderStatus.Served)
-                    {
-                        SetPanel.Show();
-                        SetCheck(item.Status);
-                    }
-                }
-            }
-            else
+            if (SelectedNode.Tag.GetType() == typeof(Order))
             {
                 CommentPanel.Hide();
-                SetPanel.Hide();
+                Order order = (Order)SelectedNode.Tag;
+                if (order.Status != OrderStatus.Served)
+                {
+                    SetPanel.Show();
+                    SetCheck(order.Status);
+                }
+            }
+            else if (SelectedNode.Tag.GetType() == typeof(OrderItem))
+            {
+                OrderItem item = (OrderItem)SelectedNode.Tag;
+                if (item.Comment != null)
+                {
+                    CommentPanel.Show();
+                    CommentBox.Text = item.Comment;
+                }
+                if (item.Status != OrderStatus.Served)
+                {
+                    SetPanel.Show();
+                    SetCheck(item.Status);
+                }
             }
         }
 
@@ -347,32 +272,32 @@ namespace ChapeauUI
             if (SelectedNode.Tag.GetType() == typeof(Order))
             {
                 Order order = (Order)SelectedNode.Tag;
-                int orderIndex =CurrentOrders.IndexOf(order);
+                int orderIndex = CurrentOrders.IndexOf(order);
                 order.Status = GetCheck();
-                if(order.Status == OrderStatus.Ready)
+                if (order.Status == OrderStatus.Ready)
                 {
-                    for (int i = 0;i<order.Items.Count;i++)
+                    for (int i = 0; i < order.Items.Count; i++)
                     {
                         order.Items[i].Status = OrderStatus.Ready;
                     }
                 }
                 SelectedNode.Text = OrderText(order);
                 CurrentOrders[orderIndex] = order;
-                orderService.UpdateOrder(order);    
+                orderService.UpdateOrder(order);
             }
             else if (SelectedNode.Tag.GetType() == typeof(OrderItem))
             {
                 OrderItem item = (OrderItem)SelectedNode.Tag;
-                TreeNode OrderNode = SelectedNode.Parent.Parent;
+                TreeNode OrderNode = SelectedNode.Parent;
                 Order order = (Order)OrderNode.Tag;
                 int itemIndex = order.Items.IndexOf(item), orderIndex = CurrentOrders.IndexOf(order);
 
                 item.Status = GetCheck();
-                if(item.Status == OrderStatus.Preparing && order.Status != OrderStatus.Preparing)
+                if (item.Status == OrderStatus.Preparing && order.Status != OrderStatus.Preparing)
                 {
                     order.Status = OrderStatus.Preparing;
                 }
-                else if(item.Status == OrderStatus.Placed && order.Status == OrderStatus.Ready)
+                else if (item.Status == OrderStatus.Placed && order.Status == OrderStatus.Ready)
                 {
                     order.Status = OrderStatus.Preparing;
                 }
