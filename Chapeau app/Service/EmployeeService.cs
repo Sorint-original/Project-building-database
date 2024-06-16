@@ -36,6 +36,11 @@ namespace Service
                 return stringBuilder.ToString();
             }
         }
+
+        public int GetIdByRole(string role)
+        {
+            return employeeDao.GetIdByRole(role);
+        }
     }
 
 }

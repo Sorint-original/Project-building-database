@@ -19,6 +19,7 @@ namespace ChapeauUI
         private OrderItemService orderItemService = new OrderItemService();
         private OrderService orderService = new OrderService();
         private BillService billService = new BillService();
+        private EmployeeService employeeService = new EmployeeService();
         public OrderingForm()
         {
             InitializeComponent();
@@ -253,14 +254,14 @@ namespace ChapeauUI
             if (containsKitchenItems)
             {
                 int kitchenOrderId = orderService.GetNextOrderId();
-                orderService.AddOrder(new Order(kitchenOrderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, 1, "Kitchen"));
+                orderService.AddOrder(new Order(kitchenOrderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeService.GetIdByRole("waiter"), "Kitchen"));
                 orderIds.Add(kitchenOrderId);
             }
 
             if (containsBarItems)
             {
                 int barOrderId = orderService.GetNextOrderId();
-                orderService.AddOrder(new Order(barOrderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, 1, "Bar"));
+                orderService.AddOrder(new Order(barOrderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeService.GetIdByRole("waiter"), "Bar"));
                 orderIds.Add(barOrderId);
             }
 
@@ -366,6 +367,15 @@ namespace ChapeauUI
             {
                 MessageBox.Show("Please select an item!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            this.Hide();
+            loginForm.Closed += (s, args) => this.Close();
+            loginForm.Show();
+
         }
     }
 }
