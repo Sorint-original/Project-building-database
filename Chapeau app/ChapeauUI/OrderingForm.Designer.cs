@@ -128,6 +128,7 @@
             textBoxComment = new TextBox();
             btnAddCom = new Button();
             btnRemoveCom = new Button();
+            btnLogOut = new Button();
             pnlLunch.SuspendLayout();
             pnlDinner.SuspendLayout();
             pnlDrinks.SuspendLayout();
@@ -996,11 +997,25 @@
             btnRemoveCom.UseVisualStyleBackColor = false;
             btnRemoveCom.Click += btnRemoveCom_Click;
             // 
+            // btnLogOut
+            // 
+            btnLogOut.BackColor = SystemColors.ActiveCaptionText;
+            btnLogOut.Font = new Font("Times New Roman", 10.125F, FontStyle.Regular, GraphicsUnit.Point);
+            btnLogOut.ForeColor = SystemColors.ControlLightLight;
+            btnLogOut.Location = new Point(1811, 8);
+            btnLogOut.Name = "btnLogOut";
+            btnLogOut.Size = new Size(130, 92);
+            btnLogOut.TabIndex = 25;
+            btnLogOut.Text = "Log Out";
+            btnLogOut.UseVisualStyleBackColor = false;
+            btnLogOut.Click += btnLogOut_Click;
+            // 
             // OrderingForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(2044, 1571);
+            Controls.Add(btnLogOut);
             Controls.Add(btnRemoveCom);
             Controls.Add(btnAddCom);
             Controls.Add(textBoxComment);
@@ -1135,5 +1150,6 @@
         private TextBox textBoxComment;
         private Button btnAddCom;
         private Button btnRemoveCom;
+        private Button btnLogOut;
     }
 }

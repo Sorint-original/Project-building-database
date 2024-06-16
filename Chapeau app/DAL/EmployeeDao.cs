@@ -58,6 +58,16 @@ namespace DAL
 
             return null;
         }
-    }
 
+        public int GetIdByRole(string role)
+        {
+            string query = "SELECT id FROM EMPLOYEE WHERE role = @role";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@role", role)
+            };
+            DataTable data = ExecuteSelectQuery(query, sqlParameters);
+            return Convert.ToInt32(data.Rows[0][0]);
+        }
+    }
 }
