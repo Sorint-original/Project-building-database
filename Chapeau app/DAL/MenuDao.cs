@@ -80,6 +80,29 @@ namespace DAL
             return Convert.ToInt32(dataTable.Rows[0]["item_id"]);
         }
 
+        public MenuItem GetMenuItemByID(int id)
+        {
+            string query = "SELECT item_id, name, type, stock, vat, price, preparation_time FROM MENU_ITEM WHERE [item_id] = @id";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter ("@id", id)
+             };
+            DataTable dataTable = ExecuteSelectQuery(query, parameters);
+            DataRow row = dataTable.Rows[0];
+            MenuItem menuItem = new MenuItem
+            {
+                Id = Convert.ToInt32(row["item_id"]),
+                Name = row["name"].ToString(),
+                Type = row["type"].ToString(),
+                Stock = Convert.ToInt32(row["stock"]),
+                Vat = Convert.ToDecimal(row["vat"]),
+                Price = Convert.ToDecimal(row["price"]),
+                PreparationTime = Convert.ToInt32(row["preparation_time"])
+            };
+
+            return menuItem;
+        }
+
         public int GetPreparationTimeByName(string name)
         {
             string query = "SELECT preparation_time FROM MENU_ITEM WHERE [name] = @name";

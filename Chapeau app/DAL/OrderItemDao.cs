@@ -41,11 +41,15 @@ namespace DAL
                 {
                     status = OrderStatus.Ready;
                 }
-                else
+                else if (tablestatus == "Served")
                 {
                     status = OrderStatus.Served;
                 }
-                OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"],status);
+                else
+                {
+                    status = OrderStatus.Placed;
+                }
+                OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"], status, (string)dr["comment"]);
                 list.Add(item);
             }
 

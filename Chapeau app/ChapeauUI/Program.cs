@@ -12,7 +12,7 @@ namespace ChapeauUI
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new OrderingForm());
+            Application.Run(new LoginForm());
         }
     }
 }

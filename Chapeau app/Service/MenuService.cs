@@ -27,6 +27,11 @@ namespace Service
             return menuDao.GetMenuItemByName(name);
         }
 
+        public MenuItem GetMenuItemByID(int Id)
+        {
+            return menuDao.GetMenuItemByID(Id);
+        }
+
         public int GetPreparationTimeByName(string name)
         { 
             return menuDao.GetPreparationTimeByName(name);

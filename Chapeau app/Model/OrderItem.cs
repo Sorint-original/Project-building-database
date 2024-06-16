@@ -13,6 +13,7 @@ namespace Model
         public int Amount { get; set; } 
         public OrderStatus Status { get; set; }
         public string Comment {  get; set; }
+        public MenuItem AuxMenuItem { get; set; }
 
         public OrderItem(int orderId,int menuItem,int amount,OrderStatus status,string comment = null) 
         { 
@@ -21,6 +22,8 @@ namespace Model
             Amount = amount;
             Status = status;
             Comment = comment;
+
+
         }  
     }
 }

@@ -19,55 +19,16 @@ namespace Service
             orderItemDao = new OrderItemDao();
         }
 
-        public List<Order> GetOrdersByStatus(OrderStatus status)
-        {
-            string Status;
-            if (status == OrderStatus.Preparing)
-            {
-                Status = "Preparing";
-            }
-            else if (status == OrderStatus.Ready)
-            {
-                Status = "Ready";
-            }
-            else
-            {
-                Status = "Served";
-            }
 
-            return GiveOrderItems(orderDao.GetOrdersByStatus(Status));
+        public List<Order> GetUnpreparedOrdersAndPlace(string place)
+        {
+            return GiveOrderItems(orderDao.GetUnpreparedOrdersAndPlace( place));
         }
 
-        public List<Order> GetOrdersByStatusAndPlace(OrderStatus status,string place)
-        {
-            string Status;
-            if (status == OrderStatus.Preparing)
-            {
-                Status = "Preparing";
-            }
-            else if (status == OrderStatus.Ready)
-            {
-                Status = "Ready";
-            }
-            else
-            {
-                Status = "Served";
-            }
-
-            return GiveOrderItems(orderDao.GetOrdersByStatusAndPlace(Status, place));
-        }
-
-
-        public List<Order> GetOrdersOfToday()
+        public List<Order> GetFinishedOrdersOfTodayAndPlace(string place)
         {
             DateTime Today = DateTime.Today;
-            return GiveOrderItems(orderDao.GetOrdersOfToday(Today));
-        }
-
-        public List<Order> GetOrdersOfTodayAndPlace(string place)
-        {
-            DateTime Today = DateTime.Today;
-            return GiveOrderItems(orderDao.GetOrdersOfTodayAndPlace(Today,place));
+            return GiveOrderItems(orderDao.GetFinishedOrdersOfTodayAndPlace(Today,place));
         }
 
         public Order GetOrderById(int id)

@@ -13,53 +13,31 @@ namespace DAL
     public class OrderDao : BaseDao
     {
 
-
-        public List<Order> GetOrdersByStatus(string status)
+        public List<Order> GetUnpreparedOrdersAndPlace(string place)
         {
             string query;
-            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE status = @status ORDER BY order_time";
+            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE (status = @status1 OR status = @status2) AND preparation_location = @place ORDER BY order_time ";
 
-            SqlParameter[] sqlParameters = new SqlParameter[1];
-            sqlParameters[0] = new SqlParameter("@status",status);
-
-            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
-
-        }
-
-        public List<Order> GetOrdersByStatusAndPlace(string status,string place)
-        {
-            string query;
-            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE status = @status AND preparation_location = @place ORDER BY order_time";
-
-            SqlParameter[] sqlParameters = new SqlParameter[2];
-            sqlParameters[0] = new SqlParameter("@status", status);
-            sqlParameters[1] = new SqlParameter("@place", place);
+            SqlParameter[] sqlParameters = new SqlParameter[3];
+            sqlParameters[0] = new SqlParameter("@status1", "Placed");
+            sqlParameters[1] = new SqlParameter("@status2", "Preparing");
+            sqlParameters[2] = new SqlParameter("@place", place);
 
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
 
         }
 
 
-        public List<Order> GetOrdersOfToday(DateTime Today)
+        public List<Order> GetFinishedOrdersOfTodayAndPlace(DateTime Today,string place)
         {
             string query;
-            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE order_time > @Today ORDER BY order_time";
+            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE order_time > @Today AND preparation_location = @place AND (status = @status1 OR status = @status2) ORDER BY order_time ";
 
-            SqlParameter[] sqlParameters = new SqlParameter[1];
-            sqlParameters[0] = new SqlParameter("@Today", Today);
-
-            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
-
-        }
-
-        public List<Order> GetOrdersOfTodayAndPlace(DateTime Today,string place)
-        {
-            string query;
-            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE order_time > @Today AND preparation_location = @place ORDER BY order_time";
-
-            SqlParameter[] sqlParameters = new SqlParameter[2];
+            SqlParameter[] sqlParameters = new SqlParameter[4];
             sqlParameters[0] = new SqlParameter("@Today", Today);
             sqlParameters[1] = new SqlParameter("@place", place);
+            sqlParameters[2] = new SqlParameter("@status1", "Ready");
+            sqlParameters[3] = new SqlParameter("@status2", "Served");
 
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
 
@@ -68,7 +46,7 @@ namespace DAL
         public Order GetOrderById(int Id)
         {
             string query;
-            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE order_id = @ID ORDER BY order_time";
+            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE order_id = @ID ORDER BY order_time ";
 
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@ID", Id);
@@ -103,11 +81,15 @@ namespace DAL
                 {
                     status = OrderStatus.Ready;
                 }
-                else
+                else if(tablestatus == "Served")
                 {
                     status = OrderStatus.Served;
                 }
-                Order order = new Order((int)dr["order_id"], (DateTime)dr["order_time"], (int)dr["preparation_time"], status, (int)dr["employee"], (int)dr["bill"], (string)dr["preparation_location"]);
+                else
+                {
+                    status = OrderStatus.Placed;
+                }
+                Order order = new Order((int)dr["order_id"], (DateTime)dr["order_time"], (int)dr["preparation_time"], status, (int)dr["bill"],(int)dr["employee"], (string)dr["preparation_location"]);
                 list.Add(order);
             }
 
@@ -141,14 +123,14 @@ namespace DAL
 
         public void UpdateOrder(Order order)
         {
-            string command = "UPDATE [ORDER] SET order_id = @order_id, order_time = @order_time, preparation_time = @preparation_time, status = @status, employee = @employee, bill = @bill, preparation_location = @preparation_location";
+            string command = "UPDATE [ORDER] SET order_time = @order_time, preparation_time = @preparation_time, status = @status, employee = @employee, bill = @bill, preparation_location = @preparation_location WHERE order_id = @order_id";
 
 
-            SqlParameter[] sqlParameters = new SqlParameter[6];
+            SqlParameter[] sqlParameters = new SqlParameter[7];
             sqlParameters[0] = new SqlParameter("@order_id", order.Id);
             sqlParameters[1] = new SqlParameter("@order_time", order.OrderTime);
             sqlParameters[2] = new SqlParameter("@preparation_time", order.PreparationTime);
-            sqlParameters[3] = new SqlParameter("@status", order.Status);
+            sqlParameters[3] = new SqlParameter("@status", order.Status.ToString());
             sqlParameters[4] = new SqlParameter("@employee", order.EmployeeID);
             sqlParameters[5] = new SqlParameter("@bill", order.BillID);
             sqlParameters[6] = new SqlParameter("@preparation_location", order.PreparationLocation);
