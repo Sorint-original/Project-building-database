@@ -18,16 +18,14 @@ namespace ChapeauUI
     public partial class KitchenOrders : Form
     {
 
-        private Employee currentEmployee;
         private Timer timer;
         private bool ShowUnprepared;
         private OrderService orderService;
         private BillService billService;
         private MenuService menuService;
         private List<Order> CurrentOrders;
-        public KitchenOrders(Employee employee)
+        public KitchenOrders()
         {
-            currentEmployee = employee;
             InitializeComponent();
             CommentPanel.Hide();
             SetPanel.Hide();
@@ -44,7 +42,7 @@ namespace ChapeauUI
 
         void SetData()
         {
-            lblName.Text = currentEmployee.FirstName + " " + currentEmployee.LastName;
+            lblName.Text = GlobalVariables.CurrentEmployee.FirstName + " " + GlobalVariables.CurrentEmployee.LastName;
             this.Text = "Kitchen orders view";
             timer = new Timer { Interval = 1000 };
             timer.Tick += Timer_Tick;

@@ -56,7 +56,7 @@ namespace ChapeauUI
                 case Role.Barman:
                     break;
                 case Role.Chef:
-                    form = new KitchenOrders(employee);
+                    form = new KitchenOrders();
                     break;
                 default:
                     break;
