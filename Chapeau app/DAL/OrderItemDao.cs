@@ -99,6 +99,17 @@ namespace DAL
             };
             ExecuteEditQuery(query, sqlParameters);
         }
+
+        public int GetMenuIdByName(string name)
+        {
+            string query = "SELECT c.menu_id FROM dbo.[MENU_ITEM] mi JOIN dbo.[CONTAINING] c ON mi.item_id = c.menu_item WHERE mi.name = @name;";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@name", name)
+            };
+            DataTable data = ExecuteSelectQuery(query, sqlParameters);
+            return Convert.ToInt32(data.Rows[0][0]);
+        }
     }
 
 }

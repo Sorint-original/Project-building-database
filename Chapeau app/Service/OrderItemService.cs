@@ -42,5 +42,10 @@ namespace Service
         { 
            orderItemDao.RefreshOrderItemStock(name, amount);
         }
+
+        public int GetMenuIdByName(string name)
+        { 
+            return orderItemDao.GetMenuIdByName(name);
+        }
     }
 }

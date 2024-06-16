@@ -122,6 +122,7 @@ namespace ChapeauUI
                 orderItem.SubItems.Add(item.SubItems[1].Text);
                 orderItem.SubItems.Add(item.SubItems[2].Text);
                 orderItem.SubItems.Add("1");
+                orderItem.SubItems.Add("");
                 listVOrder.Items.Add(orderItem);
             }
         }
@@ -208,9 +209,8 @@ namespace ChapeauUI
                 billId = CreateNewBill(selectedTable, guestNumber);
             }
 
-            int orderId = CreateNewOrder(billId);
-
-            AddOrderItems(orderId);
+            List<int> orderIds = CreateNewOrder(billId);
+            AddOrderItems(orderIds);
 
             ClearElements();
             RefreshPannels();
@@ -241,15 +241,33 @@ namespace ChapeauUI
             return billId;
         }
 
-        private int CreateNewOrder(int billId)
+        private List<int> CreateNewOrder(int billId)
         {
-            int orderId = orderService.GetNextOrderId();
             int preparationTime = CountPreparationTime();
-            orderService.AddOrder(new Order(orderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, 1, ""));
-            return orderId;
+            List<int> menuIds = CheckNumberOfMenu();
+            List<int> orderIds = new List<int>();
+
+            bool containsKitchenItems = menuIds.Contains(1) || menuIds.Contains(2);
+            bool containsBarItems = menuIds.Contains(3);
+
+            if (containsKitchenItems)
+            {
+                int kitchenOrderId = orderService.GetNextOrderId();
+                orderService.AddOrder(new Order(kitchenOrderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, 1, "Kitchen"));
+                orderIds.Add(kitchenOrderId);
+            }
+
+            if (containsBarItems)
+            {
+                int barOrderId = orderService.GetNextOrderId();
+                orderService.AddOrder(new Order(barOrderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, 1, "Bar"));
+                orderIds.Add(barOrderId);
+            }
+
+            return orderIds;
         }
 
-        private void AddOrderItems(int orderId)
+        private void AddOrderItems(List<int> orderIds)
         {
             foreach (ListViewItem item in listVOrder.Items)
             {
@@ -257,21 +275,32 @@ namespace ChapeauUI
                 int amount = int.Parse(item.SubItems[3].Text);
                 int menuItemId = menuService.GetMenuItemByName(itemName);
                 OrderStatus status = OrderStatus.Placed;
+                string comment = item.SubItems[4].Text;
+                int menuId = orderItemService.GetMenuIdByName(itemName);
+                int orderId = orderIds.Count == 2 && (menuId == 1 || menuId == 2) ? orderIds[0] : orderIds.Last();
 
                 orderItemService.RefreshOrderItemStock(itemName, amount);
-                orderItemService.AddOrderItem(new OrderItem(orderId, menuItemId, amount, status));
+                orderItemService.AddOrderItem(new OrderItem(orderId, menuItemId, amount, status, comment));
             }
+        }
+
+        private List<int> CheckNumberOfMenu()
+        {
+            HashSet<int> menuIds = new HashSet<int>();
+            foreach (ListViewItem item in listVOrder.Items)
+            {
+                menuIds.Add(orderItemService.GetMenuIdByName(item.SubItems[1].Text));
+            }
+            return menuIds.ToList();
         }
 
         private int CountPreparationTime()
         {
             int preparationTime = 0;
-
             foreach (ListViewItem item in listVOrder.Items)
             {
                 preparationTime += menuService.GetPreparationTimeByName(item.SubItems[1].Text);
             }
-
             return preparationTime;
         }
 
@@ -285,6 +314,7 @@ namespace ChapeauUI
             listVOrder.Items.Clear();
             comboBoxGuests.SelectedIndex = -1;
             comboBoxTables.SelectedIndex = -1;
+            textBoxComment.Clear();
         }
 
         private void btnLunchM_Click(object sender, EventArgs e)
@@ -300,6 +330,42 @@ namespace ChapeauUI
         private void btnDrinksM_Click(object sender, EventArgs e)
         {
             ShowMenu(3, new string[] { "Soft Drink", "Beer", "Wine", "Spirit Drink", "Coffee / Tea" }, new ListView[] { listVSoftDrinks, listVSpirit, listVBeers, listVWines, listVCoffee });
+        }
+
+        private void btnAddCom_Click(object sender, EventArgs e)
+        {
+            if (listVOrder.SelectedItems.Count > 0)
+            {
+                if (textBoxComment.Text == string.Empty)
+                {
+                    MessageBox.Show("Please write a comment!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (textBoxComment.Text.Length > 50)
+                {
+                    MessageBox.Show("Your comment is too long!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                ListViewItem selectedItem = listVOrder.SelectedItems[0];
+                selectedItem.SubItems[4].Text = textBoxComment.Text;
+            }
+            else
+            {
+                MessageBox.Show("Please select an item!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRemoveCom_Click(object sender, EventArgs e)
+        {
+            if (listVOrder.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = listVOrder.SelectedItems[0];
+                selectedItem.SubItems[4].Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Please select an item!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
