@@ -232,6 +232,11 @@ namespace ChapeauUI
                 return false;
             }
 
+            if (listVOrder.Items.Count == 0)
+            {
+                MessageBox.Show("Add elements to the order!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             return true;
         }
 
