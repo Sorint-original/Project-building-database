@@ -249,7 +249,7 @@
             Controls.Add(LogoPanel);
             Controls.Add(btnLogoff);
             Name = "KitchenOrders";
-            Text = "OrderView";
+            Text = "Kitchen orders";
             CommentPanel.ResumeLayout(false);
             CommentPanel.PerformLayout();
             SetPanel.ResumeLayout(false);
