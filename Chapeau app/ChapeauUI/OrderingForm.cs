@@ -341,6 +341,11 @@ namespace ChapeauUI
                     MessageBox.Show("Please write a comment!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                if (textBoxComment.Text.Length > 50)
+                {
+                    MessageBox.Show("Your comment is too long!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 ListViewItem selectedItem = listVOrder.SelectedItems[0];
                 selectedItem.SubItems[4].Text = textBoxComment.Text;
             }
