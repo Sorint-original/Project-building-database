@@ -382,5 +382,13 @@ namespace ChapeauUI
             loginForm.Show();
 
         }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            RestaurantOverviewForm restaurantOverviewForm = new RestaurantOverviewForm();
+            this.Hide();
+            restaurantOverviewForm.Closed += (s, args) => this.Close();
+            restaurantOverviewForm.Show();
+        }
     }
 }
