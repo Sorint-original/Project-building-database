@@ -22,7 +22,7 @@ namespace Service
             return employeeDao.GetEmployee(id, HashPassword(password));
         }
 
-        private static string HashPassword(string password)
+        private string HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
