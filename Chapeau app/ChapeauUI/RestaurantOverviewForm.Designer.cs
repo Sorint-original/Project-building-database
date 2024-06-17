@@ -47,6 +47,7 @@ namespace ChapeauUI
             lblTime = new Label();
             LogoPanel = new Panel();
             OccupiedTablePanel = new Panel();
+            KitchenOrdersIcon = new Panel();
             btnTableServe = new Button();
             lblWaitingTime = new Label();
             BarOrdersIcon = new Panel();
@@ -64,7 +65,7 @@ namespace ChapeauUI
             btnReservedTableCancel = new Button();
             ReservedTableImage = new Panel();
             lblReservedTableNumber = new Label();
-            KitchenOrdersIcon = new Panel();
+            btnTakeOrders = new Button();
             TablesPanel.SuspendLayout();
             OccupiedTablePanel.SuspendLayout();
             OccupiedTableImage.SuspendLayout();
@@ -76,6 +77,7 @@ namespace ChapeauUI
             // 
             // TablesPanel
             // 
+            TablesPanel.Controls.Add(btnTakeOrders);
             TablesPanel.Controls.Add(btnTable10);
             TablesPanel.Controls.Add(btnTable9);
             TablesPanel.Controls.Add(btnTable8);
@@ -282,6 +284,15 @@ namespace ChapeauUI
             OccupiedTablePanel.Size = new Size(1408, 727);
             OccupiedTablePanel.TabIndex = 12;
             // 
+            // KitchenOrdersIcon
+            // 
+            KitchenOrdersIcon.BackgroundImage = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
+            KitchenOrdersIcon.BackgroundImageLayout = ImageLayout.Stretch;
+            KitchenOrdersIcon.Location = new Point(1163, 52);
+            KitchenOrdersIcon.Name = "KitchenOrdersIcon";
+            KitchenOrdersIcon.Size = new Size(70, 70);
+            KitchenOrdersIcon.TabIndex = 5;
+            // 
             // btnTableServe
             // 
             btnTableServe.BackColor = Color.Black;
@@ -482,14 +493,19 @@ namespace ChapeauUI
             lblReservedTableNumber.TabIndex = 0;
             lblReservedTableNumber.Text = "1";
             // 
-            // KitchenOrdersIcon
+            // btnTakeOrders
             // 
-            KitchenOrdersIcon.BackgroundImage = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
-            KitchenOrdersIcon.BackgroundImageLayout = ImageLayout.Stretch;
-            KitchenOrdersIcon.Location = new Point(1163, 52);
-            KitchenOrdersIcon.Name = "KitchenOrdersIcon";
-            KitchenOrdersIcon.Size = new Size(70, 70);
-            KitchenOrdersIcon.TabIndex = 5;
+            btnTakeOrders.BackColor = Color.Black;
+            btnTakeOrders.BackgroundImageLayout = ImageLayout.Stretch;
+            btnTakeOrders.Font = new Font("Segoe UI", 16.125F, FontStyle.Bold, GraphicsUnit.Point);
+            btnTakeOrders.ForeColor = Color.White;
+            btnTakeOrders.Location = new Point(545, 591);
+            btnTakeOrders.Name = "btnTakeOrders";
+            btnTakeOrders.Size = new Size(283, 101);
+            btnTakeOrders.TabIndex = 10;
+            btnTakeOrders.Text = "Take orders";
+            btnTakeOrders.UseVisualStyleBackColor = false;
+            btnTakeOrders.Click += btnTakeOrders_Click;
             // 
             // RestaurantOverviewForm
             // 
@@ -562,5 +578,6 @@ namespace ChapeauUI
         private Label lblWaitingTime;
         private Panel BarOrdersIcon;
         private Panel KitchenOrdersIcon;
+        private Button btnTakeOrders;
     }
 }

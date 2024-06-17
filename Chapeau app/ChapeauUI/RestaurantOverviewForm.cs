@@ -152,7 +152,7 @@ namespace ChapeauUI
 
             foreach (Control control in TablesPanel.Controls)
             {
-                if (control is Button)
+                if (control is Button && control.Name.StartsWith("btnTable"))
                 {
                     control.Tag = _tables[_tables.Count - count];
                     ColoreTableByStatus(control, _tables[_tables.Count - count].Status);
@@ -205,9 +205,7 @@ namespace ChapeauUI
             switch (table.Status)
             {
                 case TableStatus.Occupied:
-                    OccupiedTablePanel.Show();
-                    OccupiedTableImage.Tag = table;
-                    lblOccupiedTableNumber.Text = table.Number.ToString();
+                    OpenOccupiedTablePanel(table);
                     break;
                 case TableStatus.Reserved:
                     ReservedTablePanel.Show();
@@ -220,6 +218,31 @@ namespace ChapeauUI
                     lblFreeTableNumber.Text = table.Number.ToString();
                     break;
             }
+        }
+
+        private void OpenOccupiedTablePanel(Table table)
+        {
+            List<Order> orders = _tableService.GetOrdersByTable(table);
+            int waitinTime = 0;
+            if (orders.Count > 0)
+            {
+                foreach (Order order in orders)
+                {
+                    if (order.Status == OrderStatus.Preparing && order.PreparationLocation == "Bar")
+                    {
+                        BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyBarIcon");
+                    }
+                    else if (order.Status == OrderStatus.Preparing && order.PreparationLocation == "Kitchen")
+                    {
+                        KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon");
+                    }
+                    waitinTime += order.PreparationTime;
+                }
+                lblWaitingTime.Text = waitinTime.ToString();
+            }
+            OccupiedTablePanel.Show();
+            OccupiedTableImage.Tag = table;
+            lblOccupiedTableNumber.Text = table.Number.ToString();
         }
 
         private void UpdateTables(Table tableToChange, TableStatus tableStatus)
@@ -242,7 +265,17 @@ namespace ChapeauUI
 
         private void btnTableServe_Click(object sender, EventArgs e)
         {
+            BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
+            KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
+            lblWaitingTime.Text = "0 minutes";
+        }
 
+        private void btnTakeOrders_Click(object sender, EventArgs e)
+        {
+            OrderingForm orderingForm = new OrderingForm();
+            this.Hide();
+            orderingForm.Closed += (s, args) => this.Close();
+            orderingForm.Show();
         }
     }
 }
