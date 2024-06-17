@@ -1,5 +1,6 @@
 ﻿using DAL;
 using Model;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,10 +17,13 @@ namespace ChapeauUI
 {
     public partial class LoginForm : Form
     {
+        private EmployeeService _employeeService;
+
         public LoginForm()
         {
             InitializeComponent();
 
+            _employeeService = new EmployeeService();
             txtBxId.ReadOnly = true;
         }
 
@@ -27,11 +31,10 @@ namespace ChapeauUI
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            int id = int.Parse(txtBxId.Text);
-            string password = txtBxPassword.Text;
+            int id = int.Parse(txtBxId.Tag.ToString());
+            string password = txtBxPassword.Tag.ToString();
 
-            EmployeeDao employeeDao = new EmployeeDao();
-            Employee employee = employeeDao.GetEmployee(id, password);
+            Employee employee = _employeeService.GetEmployee(id, password);
 
             if (employee != null)
             {
@@ -46,7 +49,7 @@ namespace ChapeauUI
 
         private void OpenDialogByEmployeeRole()
         {
-            Form form = new Form();
+            Form form;
 
             switch (GlobalVariables.CurrentEmployee.Role)
             {
@@ -60,6 +63,7 @@ namespace ChapeauUI
                     form = new KitchenOrders();
                     break;
                 default:
+                    form = new Form();
                     break;
             }
 
@@ -135,7 +139,7 @@ namespace ChapeauUI
             }
         }
 
-        //Else
+        //TextBoxes events
 
         private void txtBxId_MouseClick(object sender, EventArgs e)
         {
@@ -149,15 +153,19 @@ namespace ChapeauUI
             txtBxPassword.ReadOnly = true;
         }
 
+        //Else
+
         private void EnterNumber(int number)
         {
             if (txtBxId.ReadOnly)
             {
                 txtBxId.Text += number.ToString();
+                txtBxId.Tag += number.ToString();
             }
             else if (txtBxPassword.ReadOnly)
             {
                 txtBxPassword.Text += number.ToString();
+                txtBxPassword.Tag += number.ToString();
             }
         }
     }

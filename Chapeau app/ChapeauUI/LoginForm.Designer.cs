@@ -243,6 +243,7 @@
             // 
             txtBxPassword.Location = new Point(202, 514);
             txtBxPassword.Name = "txtBxPassword";
+            txtBxPassword.PasswordChar = '*';
             txtBxPassword.Size = new Size(200, 39);
             txtBxPassword.TabIndex = 3;
             txtBxPassword.MouseClick += txtBxPassword_MouseClick;
