@@ -83,6 +83,11 @@ namespace Service
                 orderItemDao.AddOrderItem(item);
             }
         }
+
+        public List<Order>  GetOrdersForBill(int billId)
+        {
+           return orderDao.GetOrdersForBill(billId);
+        }
     }
 
 }

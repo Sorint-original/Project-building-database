@@ -110,6 +110,8 @@ namespace DAL
             DataTable data = ExecuteSelectQuery(query, sqlParameters);
             return Convert.ToInt32(data.Rows[0][0]);
         }
+
+
     }
 
 }

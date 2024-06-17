@@ -11,8 +11,8 @@ public class BillDao : BaseDao
     public void AddBill(Bill bill)
     {
 
-        string query = "INSERT INTO BILL (bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount) " +
-                       "VALUES (@bill_id, @total_price, @vat, @guest_number, @table_number, @feedback, @tip_amount)";
+        string query = "INSERT INTO BILL (bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount, paid) " +
+                       "VALUES (@bill_id, @total_price, @vat, @guest_number, @table_number, @feedback, @tip_amount, 0)";
         SqlParameter[] sqlParameters = new SqlParameter[]
         {
             new SqlParameter("@bill_id", bill.Id),
@@ -30,7 +30,7 @@ public class BillDao : BaseDao
     public Bill GetBill(int id)
     {
         // Get bill from database
-        string query = "SELECT bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount FROM BILL WHERE bill_id = @id";
+        string query = "SELECT bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount, paid FROM BILL WHERE bill_id = @id";
         SqlParameter[] sqlParameters = new SqlParameter[1];
         sqlParameters[0] = new SqlParameter("@id", id);
         List<Bill> bills = ReadTable(ExecuteSelectQuery(query, sqlParameters));
@@ -40,7 +40,7 @@ public class BillDao : BaseDao
     public List<Bill> GetBills()
     {
         // Get all bills from database
-        string query = "SELECT bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount FROM Bill";
+        string query = "SELECT bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount, paid FROM Bill";
         SqlParameter[] sqlParameters = new SqlParameter[0];
         return ReadTable(ExecuteSelectQuery(query, sqlParameters));
     }
@@ -73,6 +73,14 @@ public class BillDao : BaseDao
         sqlParameters[0] = new SqlParameter("@id", bill.Id);
         ExecuteEditQuery(query, sqlParameters);
     }
+    public Bill GetBillByTable(int tableNumber)
+    {
+      
+        string query = "SELECT bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount, paid FROM BILL WHERE table_number = @table_number";
+        SqlParameter[] sqlParameters = new SqlParameter[1];
+        sqlParameters[0] = new SqlParameter("@table_number", tableNumber);
+      return ReadTable(ExecuteSelectQuery(query, sqlParameters))[0];
+    }
 
     private List<Bill> ReadTable(DataTable dataTable)
     {
@@ -82,6 +90,7 @@ public class BillDao : BaseDao
         {
             float vat;
             float tip;
+           
             try
             {
                 tip = (float)dr["tip_amount"];
@@ -98,6 +107,7 @@ public class BillDao : BaseDao
             {
                 vat = 0;
             }
+          
             Bill bill = new Bill(
                 (int)dr["bill_id"],
                 (decimal)dr["total_price"],
@@ -105,7 +115,8 @@ public class BillDao : BaseDao
                 (int)dr["guest_number"],
                 (int)dr["table_number"],
                 (string)dr["feedback"],
-                tip
+                tip,
+               (bool)dr["paid"]
             ); 
 
             bills.Add(bill);
@@ -148,5 +159,25 @@ public class BillDao : BaseDao
 
         return data.Rows.Count > 0;
     }
+
+public List<int>  GetUniqueTableNumberForUnpaidBills()
+{
+    string query = "SELECT DISTINCT table_number FROM BILL WHERE paid = 0";
+    SqlParameter[] sqlParameters = new SqlParameter[0];
+   return ReadTableForTableNumbers(ExecuteSelectQuery(query, sqlParameters));
 }
+
+private List<int> ReadTableForTableNumbers(DataTable dataTable)
+{
+    List<int> tableNumbers = new List<int>();
+
+    foreach (DataRow dr in dataTable.Rows)
+    {
+        tableNumbers.Add((int)dr["table_number"]);
+    }
+
+    return tableNumbers;
      
+}
+}
+
