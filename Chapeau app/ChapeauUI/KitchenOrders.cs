@@ -355,6 +355,7 @@ namespace ChapeauUI
                     {
                         order.Items[i].Status = OrderStatus.Ready;
                     }
+                    order = SetOrderWaitingTime(order);
                 }
                 SelectedNode.Text = OrderText(order);
                 CurrentOrders[orderIndex] = order;
@@ -377,11 +378,27 @@ namespace ChapeauUI
                     order.Status = OrderStatus.Preparing;
                 }
                 order.Items[itemIndex] = item;
+                order = SetOrderWaitingTime(order);
                 SelectedNode.Text = OrderItemText(item);
                 CurrentOrders[orderIndex] = order;
                 OrderNode.Text = OrderText(order);
                 orderService.UpdateOrder(order);
             }
+        }
+
+        Order SetOrderWaitingTime(Order order)
+        {
+            int waiting = 0;
+            foreach (OrderItem item in order.Items)
+            {
+                if (item.Status != OrderStatus.Ready && item.Status != OrderStatus.Served)
+                {
+                    waiting+= item.AuxMenuItem.PreparationTime;
+                }
+              
+            }
+            order.PreparationTime = waiting;
+            return order;
         }
     }
 }
