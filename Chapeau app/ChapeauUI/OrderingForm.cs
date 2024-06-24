@@ -36,7 +36,6 @@ namespace ChapeauUI
         private void InitializeComboBoxes()
         {
             comboBoxGuests.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxTables.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void SetupListViewMouseEvents()
@@ -197,7 +196,7 @@ namespace ChapeauUI
             if (!ValidateInputs())
                 return;
 
-            int selectedTable = int.Parse(comboBoxTables.SelectedItem.ToString());
+            int selectedTable = int.Parse(lblTableNr.ToString());
 
             int billId;
             if (billService.BillExistsForTable(selectedTable))
@@ -220,12 +219,6 @@ namespace ChapeauUI
 
         private bool ValidateInputs()
         {
-            if (comboBoxTables.SelectedItem == null)
-            {
-                MessageBox.Show("Select a table!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
             if (comboBoxGuests.SelectedItem == null)
             {
                 MessageBox.Show("Select a number of guests!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -319,7 +312,6 @@ namespace ChapeauUI
         {
             listVOrder.Items.Clear();
             comboBoxGuests.SelectedIndex = -1;
-            comboBoxTables.SelectedIndex = -1;
             textBoxComment.Clear();
         }
 
