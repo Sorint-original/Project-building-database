@@ -8,7 +8,7 @@ using DAL;
 
 namespace Service
 {
-    public class TableService : BaseService
+    public class TableService
     {
 
         private TableDao tableDao;

@@ -77,6 +77,7 @@ namespace ChapeauUI
 
         private void btnOccupiedTableCancel_Click(object sender, EventArgs e)
         {
+            ServeTable((Table)OccupiedTableImage.Tag);
             UpdateTables((Table)OccupiedTableImage.Tag, TableStatus.Empty);
         }
 
@@ -170,7 +171,7 @@ namespace ChapeauUI
             DateTime firstOrderTime = orders.Max(o => o.OrderTime);
             TimeSpan waitingTime = DateTime.Now - firstOrderTime;
 
-            lblWaitingTime.Text = waitingTime.ToString("mm") + " minutes";
+            lblWaitingTime.Text = waitingTime.TotalMinutes.ToString() + " minutes";
 
             foreach (Order order in orders)
             {
@@ -199,6 +200,10 @@ namespace ChapeauUI
             {
                 BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyBarIcon");
             }
+            else
+            {
+                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
+            }
         }
 
         private void ChangeKitchenIcon(Order order)
@@ -209,7 +214,11 @@ namespace ChapeauUI
             }
             else if (order.Status == OrderStatus.Ready)
             {
-                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon");
+                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon1");
+            }
+            else
+            {
+                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
             }
         }
 
@@ -227,15 +236,25 @@ namespace ChapeauUI
 
         private void btnTableServe_Click(object sender, EventArgs e)
         {
+            ServeTable((Table)OccupiedTableImage.Tag);
+            
+            HideAllPanels();
+            TablesPanel.Show();
+        }
+
+        private void ServeTable(Table table)
+        {
             OrderService service = new OrderService();
-            Table table = (Table)OccupiedTableImage.Tag;
             List<Order> orders = _tableService.GetOrdersByTable(table);
 
             foreach (Order order in orders)
             {
                 service.ChangeOrderStatus(order, OrderStatus.Served);
             }
+        }
 
+        private void btnExit_Click(object sender, EventArgs e)
+        {
             HideAllPanels();
             TablesPanel.Show();
         }

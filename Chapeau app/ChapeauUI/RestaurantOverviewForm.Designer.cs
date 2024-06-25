@@ -47,6 +47,7 @@ namespace ChapeauUI
             lblTime = new Label();
             LogoPanel = new Panel();
             OccupiedTablePanel = new Panel();
+            btnExitOccupiedPanel = new Button();
             KitchenOrdersIcon = new Panel();
             btnTableServe = new Button();
             lblWaitingTime = new Label();
@@ -56,11 +57,13 @@ namespace ChapeauUI
             OccupiedTableImage = new Panel();
             lblOccupiedTableNumber = new Label();
             FreeTablePanel = new Panel();
+            btnExitFreePanel = new Button();
             btnFreeTableReserve = new Button();
             btnFreeTableOccupy = new Button();
             FreeTableImage = new Panel();
             lblFreeTableNumber = new Label();
             ReservedTablePanel = new Panel();
+            btnExitReservedPanel = new Button();
             btnReservedTableOccupy = new Button();
             btnReservedTableCancel = new Button();
             ReservedTableImage = new Panel();
@@ -270,6 +273,7 @@ namespace ChapeauUI
             // 
             // OccupiedTablePanel
             // 
+            OccupiedTablePanel.Controls.Add(btnExitOccupiedPanel);
             OccupiedTablePanel.Controls.Add(KitchenOrdersIcon);
             OccupiedTablePanel.Controls.Add(btnTableServe);
             OccupiedTablePanel.Controls.Add(lblWaitingTime);
@@ -281,6 +285,17 @@ namespace ChapeauUI
             OccupiedTablePanel.Name = "OccupiedTablePanel";
             OccupiedTablePanel.Size = new Size(1408, 727);
             OccupiedTablePanel.TabIndex = 12;
+            // 
+            // btnExitOccupiedPanel
+            // 
+            btnExitOccupiedPanel.Font = new Font("Impact", 19.875F, FontStyle.Regular, GraphicsUnit.Point);
+            btnExitOccupiedPanel.Location = new Point(3, 6);
+            btnExitOccupiedPanel.Name = "btnExitOccupiedPanel";
+            btnExitOccupiedPanel.Size = new Size(78, 84);
+            btnExitOccupiedPanel.TabIndex = 7;
+            btnExitOccupiedPanel.Text = "X";
+            btnExitOccupiedPanel.UseVisualStyleBackColor = true;
+            btnExitOccupiedPanel.Click += btnExit_Click;
             // 
             // KitchenOrdersIcon
             // 
@@ -375,6 +390,7 @@ namespace ChapeauUI
             // 
             // FreeTablePanel
             // 
+            FreeTablePanel.Controls.Add(btnExitFreePanel);
             FreeTablePanel.Controls.Add(btnFreeTableReserve);
             FreeTablePanel.Controls.Add(btnFreeTableOccupy);
             FreeTablePanel.Controls.Add(FreeTableImage);
@@ -382,6 +398,17 @@ namespace ChapeauUI
             FreeTablePanel.Name = "FreeTablePanel";
             FreeTablePanel.Size = new Size(1408, 727);
             FreeTablePanel.TabIndex = 15;
+            // 
+            // btnExitFreePanel
+            // 
+            btnExitFreePanel.Font = new Font("Impact", 19.875F, FontStyle.Regular, GraphicsUnit.Point);
+            btnExitFreePanel.Location = new Point(15, 9);
+            btnExitFreePanel.Name = "btnExitFreePanel";
+            btnExitFreePanel.Size = new Size(78, 84);
+            btnExitFreePanel.TabIndex = 4;
+            btnExitFreePanel.Text = "X";
+            btnExitFreePanel.UseVisualStyleBackColor = true;
+            btnExitFreePanel.Click += btnExit_Click;
             // 
             // btnFreeTableReserve
             // 
@@ -434,6 +461,7 @@ namespace ChapeauUI
             // 
             // ReservedTablePanel
             // 
+            ReservedTablePanel.Controls.Add(btnExitReservedPanel);
             ReservedTablePanel.Controls.Add(btnReservedTableOccupy);
             ReservedTablePanel.Controls.Add(btnReservedTableCancel);
             ReservedTablePanel.Controls.Add(ReservedTableImage);
@@ -441,6 +469,17 @@ namespace ChapeauUI
             ReservedTablePanel.Name = "ReservedTablePanel";
             ReservedTablePanel.Size = new Size(1408, 727);
             ReservedTablePanel.TabIndex = 16;
+            // 
+            // btnExitReservedPanel
+            // 
+            btnExitReservedPanel.Font = new Font("Impact", 19.875F, FontStyle.Regular, GraphicsUnit.Point);
+            btnExitReservedPanel.Location = new Point(15, 12);
+            btnExitReservedPanel.Name = "btnExitReservedPanel";
+            btnExitReservedPanel.Size = new Size(78, 84);
+            btnExitReservedPanel.TabIndex = 3;
+            btnExitReservedPanel.Text = "X";
+            btnExitReservedPanel.UseVisualStyleBackColor = true;
+            btnExitReservedPanel.Click += btnExit_Click;
             // 
             // btnReservedTableOccupy
             // 
@@ -497,6 +536,7 @@ namespace ChapeauUI
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1432, 882);
+            Controls.Add(TablesPanel);
             Controls.Add(OccupiedTablePanel);
             Controls.Add(TablesPanel);
             Controls.Add(ReservedTablePanel);
@@ -562,5 +602,8 @@ namespace ChapeauUI
         private Label lblWaitingTime;
         private Panel BarOrdersIcon;
         private Panel KitchenOrdersIcon;
+        private Button btnExitReservedPanel;
+        private Button btnExitOccupiedPanel;
+        private Button btnExitFreePanel;
     }
 }
