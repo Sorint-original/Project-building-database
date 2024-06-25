@@ -8,7 +8,7 @@ using DAL;
 
 namespace Service
 {
-    public class TableService
+    public class TableService : BaseService
     {
 
         private TableDao tableDao;
@@ -31,6 +31,11 @@ namespace Service
         public List<Order> GetOrdersByTable(Table table)
         {
             return tableDao.GetOrdersByTable(table);
+        }
+
+        public List<Table> GetAllTables()
+        {
+            return tableDao.GetAllTables();
         }
     }
 }

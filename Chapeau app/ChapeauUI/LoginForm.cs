@@ -1,29 +1,17 @@
-﻿using DAL;
+﻿using Microsoft.IdentityModel.Tokens;
 using Model;
 using Service;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace ChapeauUI
 {
     public partial class LoginForm : Form
     {
-        private EmployeeService _employeeService;
+        private EmployeeService _employeeService = new();
 
         public LoginForm()
         {
             InitializeComponent();
 
-            _employeeService = new EmployeeService();
             txtBxId.ReadOnly = true;
         }
 
@@ -31,20 +19,25 @@ namespace ChapeauUI
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            if (txtBxId.Text.IsNullOrEmpty() || txtBxPassword.Text.IsNullOrEmpty())
+            {
+                MessageBox.Show("Enter id and password!");
+                return;
+            }
+
             int id = int.Parse(txtBxId.Tag.ToString());
             string password = txtBxPassword.Tag.ToString();
 
             Employee employee = _employeeService.GetEmployee(id, password);
 
-            if (employee != null)
-            {
-                GlobalVariables.CurrentEmployee = employee;
-                OpenDialogByEmployeeRole();
-            }
-            else
+            if (employee == null)
             {
                 MessageBox.Show("Wrong Id or password entered!");
+                return;
             }
+
+            GlobalVariables.CurrentEmployee = employee;
+            OpenDialogByEmployeeRole();
         }
 
         private void OpenDialogByEmployeeRole()
@@ -68,104 +61,63 @@ namespace ChapeauUI
             }
 
 
-            this.Hide();
-            form.Closed += (s, args) => this.Close();
+            Hide();
+            form.Closed += (s, args) => Close();
             form.Show();
         }
 
         //Number buttons
 
-        private void btnNumber1_Click(object sender, EventArgs e)
+        private void btnNumber_Click(object sender, EventArgs e)
         {
-            EnterNumber(1);
-        }
-
-        private void btnNumber2_Click(object sender, EventArgs e)
-        {
-            EnterNumber(2);
-        }
-
-        private void btnNumber3_Click(object sender, EventArgs e)
-        {
-            EnterNumber(3);
-        }
-
-        private void btnNumber4_Click(object sender, EventArgs e)
-        {
-            EnterNumber(4);
-        }
-
-        private void btnNumber5_Click(object sender, EventArgs e)
-        {
-            EnterNumber(5);
-        }
-
-        private void btnNumber6_Click(object sender, EventArgs e)
-        {
-            EnterNumber(6);
-        }
-
-        private void btnNumber7_Click(object sender, EventArgs e)
-        {
-            EnterNumber(7);
-        }
-
-        private void btnNumber8_Click(object sender, EventArgs e)
-        {
-            EnterNumber(8);
-        }
-
-        private void btnNumber9_Click(object sender, EventArgs e)
-        {
-            EnterNumber(9);
-        }
-
-        private void btnNumber0_Click(object sender, EventArgs e)
-        {
-            EnterNumber(0);
+            Button button = sender as Button;
+            EnterNumber(int.Parse(button.Tag.ToString()));
         }
 
         //Delete button
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (txtBxId.ReadOnly && txtBxId.Text.Length > 0)
+            foreach (Control control in panel1.Controls)
             {
-                txtBxId.Text = txtBxId.Text.Substring(0, txtBxId.Text.Length - 1);
-            }
-            else if (txtBxPassword.ReadOnly && txtBxPassword.Text.Length > 0)
-            {
-                txtBxPassword.Text = txtBxPassword.Text.Substring(0, txtBxPassword.Text.Length - 1);
+                if (control is TextBox textBox)
+                {
+                    if (textBox.ReadOnly && textBox.Text.Length > 0)
+                    {
+                        textBox.Text = textBox.Text.Substring(0, textBox.Text.Length - 1);
+                        textBox.Tag = textBox.Tag.ToString().Substring(0, textBox.Tag.ToString().Length - 1);
+                    }
+                }
             }
         }
 
         //TextBoxes events
 
-        private void txtBxId_MouseClick(object sender, EventArgs e)
+        private void textBox_MouseClick(object sender, EventArgs e)
         {
-            txtBxId.ReadOnly = true;
-            txtBxPassword.ReadOnly = false;
-        }
+            foreach (Control control in panel1.Controls)
+            {
+                if (control is TextBox)
+                {
+                    ((TextBox)control).ReadOnly = false;
+                }
+            }
 
-        private void txtBxPassword_MouseClick(object sender, EventArgs e)
-        {
-            txtBxId.ReadOnly = false;
-            txtBxPassword.ReadOnly = true;
+            TextBox textBox = sender as TextBox;
+            textBox.ReadOnly = true;
         }
 
         //Else
 
         private void EnterNumber(int number)
         {
-            if (txtBxId.ReadOnly)
+            foreach (Control control in panel1.Controls)
             {
-                txtBxId.Text += number.ToString();
-                txtBxId.Tag += number.ToString();
-            }
-            else if (txtBxPassword.ReadOnly)
-            {
-                txtBxPassword.Text += number.ToString();
-                txtBxPassword.Tag += number.ToString();
+                if (control is TextBox textBox && textBox.ReadOnly)
+                {
+                    textBox.Text += number.ToString();
+                    textBox.Tag += number.ToString();
+                }
             }
         }
     }

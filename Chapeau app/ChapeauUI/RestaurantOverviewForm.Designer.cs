@@ -65,7 +65,6 @@ namespace ChapeauUI
             btnReservedTableCancel = new Button();
             ReservedTableImage = new Panel();
             lblReservedTableNumber = new Label();
-            btnTakeOrders = new Button();
             TablesPanel.SuspendLayout();
             OccupiedTablePanel.SuspendLayout();
             OccupiedTableImage.SuspendLayout();
@@ -77,7 +76,6 @@ namespace ChapeauUI
             // 
             // TablesPanel
             // 
-            TablesPanel.Controls.Add(btnTakeOrders);
             TablesPanel.Controls.Add(btnTable10);
             TablesPanel.Controls.Add(btnTable9);
             TablesPanel.Controls.Add(btnTable8);
@@ -104,7 +102,7 @@ namespace ChapeauUI
             btnTable10.TabIndex = 9;
             btnTable10.Text = "10";
             btnTable10.UseVisualStyleBackColor = true;
-            btnTable10.Click += btnTable10_Click;
+            btnTable10.Click += btnTable_Click;
             // 
             // btnTable9
             // 
@@ -117,7 +115,7 @@ namespace ChapeauUI
             btnTable9.TabIndex = 8;
             btnTable9.Text = "9";
             btnTable9.UseVisualStyleBackColor = true;
-            btnTable9.Click += btnTable9_Click;
+            btnTable9.Click += btnTable_Click;
             // 
             // btnTable8
             // 
@@ -130,7 +128,7 @@ namespace ChapeauUI
             btnTable8.TabIndex = 7;
             btnTable8.Text = "8";
             btnTable8.UseVisualStyleBackColor = true;
-            btnTable8.Click += btnTable8_Click;
+            btnTable8.Click += btnTable_Click;
             // 
             // btnTable7
             // 
@@ -143,7 +141,7 @@ namespace ChapeauUI
             btnTable7.TabIndex = 6;
             btnTable7.Text = "7";
             btnTable7.UseVisualStyleBackColor = true;
-            btnTable7.Click += btnTable7_Click;
+            btnTable7.Click += btnTable_Click;
             // 
             // btnTable6
             // 
@@ -156,7 +154,7 @@ namespace ChapeauUI
             btnTable6.TabIndex = 5;
             btnTable6.Text = "6";
             btnTable6.UseVisualStyleBackColor = true;
-            btnTable6.Click += btnTable6_Click;
+            btnTable6.Click += btnTable_Click;
             // 
             // btnTable5
             // 
@@ -169,7 +167,7 @@ namespace ChapeauUI
             btnTable5.TabIndex = 4;
             btnTable5.Text = "5";
             btnTable5.UseVisualStyleBackColor = true;
-            btnTable5.Click += btnTable5_Click;
+            btnTable5.Click += btnTable_Click;
             // 
             // btnTable4
             // 
@@ -182,7 +180,7 @@ namespace ChapeauUI
             btnTable4.TabIndex = 3;
             btnTable4.Text = "4";
             btnTable4.UseVisualStyleBackColor = true;
-            btnTable4.Click += btnTable4_Click;
+            btnTable4.Click += btnTable_Click;
             // 
             // btnTable3
             // 
@@ -195,7 +193,7 @@ namespace ChapeauUI
             btnTable3.TabIndex = 2;
             btnTable3.Text = "3";
             btnTable3.UseVisualStyleBackColor = true;
-            btnTable3.Click += btnTable3_Click;
+            btnTable3.Click += btnTable_Click;
             // 
             // btnTable2
             // 
@@ -208,7 +206,7 @@ namespace ChapeauUI
             btnTable2.TabIndex = 1;
             btnTable2.Text = "2";
             btnTable2.UseVisualStyleBackColor = true;
-            btnTable2.Click += btnTable2_Click;
+            btnTable2.Click += btnTable_Click;
             // 
             // btnTable1
             // 
@@ -221,7 +219,7 @@ namespace ChapeauUI
             btnTable1.TabIndex = 0;
             btnTable1.Text = "1";
             btnTable1.UseVisualStyleBackColor = true;
-            btnTable1.Click += btnTable1_Click;
+            btnTable1.Click += btnTable_Click;
             // 
             // btnLogoff
             // 
@@ -493,20 +491,6 @@ namespace ChapeauUI
             lblReservedTableNumber.TabIndex = 0;
             lblReservedTableNumber.Text = "1";
             // 
-            // btnTakeOrders
-            // 
-            btnTakeOrders.BackColor = Color.Black;
-            btnTakeOrders.BackgroundImageLayout = ImageLayout.Stretch;
-            btnTakeOrders.Font = new Font("Segoe UI", 16.125F, FontStyle.Bold, GraphicsUnit.Point);
-            btnTakeOrders.ForeColor = Color.White;
-            btnTakeOrders.Location = new Point(545, 591);
-            btnTakeOrders.Name = "btnTakeOrders";
-            btnTakeOrders.Size = new Size(283, 101);
-            btnTakeOrders.TabIndex = 10;
-            btnTakeOrders.Text = "Take orders";
-            btnTakeOrders.UseVisualStyleBackColor = false;
-            btnTakeOrders.Click += btnTakeOrders_Click;
-            // 
             // RestaurantOverviewForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
@@ -578,6 +562,5 @@ namespace ChapeauUI
         private Label lblWaitingTime;
         private Panel BarOrdersIcon;
         private Panel KitchenOrdersIcon;
-        private Button btnTakeOrders;
     }
 }
