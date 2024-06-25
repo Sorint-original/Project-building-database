@@ -12,7 +12,7 @@ public class TableDao : BaseDao
 {
     public List<Table> GetAllTables()
     {
-        string query = "SELECT Id, Capacity, Status   FROM Table";
+        string query = "SELECT table_number, status, capacity FROM [TABLE]";
         SqlParameter[] sqlParameters = new SqlParameter[0];
         return ReadTables(ExecuteSelectQuery(query, sqlParameters));
     }
@@ -24,11 +24,10 @@ public class TableDao : BaseDao
         foreach (DataRow dr in dataTable.Rows)
         {
             Table table = new Table()
-
             {
-                Number = Convert.ToInt32(dr["Id"]),
-                Status = dr["Status"] != null ? GetStatusFromString(dr["Status"].ToString()) : TableStatus.Empty,
-                Capacity = Convert.ToInt32(dr["Capacity"])
+                Number = Convert.ToInt32(dr["table_number"]),
+                Status = dr["Status"] != null ? GetStatusFromString(dr["status"].ToString()) : TableStatus.Empty,
+                Capacity = Convert.ToInt32(dr["capacity"])
             };
             tables.Add(table);
         }
@@ -107,7 +106,6 @@ public class TableDao : BaseDao
             };
 
         ExecuteEditQuery(query, parameters);
-
     }
 
     public List<Table> GetByStatus(string status)

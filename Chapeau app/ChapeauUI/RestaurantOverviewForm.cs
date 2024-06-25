@@ -1,29 +1,16 @@
 ﻿using Model;
 using Service;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
 namespace ChapeauUI
 {
     public partial class RestaurantOverviewForm : Form
     {
-        private Timer _timer;
-        private TableService _tableService;
-        private List<Table> _tables;
+        private Timer _timer = new() { Interval = 1000 };
+        private TableService _tableService = new();
+        private List<Table> _tables = new();
         public RestaurantOverviewForm()
         {
-            _tableService = new TableService();
-            _tables = new List<Table>();
-
-            _timer = new Timer { Interval = 1000 };
             _timer.Tick += Timer_Tick;
             _timer.Start();
 
@@ -32,11 +19,7 @@ namespace ChapeauUI
 
         private void RestaurantOverviewForm_Load(object sender, EventArgs e)
         {
-            for (int i = 1; i <= 10; i++)
-            {
-                Table table = _tableService.GetTableById(i);
-                _tables.Add(table);
-            }
+            _tables = _tableService.GetAllTables();
 
             ColoreTables();
 
@@ -48,6 +31,8 @@ namespace ChapeauUI
         private void Timer_Tick(object sender, EventArgs e)
         {
             UpdateTimeLabel();
+            //_tables = _tableService.GetAllTables();
+            //ColoreTables();
         }
 
         private void UpdateTimeLabel()
@@ -58,54 +43,10 @@ namespace ChapeauUI
 
         //Table buttons
 
-        private void btnTable1_Click(object sender, EventArgs e)
+        private void btnTable_Click(object sender, EventArgs e)
         {
-            OpenPanelByTableStatus((Table)btnTable1.Tag);
-        }
-
-        private void btnTable2_Click(object sender, EventArgs e)
-        {
-            OpenPanelByTableStatus((Table)btnTable2.Tag);
-        }
-
-        private void btnTable3_Click(object sender, EventArgs e)
-        {
-            OpenPanelByTableStatus((Table)btnTable3.Tag);
-        }
-
-        private void btnTable4_Click(object sender, EventArgs e)
-        {
-            OpenPanelByTableStatus((Table)btnTable4.Tag);
-        }
-
-        private void btnTable5_Click(object sender, EventArgs e)
-        {
-            OpenPanelByTableStatus((Table)btnTable5.Tag);
-        }
-
-        private void btnTable6_Click(object sender, EventArgs e)
-        {
-            OpenPanelByTableStatus((Table)btnTable6.Tag);
-        }
-
-        private void btnTable7_Click(object sender, EventArgs e)
-        {
-            OpenPanelByTableStatus((Table)btnTable7.Tag);
-        }
-
-        private void btnTable8_Click(object sender, EventArgs e)
-        {
-            OpenPanelByTableStatus((Table)btnTable8.Tag);
-        }
-
-        private void btnTable9_Click(object sender, EventArgs e)
-        {
-            OpenPanelByTableStatus((Table)btnTable9.Tag);
-        }
-
-        private void btnTable10_Click(object sender, EventArgs e)
-        {
-            OpenPanelByTableStatus((Table)btnTable10.Tag);
+            Button button = (Button)sender;
+            OpenPanelByTableStatus((Table)button.Tag);
         }
 
         //Free table actions
@@ -136,6 +77,7 @@ namespace ChapeauUI
 
         private void btnOccupiedTableCancel_Click(object sender, EventArgs e)
         {
+            ServeTable((Table)OccupiedTableImage.Tag);
             UpdateTables((Table)OccupiedTableImage.Tag, TableStatus.Empty);
         }
 
@@ -152,7 +94,7 @@ namespace ChapeauUI
 
             foreach (Control control in TablesPanel.Controls)
             {
-                if (control is Button && control.Name.StartsWith("btnTable"))
+                if (control is Button)
                 {
                     control.Tag = _tables[_tables.Count - count];
                     ColoreTableByStatus(control, _tables[_tables.Count - count].Status);
@@ -182,8 +124,8 @@ namespace ChapeauUI
         private void btnLogoff_Click(object sender, EventArgs e)
         {
             LoginForm loginForm = new LoginForm();
-            this.Hide();
-            loginForm.Closed += (s, args) => this.Close();
+            Hide();
+            loginForm.Closed += (s, args) => Close();
             loginForm.Show();
         }
 
@@ -220,43 +162,72 @@ namespace ChapeauUI
             }
         }
 
+        //Occupied panel
+
         private void OpenOccupiedTablePanel(Table table)
         {
             List<Order> orders = _tableService.GetOrdersByTable(table);
-            int waitinTime = 0;
-            if (orders.Count > 0)
+
+            DateTime firstOrderTime = orders.Max(o => o.OrderTime);
+            TimeSpan waitingTime = DateTime.Now - firstOrderTime;
+
+            lblWaitingTime.Text = waitingTime.TotalMinutes.ToString() + " minutes";
+
+            foreach (Order order in orders)
             {
-                foreach (Order order in orders)
+                if (order.PreparationLocation == "Bar")
                 {
-                    if (order.Status == OrderStatus.Preparing && order.PreparationLocation == "Bar")
-                    {
-                        BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyBarIcon");
-                    }
-                    else if (order.Status == OrderStatus.Preparing && order.PreparationLocation == "Kitchen")
-                    {
-                        KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon");
-                    }
-                    waitinTime += order.PreparationTime;
+                    ChangeBarIcon(order);
                 }
-                lblWaitingTime.Text = waitinTime.ToString();
+                else if (order.PreparationLocation == "Kitchen")
+                {
+                    ChangeKitchenIcon(order);
+                }
             }
+
             OccupiedTablePanel.Show();
             OccupiedTableImage.Tag = table;
             lblOccupiedTableNumber.Text = table.Number.ToString();
         }
 
+        private void ChangeBarIcon(Order order)
+        {
+            if (order.Status == OrderStatus.Preparing)
+            {
+                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("PreparingBarIcon");
+            }
+            else if (order.Status == OrderStatus.Ready)
+            {
+                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyBarIcon");
+            }
+            else
+            {
+                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
+            }
+        }
+
+        private void ChangeKitchenIcon(Order order)
+        {
+            if (order.Status == OrderStatus.Preparing)
+            {
+                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("PreparingKitchenIcon");
+            }
+            else if (order.Status == OrderStatus.Ready)
+            {
+                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon1");
+            }
+            else
+            {
+                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
+            }
+        }
+
+        //Else
+
         private void UpdateTables(Table tableToChange, TableStatus tableStatus)
         {
             _tableService.ChangeTableStatus(tableToChange, tableStatus);
-            _tables.Clear();
-
-            for (int i = 1; i <= 10; i++)
-            {
-                Table table = _tableService.GetTableById(i);
-                _tables.Add(table);
-            }
-
-            //_tables[tableToChange.Number - 1] = _tableService.GetTableById(tableToChange.Number);
+            _tables[tableToChange.Number - 1] = _tableService.GetTableById(tableToChange.Number);
 
             ColoreTables();
             HideAllPanels();
@@ -265,17 +236,27 @@ namespace ChapeauUI
 
         private void btnTableServe_Click(object sender, EventArgs e)
         {
-            BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
-            KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
-            lblWaitingTime.Text = "0 minutes";
+            ServeTable((Table)OccupiedTableImage.Tag);
+            
+            HideAllPanels();
+            TablesPanel.Show();
         }
 
-        private void btnTakeOrders_Click(object sender, EventArgs e)
+        private void ServeTable(Table table)
         {
-            OrderingForm orderingForm = new OrderingForm();
-            this.Hide();
-            orderingForm.Closed += (s, args) => this.Close();
-            orderingForm.Show();
+            OrderService service = new OrderService();
+            List<Order> orders = _tableService.GetOrdersByTable(table);
+
+            foreach (Order order in orders)
+            {
+                service.ChangeOrderStatus(order, OrderStatus.Served);
+            }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            TablesPanel.Show();
         }
     }
 }

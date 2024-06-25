@@ -47,6 +47,7 @@ namespace ChapeauUI
             lblTime = new Label();
             LogoPanel = new Panel();
             OccupiedTablePanel = new Panel();
+            btnExitOccupiedPanel = new Button();
             KitchenOrdersIcon = new Panel();
             btnTableServe = new Button();
             lblWaitingTime = new Label();
@@ -56,16 +57,17 @@ namespace ChapeauUI
             OccupiedTableImage = new Panel();
             lblOccupiedTableNumber = new Label();
             FreeTablePanel = new Panel();
+            btnExitFreePanel = new Button();
             btnFreeTableReserve = new Button();
             btnFreeTableOccupy = new Button();
             FreeTableImage = new Panel();
             lblFreeTableNumber = new Label();
             ReservedTablePanel = new Panel();
+            btnExitReservedPanel = new Button();
             btnReservedTableOccupy = new Button();
             btnReservedTableCancel = new Button();
             ReservedTableImage = new Panel();
             lblReservedTableNumber = new Label();
-            btnTakeOrders = new Button();
             TablesPanel.SuspendLayout();
             OccupiedTablePanel.SuspendLayout();
             OccupiedTableImage.SuspendLayout();
@@ -77,7 +79,6 @@ namespace ChapeauUI
             // 
             // TablesPanel
             // 
-            TablesPanel.Controls.Add(btnTakeOrders);
             TablesPanel.Controls.Add(btnTable10);
             TablesPanel.Controls.Add(btnTable9);
             TablesPanel.Controls.Add(btnTable8);
@@ -104,7 +105,7 @@ namespace ChapeauUI
             btnTable10.TabIndex = 9;
             btnTable10.Text = "10";
             btnTable10.UseVisualStyleBackColor = true;
-            btnTable10.Click += btnTable10_Click;
+            btnTable10.Click += btnTable_Click;
             // 
             // btnTable9
             // 
@@ -117,7 +118,7 @@ namespace ChapeauUI
             btnTable9.TabIndex = 8;
             btnTable9.Text = "9";
             btnTable9.UseVisualStyleBackColor = true;
-            btnTable9.Click += btnTable9_Click;
+            btnTable9.Click += btnTable_Click;
             // 
             // btnTable8
             // 
@@ -130,7 +131,7 @@ namespace ChapeauUI
             btnTable8.TabIndex = 7;
             btnTable8.Text = "8";
             btnTable8.UseVisualStyleBackColor = true;
-            btnTable8.Click += btnTable8_Click;
+            btnTable8.Click += btnTable_Click;
             // 
             // btnTable7
             // 
@@ -143,7 +144,7 @@ namespace ChapeauUI
             btnTable7.TabIndex = 6;
             btnTable7.Text = "7";
             btnTable7.UseVisualStyleBackColor = true;
-            btnTable7.Click += btnTable7_Click;
+            btnTable7.Click += btnTable_Click;
             // 
             // btnTable6
             // 
@@ -156,7 +157,7 @@ namespace ChapeauUI
             btnTable6.TabIndex = 5;
             btnTable6.Text = "6";
             btnTable6.UseVisualStyleBackColor = true;
-            btnTable6.Click += btnTable6_Click;
+            btnTable6.Click += btnTable_Click;
             // 
             // btnTable5
             // 
@@ -169,7 +170,7 @@ namespace ChapeauUI
             btnTable5.TabIndex = 4;
             btnTable5.Text = "5";
             btnTable5.UseVisualStyleBackColor = true;
-            btnTable5.Click += btnTable5_Click;
+            btnTable5.Click += btnTable_Click;
             // 
             // btnTable4
             // 
@@ -182,7 +183,7 @@ namespace ChapeauUI
             btnTable4.TabIndex = 3;
             btnTable4.Text = "4";
             btnTable4.UseVisualStyleBackColor = true;
-            btnTable4.Click += btnTable4_Click;
+            btnTable4.Click += btnTable_Click;
             // 
             // btnTable3
             // 
@@ -195,7 +196,7 @@ namespace ChapeauUI
             btnTable3.TabIndex = 2;
             btnTable3.Text = "3";
             btnTable3.UseVisualStyleBackColor = true;
-            btnTable3.Click += btnTable3_Click;
+            btnTable3.Click += btnTable_Click;
             // 
             // btnTable2
             // 
@@ -208,7 +209,7 @@ namespace ChapeauUI
             btnTable2.TabIndex = 1;
             btnTable2.Text = "2";
             btnTable2.UseVisualStyleBackColor = true;
-            btnTable2.Click += btnTable2_Click;
+            btnTable2.Click += btnTable_Click;
             // 
             // btnTable1
             // 
@@ -221,7 +222,7 @@ namespace ChapeauUI
             btnTable1.TabIndex = 0;
             btnTable1.Text = "1";
             btnTable1.UseVisualStyleBackColor = true;
-            btnTable1.Click += btnTable1_Click;
+            btnTable1.Click += btnTable_Click;
             // 
             // btnLogoff
             // 
@@ -272,6 +273,7 @@ namespace ChapeauUI
             // 
             // OccupiedTablePanel
             // 
+            OccupiedTablePanel.Controls.Add(btnExitOccupiedPanel);
             OccupiedTablePanel.Controls.Add(KitchenOrdersIcon);
             OccupiedTablePanel.Controls.Add(btnTableServe);
             OccupiedTablePanel.Controls.Add(lblWaitingTime);
@@ -283,6 +285,17 @@ namespace ChapeauUI
             OccupiedTablePanel.Name = "OccupiedTablePanel";
             OccupiedTablePanel.Size = new Size(1408, 727);
             OccupiedTablePanel.TabIndex = 12;
+            // 
+            // btnExitOccupiedPanel
+            // 
+            btnExitOccupiedPanel.Font = new Font("Impact", 19.875F, FontStyle.Regular, GraphicsUnit.Point);
+            btnExitOccupiedPanel.Location = new Point(3, 6);
+            btnExitOccupiedPanel.Name = "btnExitOccupiedPanel";
+            btnExitOccupiedPanel.Size = new Size(78, 84);
+            btnExitOccupiedPanel.TabIndex = 7;
+            btnExitOccupiedPanel.Text = "X";
+            btnExitOccupiedPanel.UseVisualStyleBackColor = true;
+            btnExitOccupiedPanel.Click += btnExit_Click;
             // 
             // KitchenOrdersIcon
             // 
@@ -377,6 +390,7 @@ namespace ChapeauUI
             // 
             // FreeTablePanel
             // 
+            FreeTablePanel.Controls.Add(btnExitFreePanel);
             FreeTablePanel.Controls.Add(btnFreeTableReserve);
             FreeTablePanel.Controls.Add(btnFreeTableOccupy);
             FreeTablePanel.Controls.Add(FreeTableImage);
@@ -384,6 +398,17 @@ namespace ChapeauUI
             FreeTablePanel.Name = "FreeTablePanel";
             FreeTablePanel.Size = new Size(1408, 727);
             FreeTablePanel.TabIndex = 15;
+            // 
+            // btnExitFreePanel
+            // 
+            btnExitFreePanel.Font = new Font("Impact", 19.875F, FontStyle.Regular, GraphicsUnit.Point);
+            btnExitFreePanel.Location = new Point(15, 9);
+            btnExitFreePanel.Name = "btnExitFreePanel";
+            btnExitFreePanel.Size = new Size(78, 84);
+            btnExitFreePanel.TabIndex = 4;
+            btnExitFreePanel.Text = "X";
+            btnExitFreePanel.UseVisualStyleBackColor = true;
+            btnExitFreePanel.Click += btnExit_Click;
             // 
             // btnFreeTableReserve
             // 
@@ -436,6 +461,7 @@ namespace ChapeauUI
             // 
             // ReservedTablePanel
             // 
+            ReservedTablePanel.Controls.Add(btnExitReservedPanel);
             ReservedTablePanel.Controls.Add(btnReservedTableOccupy);
             ReservedTablePanel.Controls.Add(btnReservedTableCancel);
             ReservedTablePanel.Controls.Add(ReservedTableImage);
@@ -443,6 +469,17 @@ namespace ChapeauUI
             ReservedTablePanel.Name = "ReservedTablePanel";
             ReservedTablePanel.Size = new Size(1408, 727);
             ReservedTablePanel.TabIndex = 16;
+            // 
+            // btnExitReservedPanel
+            // 
+            btnExitReservedPanel.Font = new Font("Impact", 19.875F, FontStyle.Regular, GraphicsUnit.Point);
+            btnExitReservedPanel.Location = new Point(15, 12);
+            btnExitReservedPanel.Name = "btnExitReservedPanel";
+            btnExitReservedPanel.Size = new Size(78, 84);
+            btnExitReservedPanel.TabIndex = 3;
+            btnExitReservedPanel.Text = "X";
+            btnExitReservedPanel.UseVisualStyleBackColor = true;
+            btnExitReservedPanel.Click += btnExit_Click;
             // 
             // btnReservedTableOccupy
             // 
@@ -493,26 +530,13 @@ namespace ChapeauUI
             lblReservedTableNumber.TabIndex = 0;
             lblReservedTableNumber.Text = "1";
             // 
-            // btnTakeOrders
-            // 
-            btnTakeOrders.BackColor = Color.Black;
-            btnTakeOrders.BackgroundImageLayout = ImageLayout.Stretch;
-            btnTakeOrders.Font = new Font("Segoe UI", 16.125F, FontStyle.Bold, GraphicsUnit.Point);
-            btnTakeOrders.ForeColor = Color.White;
-            btnTakeOrders.Location = new Point(545, 591);
-            btnTakeOrders.Name = "btnTakeOrders";
-            btnTakeOrders.Size = new Size(283, 101);
-            btnTakeOrders.TabIndex = 10;
-            btnTakeOrders.Text = "Take orders";
-            btnTakeOrders.UseVisualStyleBackColor = false;
-            btnTakeOrders.Click += btnTakeOrders_Click;
-            // 
             // RestaurantOverviewForm
             // 
             AutoScaleDimensions = new SizeF(13F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1432, 882);
+            Controls.Add(TablesPanel);
             Controls.Add(OccupiedTablePanel);
             Controls.Add(TablesPanel);
             Controls.Add(ReservedTablePanel);
@@ -578,6 +602,8 @@ namespace ChapeauUI
         private Label lblWaitingTime;
         private Panel BarOrdersIcon;
         private Panel KitchenOrdersIcon;
-        private Button btnTakeOrders;
+        private Button btnExitReservedPanel;
+        private Button btnExitOccupiedPanel;
+        private Button btnExitFreePanel;
     }
 }

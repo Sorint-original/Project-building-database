@@ -32,5 +32,10 @@ namespace Service
         {
             return tableDao.GetOrdersByTable(table);
         }
+
+        public List<Table> GetAllTables()
+        {
+            return tableDao.GetAllTables();
+        }
     }
 }

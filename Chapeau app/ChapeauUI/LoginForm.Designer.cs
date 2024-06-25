@@ -106,9 +106,10 @@
             btnNumber0.Name = "btnNumber0";
             btnNumber0.Size = new Size(120, 120);
             btnNumber0.TabIndex = 14;
+            btnNumber0.Tag = "0";
             btnNumber0.Text = "0";
             btnNumber0.UseVisualStyleBackColor = false;
-            btnNumber0.Click += btnNumber0_Click;
+            btnNumber0.Click += btnNumber_Click;
             // 
             // btnNumber9
             // 
@@ -119,9 +120,10 @@
             btnNumber9.Name = "btnNumber9";
             btnNumber9.Size = new Size(120, 120);
             btnNumber9.TabIndex = 13;
+            btnNumber9.Tag = "9";
             btnNumber9.Text = "9";
             btnNumber9.UseVisualStyleBackColor = false;
-            btnNumber9.Click += btnNumber9_Click;
+            btnNumber9.Click += btnNumber_Click;
             // 
             // btnNumber8
             // 
@@ -132,9 +134,10 @@
             btnNumber8.Name = "btnNumber8";
             btnNumber8.Size = new Size(120, 120);
             btnNumber8.TabIndex = 12;
+            btnNumber8.Tag = "8";
             btnNumber8.Text = "8";
             btnNumber8.UseVisualStyleBackColor = false;
-            btnNumber8.Click += btnNumber8_Click;
+            btnNumber8.Click += btnNumber_Click;
             // 
             // btnNumber7
             // 
@@ -145,9 +148,10 @@
             btnNumber7.Name = "btnNumber7";
             btnNumber7.Size = new Size(120, 120);
             btnNumber7.TabIndex = 11;
+            btnNumber7.Tag = "7";
             btnNumber7.Text = "7";
             btnNumber7.UseVisualStyleBackColor = false;
-            btnNumber7.Click += btnNumber7_Click;
+            btnNumber7.Click += btnNumber_Click;
             // 
             // btnNumber6
             // 
@@ -158,9 +162,10 @@
             btnNumber6.Name = "btnNumber6";
             btnNumber6.Size = new Size(120, 120);
             btnNumber6.TabIndex = 10;
+            btnNumber6.Tag = "6";
             btnNumber6.Text = "6";
             btnNumber6.UseVisualStyleBackColor = false;
-            btnNumber6.Click += btnNumber6_Click;
+            btnNumber6.Click += btnNumber_Click;
             // 
             // btnNumber5
             // 
@@ -171,9 +176,10 @@
             btnNumber5.Name = "btnNumber5";
             btnNumber5.Size = new Size(120, 120);
             btnNumber5.TabIndex = 9;
+            btnNumber5.Tag = "5";
             btnNumber5.Text = "5";
             btnNumber5.UseVisualStyleBackColor = false;
-            btnNumber5.Click += btnNumber5_Click;
+            btnNumber5.Click += btnNumber_Click;
             // 
             // btnNumber4
             // 
@@ -184,9 +190,10 @@
             btnNumber4.Name = "btnNumber4";
             btnNumber4.Size = new Size(120, 120);
             btnNumber4.TabIndex = 8;
+            btnNumber4.Tag = "4";
             btnNumber4.Text = "4";
             btnNumber4.UseVisualStyleBackColor = false;
-            btnNumber4.Click += btnNumber4_Click;
+            btnNumber4.Click += btnNumber_Click;
             // 
             // btnNumber3
             // 
@@ -197,9 +204,10 @@
             btnNumber3.Name = "btnNumber3";
             btnNumber3.Size = new Size(120, 120);
             btnNumber3.TabIndex = 7;
+            btnNumber3.Tag = "3";
             btnNumber3.Text = "3";
             btnNumber3.UseVisualStyleBackColor = false;
-            btnNumber3.Click += btnNumber3_Click;
+            btnNumber3.Click += btnNumber_Click;
             // 
             // btnNumber2
             // 
@@ -210,9 +218,10 @@
             btnNumber2.Name = "btnNumber2";
             btnNumber2.Size = new Size(120, 120);
             btnNumber2.TabIndex = 6;
+            btnNumber2.Tag = "2";
             btnNumber2.Text = "2";
             btnNumber2.UseVisualStyleBackColor = false;
-            btnNumber2.Click += btnNumber2_Click;
+            btnNumber2.Click += btnNumber_Click;
             // 
             // btnNumber1
             // 
@@ -223,9 +232,10 @@
             btnNumber1.Name = "btnNumber1";
             btnNumber1.Size = new Size(120, 120);
             btnNumber1.TabIndex = 5;
+            btnNumber1.Tag = "1";
             btnNumber1.Text = "1";
             btnNumber1.UseVisualStyleBackColor = false;
-            btnNumber1.Click += btnNumber1_Click;
+            btnNumber1.Click += btnNumber_Click;
             // 
             // btnLogin
             // 
@@ -246,7 +256,7 @@
             txtBxPassword.PasswordChar = '*';
             txtBxPassword.Size = new Size(200, 39);
             txtBxPassword.TabIndex = 3;
-            txtBxPassword.MouseClick += txtBxPassword_MouseClick;
+            txtBxPassword.MouseClick += textBox_MouseClick;
             // 
             // txtBxId
             // 
@@ -254,7 +264,7 @@
             txtBxId.Name = "txtBxId";
             txtBxId.Size = new Size(200, 39);
             txtBxId.TabIndex = 2;
-            txtBxId.MouseClick += txtBxId_MouseClick;
+            txtBxId.MouseClick += textBox_MouseClick;
             // 
             // label2
             // 

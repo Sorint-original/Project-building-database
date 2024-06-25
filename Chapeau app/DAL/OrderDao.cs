@@ -159,5 +159,18 @@ namespace DAL
             DataTable data = ExecuteSelectQuery(query, sqlParameters);
             return Convert.ToInt32(data.Rows[0][0]);
         }
+
+        public void ChangeOrderStatus(Order order, OrderStatus orderStatus)
+        {
+            string query = "UPDATE [ORDER] SET status = @status WHERE order_id = @order_id";
+
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new("@status", SqlDbType.VarChar) {Value = orderStatus.ToString()},
+                new("@order_id", SqlDbType.Int) {Value = order.Id},
+            };
+
+            ExecuteEditQuery(query, sqlParameters);
+        }
     }
 }

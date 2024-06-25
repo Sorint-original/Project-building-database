@@ -127,6 +127,12 @@
   <data name="RedTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\RedTable.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="NoBarIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoBarIcon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoKitchenIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoKitchenIcon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Log" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logoff_Button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -136,16 +142,16 @@
   <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ReadyKitchenIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="PreparingKitchenIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PreparingKitchenIcon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PreparingBarIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PreparingBarIcon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ReadyKitchenIcon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ReadyKitchenIcon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="RedyBarIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RedyBarIcon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NoKitchenIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NoKitchenIcon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="NoBarIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NoBarIcon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ReadyBarIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ReadyBarIcon.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

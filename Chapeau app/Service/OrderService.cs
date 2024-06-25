@@ -83,6 +83,11 @@ namespace Service
                 orderItemDao.AddOrderItem(item);
             }
         }
+
+        public void ChangeOrderStatus(Order order, OrderStatus orderStatus)
+        {
+            orderDao.ChangeOrderStatus(order, orderStatus);
+        }
     }
 
 }
