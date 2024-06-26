@@ -78,23 +78,23 @@ namespace DAL
             ExecuteEditQuery(command, sqlParameters);
         }
 
-        public int GetOrderItemStock(string name)
+        public int GetOrderItemStock(int id)
         {
-            string query = "SELECT stock FROM MENU_ITEM WHERE [name] = @name";
+            string query = "SELECT stock FROM MENU_ITEM WHERE [item_id] = @id";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
-            new SqlParameter("@name", name)
+            new SqlParameter("@id", id)
             };
             DataTable data = ExecuteSelectQuery(query, sqlParameters);
             return Convert.ToInt32(data.Rows[0][0]);
         }
 
-        public void RefreshOrderItemStock(string name, int amount)
+        public void RefreshOrderItemStock(int id, int amount)
         {
-            string query = "UPDATE MENU_ITEM SET stock = stock - @amount WHERE [name] = @name";
+            string query = "UPDATE MENU_ITEM SET stock = stock - @amount WHERE [item_id] = @id";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
-                new SqlParameter("@name", name),
+                new SqlParameter("@id", id),
                 new SqlParameter("@amount", amount)
             };
             ExecuteEditQuery(query, sqlParameters);

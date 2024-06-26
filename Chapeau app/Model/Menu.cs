@@ -13,4 +13,11 @@ namespace Model
 
         public List<MenuItem> menuElements;
     }
+
+    public enum MenuType
+    {
+        Lunch = 1,
+        Dinner = 2,
+        Drinks = 3
+    }
 }
