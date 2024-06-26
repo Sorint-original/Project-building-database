@@ -23,9 +23,11 @@ namespace ChapeauUI
         private EmployeeService employeeService = new EmployeeService();
         private List<OrderItem> orderitems;
         private int orderId;
+        private Table table;
 
-        public OrderingForm()
+        public OrderingForm(Table table)
         {
+            this.table = table;
             orderitems = new List<OrderItem>();
             orderId = orderService.GetNextOrderId();
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace ChapeauUI
         private void InitializeComboBoxes()
         {
             comboBoxGuests.DropDownStyle = ComboBoxStyle.DropDownList;
+            lblTableNr.Text = table.Number.ToString();
         }
 
         private void SetupListViewMouseEvents()
