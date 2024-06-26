@@ -69,15 +69,15 @@ namespace DAL
             return menuItems;
         }
 
-        public int GetMenuItemByName(string name)
+        public string GetMenuItemById(int id)
         {
-            string query = "SELECT item_id FROM MENU_ITEM WHERE [name] = @name";
+            string query = "SELECT name FROM MENU_ITEM WHERE [item_id] = @id";
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter ("@name", name)
+                new SqlParameter ("@id", id)
              };
             DataTable dataTable = ExecuteSelectQuery(query, parameters);
-            return Convert.ToInt32(dataTable.Rows[0]["item_id"]);
+            return dataTable.Rows[0]["name"].ToString();
         }
 
         public MenuItem GetMenuItemByID(int id)

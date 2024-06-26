@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,17 +21,17 @@ namespace ChapeauUI
         private OrderService orderService = new OrderService();
         private BillService billService = new BillService();
         private EmployeeService employeeService = new EmployeeService();
+        private List<OrderItem> orderitems;
+        private int orderId;
+
         public OrderingForm()
         {
+            orderitems = new List<OrderItem>();
+            orderId = orderService.GetNextOrderId();
             InitializeComponent();
-            InitializeMenus();
+            RefreshPannels();
             InitializeComboBoxes();
             SetupListViewMouseEvents();
-        }
-
-        private void InitializeMenus()
-        {
-            ShowMenu(1, new string[] { "Starter", "Main", "Dessert" }, new ListView[] { listVStartersLunch, listVMainsLunch, listVDessertsLunch });
         }
 
         private void InitializeComboBoxes()
@@ -50,27 +51,31 @@ namespace ChapeauUI
             }
         }
 
-        private void ShowMenu(int menuId, string[] parts, ListView[] listViews)
+        private void ShowMenu(MenuType menuType, string[] parts, ListView[] listViews)
         {
             HideAll();
-
-            switch (menuId)
-            {
-                case 1:
-                    pnlLunch.Show();
-                    break;
-                case 2:
-                    pnlDinner.Show();
-                    break;
-                case 3:
-                    pnlDrinks.Show();
-                    break;
-            }
+            ShowMenuPanels(menuType);
 
             for (int i = 0; i < parts.Length; i++)
             {
-                var menuItems = menuService.GetPartMenu(menuId, parts[i]);
+                var menuItems = menuService.GetPartMenu((int)menuType, parts[i]);
                 ShowMenuPart(menuItems, listViews[i]);
+            }
+        }
+
+        private void ShowMenuPanels(MenuType menuType)
+        {
+            switch (menuType)
+            {
+                case MenuType.Lunch:
+                    pnlLunch.Show();
+                    break;
+                case MenuType.Dinner:
+                    pnlDinner.Show();
+                    break;
+                case MenuType.Drinks:
+                    pnlDrinks.Show();
+                    break;
             }
         }
 
@@ -84,6 +89,7 @@ namespace ChapeauUI
                 listViewItem.SubItems.Add(item.Name);
                 listViewItem.SubItems.Add(item.Price.ToString("0.00€"));
                 listViewItem.SubItems.Add(item.Stock.ToString());
+                listViewItem.Tag = item;
                 listView.Items.Add(listViewItem);
             }
         }
@@ -94,35 +100,50 @@ namespace ChapeauUI
             pnlDinner.Hide();
             pnlDrinks.Hide();
         }
-        private void AddToOrder(ListViewItem item)
+
+        private void AddToOrder(MenuItem menuItem)
         {
-            bool itemFound = false;
+            OrderItem existingOrderItem = orderitems.FirstOrDefault(item => item.MenuItemID == menuItem.Id);
 
-            foreach (ListViewItem orderItem in listVOrder.Items)
+            if (existingOrderItem == null)
             {
-                int currentQuantity = int.Parse(orderItem.SubItems[3].Text);
-                int stockQuantity = orderItemService.GetOrderItemStock(orderItem.SubItems[1].Text);
-
-                if (orderItem.Text == item.Text)
-                {
-                    if (currentQuantity >= stockQuantity)
-                    {
-                        MessageBox.Show("There are no more items in stock!", "Stock Limit Reached", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    orderItem.SubItems[3].Text = (int.Parse(orderItem.SubItems[3].Text) + 1).ToString();
-                    itemFound = true;
-                    break;
-                }
+                orderitems.Add(new OrderItem(orderId, menuItem.Id, 1, OrderStatus.Placed));
+            }
+            else
+            {
+                UpdateExistingOrderItem(existingOrderItem);
             }
 
-            if (!itemFound)
+            DisplayOrderItems(this.orderitems);
+        }
+
+        private bool UpdateExistingOrderItem(OrderItem orderItem)
+        {
+            int currentQuantity = orderItem.Amount;
+            int stockQuantity = orderItemService.GetOrderItemStock(orderItem.MenuItemID);
+
+            if (currentQuantity >= stockQuantity)
             {
-                ListViewItem orderItem = new ListViewItem(item.Text);
-                orderItem.SubItems.Add(item.SubItems[1].Text);
-                orderItem.SubItems.Add(item.SubItems[2].Text);
-                orderItem.SubItems.Add("1");
-                orderItem.SubItems.Add("");
+                ShowErrorMessage("There are no more items in stock!");
+                return false;
+            }
+
+            orderItem.Amount++;
+            return true;
+        }
+
+        private void DisplayOrderItems(List<OrderItem> items)
+        {
+            listVOrder.Items.Clear();
+            foreach (OrderItem item in items)
+            {
+                MenuItem menuItem = menuService.GetMenuItemByID(item.MenuItemID);
+                ListViewItem orderItem = new ListViewItem(menuItem.Name);
+                orderItem.SubItems.Add(menuItem.Name);
+                orderItem.SubItems.Add(menuItem.Price.ToString("0.00€"));
+                orderItem.SubItems.Add(item.Amount.ToString());
+                orderItem.SubItems.Add(item.Comment);
+                orderItem.Tag = item;
                 listVOrder.Items.Add(orderItem);
             }
         }
@@ -135,7 +156,8 @@ namespace ChapeauUI
                 ListViewHitTestInfo hitTest = listView.HitTest(e.Location);
                 if (hitTest.Item != null)
                 {
-                    AddToOrder(hitTest.Item);
+                    MenuItem menuItem = (MenuItem)hitTest.Item.Tag;
+                    AddToOrder(menuItem);
                 }
             }
         }
@@ -150,22 +172,15 @@ namespace ChapeauUI
             if (listVOrder.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listVOrder.SelectedItems[0];
+                OrderItem orderItem = (OrderItem)selectedItem.Tag;
 
-                int currentQuantity = int.Parse(selectedItem.SubItems[3].Text);
-                int stockQuantity = orderItemService.GetOrderItemStock(selectedItem.SubItems[1].Text);
-
-                if (currentQuantity < stockQuantity)
-                {
-                    selectedItem.SubItems[3].Text = (currentQuantity + 1).ToString();
-                }
-                else
-                {
-                    MessageBox.Show("There are no more items in stock!", "Stock Limit Reached", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                UpdateExistingOrderItem(orderItem);
+                selectedItem.SubItems[3].Text = orderItem.Amount.ToString();
+                DisplayOrderItems(orderitems);
             }
             else
             {
-                MessageBox.Show("Please select an item!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Please select an item!");
             }
         }
 
@@ -174,21 +189,31 @@ namespace ChapeauUI
             if (listVOrder.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listVOrder.SelectedItems[0];
-                int currentAmount = int.Parse(selectedItem.SubItems[3].Text);
+                OrderItem orderItem = (OrderItem)selectedItem.Tag;
 
-                if (currentAmount > 1)
-                {
-                    selectedItem.SubItems[3].Text = (currentAmount - 1).ToString();
-                }
-                else
-                {
-                    listVOrder.Items.Remove(selectedItem);
-                }
+                CheckItemQuantityInOrder(orderItem, selectedItem);
+                DisplayOrderItems(orderitems);
             }
             else
             {
-                MessageBox.Show("Please select an item!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Please select an item!");
             }
+        }
+
+        private void CheckItemQuantityInOrder(OrderItem orderItem, ListViewItem selectedItem)
+        {
+            if (orderItem.Amount > 1)
+            {
+                orderItem.Amount--;
+                selectedItem.SubItems[3].Text = orderItem.Amount.ToString();
+            }
+            else
+            {
+                listVOrder.Items.Remove(selectedItem);
+                orderitems.Remove(orderItem);
+            }
+
+            DisplayOrderItems(orderitems);
         }
 
         private void btnFinishOrder_Click(object sender, EventArgs e)
@@ -196,101 +221,76 @@ namespace ChapeauUI
             if (!ValidateInputs())
                 return;
 
-            int selectedTable = int.Parse(lblTableNr.ToString());
-
-            int billId;
-            if (billService.BillExistsForTable(selectedTable))
-            {
-                billId = billService.GetBillIdByTable(selectedTable);
-            }
-            else
-            {
-                int guestNumber = comboBoxGuests.SelectedIndex + 1;
-                billId = CreateNewBill(selectedTable, guestNumber);
-            }
-
-            List<int> orderIds = CreateNewOrder(billId);
-            AddOrderItems(orderIds);
+            int selectedTable = int.Parse(lblTableNr.Text);
+            int billId = GetOrCreateBillId(selectedTable);
+            int preparationTime = CountPreparationTime();
+            int orderId = CreateOrder(billId, preparationTime);
+            AddOrderItems(orderId);
 
             ClearElements();
             RefreshPannels();
             MessageBox.Show("Order was added successfully!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private int GetOrCreateBillId(int selectedTable)
+        {
+            if (billService.BillExistsForTable(selectedTable))
+            {
+                return billService.GetBillIdByTable(selectedTable);
+            }
+            else
+            {
+                int guestNumber = comboBoxGuests.SelectedIndex + 1;
+                return CreateNewEmptyBill(selectedTable, guestNumber);
+            }
+        }
+
         private bool ValidateInputs()
         {
             if (comboBoxGuests.SelectedItem == null)
             {
-                MessageBox.Show("Select a number of guests!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Select a number of guests!");
                 return false;
             }
 
             if (listVOrder.Items.Count == 0)
             {
-                MessageBox.Show("Add elements to the order!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Add elements to the order!");
                 return false;
             }
             return true;
         }
 
-        private int CreateNewBill(int selectedTable, int guestNumber)
+        private int CreateNewEmptyBill(int selectedTable, int guestNumber)
         {
             int billId = billService.GetNextBillId();
             billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, " ", 0));
             return billId;
         }
 
-        private List<int> CreateNewOrder(int billId)
+        private int CreateOrder(int billId, int preparationTime)
         {
-            int preparationTime = CountPreparationTime();
-            List<int> menuIds = CheckNumberOfMenu();
-            List<int> orderIds = new List<int>();
-
-            bool containsKitchenItems = menuIds.Contains(1) || menuIds.Contains(2);
-            bool containsBarItems = menuIds.Contains(3);
-
-            if (containsKitchenItems)
-            {
-                int kitchenOrderId = orderService.GetNextOrderId();
-                orderService.AddOrder(new Order(kitchenOrderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeService.GetIdByRole("waiter"), "Kitchen"));
-                orderIds.Add(kitchenOrderId);
-            }
-
-            if (containsBarItems)
-            {
-                int barOrderId = orderService.GetNextOrderId();
-                orderService.AddOrder(new Order(barOrderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeService.GetIdByRole("waiter"), "Bar"));
-                orderIds.Add(barOrderId);
-            }
-
-            return orderIds;
+            int orderId = orderService.GetNextOrderId();
+            int employeeId = employeeService.GetIdByRole("waiter");
+            orderService.AddOrder(new Order(orderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeId));
+            return orderId;
         }
 
-        private void AddOrderItems(List<int> orderIds)
+        private void AddOrderItems(int orderId)
         {
             foreach (ListViewItem item in listVOrder.Items)
             {
-                string itemName = item.SubItems[1].Text;
-                int amount = int.Parse(item.SubItems[3].Text);
-                int menuItemId = menuService.GetMenuItemByName(itemName);
-                OrderStatus status = OrderStatus.Placed;
-                string comment = item.SubItems[4].Text;
-                int menuId = orderItemService.GetMenuIdByName(itemName);
-                int orderId = orderIds.Count == 2 && (menuId == 1 || menuId == 2) ? orderIds[0] : orderIds.Last();
+                OrderItem orderitem = (OrderItem)item.Tag;
 
-                orderItemService.RefreshOrderItemStock(itemName, amount);
+                int itemId = orderitem.MenuItemID;
+                int amount = orderitem.Amount;
+                int menuItemId = orderitem.MenuItemID;
+                OrderStatus status = orderitem.Status;
+                string comment = orderitem.Comment;
+
+                orderItemService.RefreshOrderItemStock(itemId, amount);
                 orderItemService.AddOrderItem(new OrderItem(orderId, menuItemId, amount, status, comment));
             }
-        }
-
-        private List<int> CheckNumberOfMenu()
-        {
-            HashSet<int> menuIds = new HashSet<int>();
-            foreach (ListViewItem item in listVOrder.Items)
-            {
-                menuIds.Add(orderItemService.GetMenuIdByName(item.SubItems[1].Text));
-            }
-            return menuIds.ToList();
         }
 
         private int CountPreparationTime()
@@ -305,7 +305,7 @@ namespace ChapeauUI
 
         private void RefreshPannels()
         {
-            ShowMenu(1, new string[] { "Starter", "Main", "Dessert" }, new ListView[] { listVStartersLunch, listVMainsLunch, listVDessertsLunch });
+            ShowMenu(MenuType.Lunch, new string[] { "Starter", "Main", "Dessert" }, new ListView[] { listVStartersLunch, listVMainsLunch, listVDessertsLunch });
         }
 
         private void ClearElements()
@@ -313,44 +313,62 @@ namespace ChapeauUI
             listVOrder.Items.Clear();
             comboBoxGuests.SelectedIndex = -1;
             textBoxComment.Clear();
+            orderitems.Clear();
         }
 
         private void btnLunchM_Click(object sender, EventArgs e)
         {
-            ShowMenu(1, new string[] { "Starter", "Main", "Dessert" }, new ListView[] { listVStartersLunch, listVMainsLunch, listVDessertsLunch });
+            ShowMenu(MenuType.Lunch, new string[] { "Starter", "Main", "Dessert" }, new ListView[] { listVStartersLunch, listVMainsLunch, listVDessertsLunch });
         }
 
         private void btnDinnerM_Click(object sender, EventArgs e)
         {
-            ShowMenu(2, new string[] { "Starter", "Main", "Entremet", "Dessert" }, new ListView[] { listVStartersDinner, listVMainsDinner, listVEntremetsDinner, listVDessertsDinner });
+            ShowMenu(MenuType.Dinner, new string[] { "Starter", "Main", "Entremet", "Dessert" }, new ListView[] { listVStartersDinner, listVMainsDinner, listVEntremetsDinner, listVDessertsDinner });
         }
 
         private void btnDrinksM_Click(object sender, EventArgs e)
         {
-            ShowMenu(3, new string[] { "Soft Drink", "Beer", "Wine", "Spirit Drink", "Coffee / Tea" }, new ListView[] { listVSoftDrinks, listVSpirit, listVBeers, listVWines, listVCoffee });
+            ShowMenu(MenuType.Drinks, new string[] { "Soft Drink", "Beer", "Wine", "Spirit Drink", "Coffee / Tea" }, new ListView[] { listVSoftDrinks, listVSpirit, listVBeers, listVWines, listVCoffee });
         }
 
         private void btnAddCom_Click(object sender, EventArgs e)
         {
-            if (listVOrder.SelectedItems.Count > 0)
+            if (listVOrder.SelectedItems.Count == 0)
             {
-                if (textBoxComment.Text == string.Empty)
-                {
-                    MessageBox.Show("Please write a comment!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                if (textBoxComment.Text.Length > 50)
-                {
-                    MessageBox.Show("Your comment is too long!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                ListViewItem selectedItem = listVOrder.SelectedItems[0];
-                selectedItem.SubItems[4].Text = textBoxComment.Text;
+                ShowErrorMessage("Please select an item!");
+                return;
             }
-            else
+
+            string comment = textBoxComment.Text;
+            if (!ValidateComment(comment))
+                return;
+
+            ListViewItem selectedItem = listVOrder.SelectedItems[0];
+            OrderItem orderItem = (OrderItem)selectedItem.Tag;
+            orderItem.Comment = comment;
+            DisplayOrderItems(this.orderitems);
+        }
+
+        private bool ValidateComment(string comment)
+        {
+            if (string.IsNullOrEmpty(comment))
             {
-                MessageBox.Show("Please select an item!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Please write a comment!");
+                return false;
             }
+
+            if (comment.Length > 50)
+            {
+                ShowErrorMessage("Your comment is too long!");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btnRemoveCom_Click(object sender, EventArgs e)
@@ -358,11 +376,13 @@ namespace ChapeauUI
             if (listVOrder.SelectedItems.Count > 0)
             {
                 ListViewItem selectedItem = listVOrder.SelectedItems[0];
-                selectedItem.SubItems[4].Text = "";
+                OrderItem orderItem = (OrderItem)selectedItem.Tag;
+                orderItem.Comment = null;
+                DisplayOrderItems(this.orderitems);
             }
             else
             {
-                MessageBox.Show("Please select an item!", "No Item Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Please select an item!");
             }
         }
 

@@ -22,9 +22,9 @@ namespace Service
             return menuDao.GetMenu(menuId, itemType);
         }
 
-        public int GetMenuItemByName(string name)
+        public string GetMenuItemById(int id)
         {
-            return menuDao.GetMenuItemByName(name);
+            return menuDao.GetMenuItemById(id);
         }
 
         public MenuItem GetMenuItemByID(int Id)
