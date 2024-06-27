@@ -23,9 +23,11 @@ namespace ChapeauUI
         private EmployeeService employeeService = new EmployeeService();
         private List<OrderItem> orderitems;
         private int orderId;
+        private Table _table;
 
-        public OrderingForm()
+        public OrderingForm(Table table)
         {
+            _table = table;
             orderitems = new List<OrderItem>();
             orderId = orderService.GetNextOrderId();
             InitializeComponent();

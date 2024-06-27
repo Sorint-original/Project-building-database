@@ -84,6 +84,11 @@ namespace ChapeauUI
         private void btnOccupiedTableOrders_Click(object sender, EventArgs e)
         {
             Table table = (Table)OccupiedTableImage.Tag;
+
+            OrderingForm orderingForm = new OrderingForm(table);
+            Hide();
+            orderingForm.Closed += (s, args) => Close();
+            orderingForm.Show();
         }
 
         //Colore tables
@@ -167,9 +172,18 @@ namespace ChapeauUI
         private void OpenOccupiedTablePanel(Table table)
         {
             List<Order> orders = _tableService.GetOrdersByTable(table);
+            TimeSpan waitingTime = TimeSpan.Zero;
 
-            DateTime firstOrderTime = orders.Max(o => o.OrderTime);
-            TimeSpan waitingTime = DateTime.Now - firstOrderTime;
+            if (orders.Count > 0)
+            {
+                DateTime firstOrderTime = orders.Max(o => o.OrderTime);
+                waitingTime = DateTime.Now - firstOrderTime;
+            }
+            else
+            {
+                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
+                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
+            }
 
             lblWaitingTime.Text = waitingTime.TotalMinutes.ToString() + " minutes";
 
@@ -208,13 +222,14 @@ namespace ChapeauUI
 
         private void ChangeKitchenIcon(Order order)
         {
+
             if (order.Status == OrderStatus.Preparing)
             {
                 KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("PreparingKitchenIcon");
             }
             else if (order.Status == OrderStatus.Ready)
             {
-                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon1");
+                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon");
             }
             else
             {
