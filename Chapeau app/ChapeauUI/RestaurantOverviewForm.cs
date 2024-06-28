@@ -9,6 +9,8 @@ namespace ChapeauUI
         private Timer _timer = new() { Interval = 1000 };
         private TableService _tableService = new();
         private List<Table> _tables = new();
+        private List<Order> _orders = new();
+
         public RestaurantOverviewForm()
         {
             _timer.Tick += Timer_Tick;
@@ -31,6 +33,7 @@ namespace ChapeauUI
         private void Timer_Tick(object sender, EventArgs e)
         {
             UpdateTimeLabel();
+            UpdateWaitingTimeLabel();
             //_tables = _tableService.GetAllTables();
             //ColoreTables();
         }
@@ -124,7 +127,106 @@ namespace ChapeauUI
             }
         }
 
+        //Occupied panel
+
+        private void OpenOccupiedTablePanel(Table table)
+        {
+            _orders = _tableService.GetOrdersByTable(table);
+            
+            BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
+            KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
+
+            foreach (Order order in _orders)
+            {
+                if (order.PreparationLocation == "Bar")
+                {
+                    ChangeBarIcon(order);
+                }
+                else if (order.PreparationLocation == "Kitchen")
+                {
+                    ChangeKitchenIcon(order);
+                }
+            }
+
+            OccupiedTablePanel.Show();
+            OccupiedTableImage.Tag = table;
+            lblOccupiedTableNumber.Text = table.Number.ToString();
+        }
+
+        private void UpdateWaitingTimeLabel()
+        {
+            TimeSpan waitingTime = TimeSpan.Zero;
+
+            if (_orders.Count > 0)
+            {
+                DateTime firstOrderTime = _orders.Max(o => o.OrderTime);
+                waitingTime = DateTime.Now - firstOrderTime;
+            }
+
+            lblWaitingTime.Text = waitingTime.TotalMinutes.ToString("0") + " minutes";
+        }
+
+        private void ChangeBarIcon(Order order)
+        {
+            if (order.Status == OrderStatus.Preparing)
+            {
+                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("PreparingBarIcon");
+            }
+            else if (order.Status == OrderStatus.Ready)
+            {
+                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyBarIcon");
+            }
+        }
+
+        private void ChangeKitchenIcon(Order order)
+        {
+
+            if (order.Status == OrderStatus.Preparing)
+            {
+                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("PreparingKitchenIcon");
+            }
+            else if (order.Status == OrderStatus.Ready)
+            {
+                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon");
+            }
+        }
+
         //Else
+
+        private void UpdateTables(Table tableToChange, TableStatus tableStatus)
+        {
+            _tableService.ChangeTableStatus(tableToChange, tableStatus);
+            _tables[tableToChange.Number - 1] = _tableService.GetTableById(tableToChange.Number);
+
+            ColoreTables();
+            HideAllPanels();
+            TablesPanel.Show();
+        }
+
+        private void btnTableServe_Click(object sender, EventArgs e)
+        {
+            ServeTable((Table)OccupiedTableImage.Tag);
+
+            HideAllPanels();
+            TablesPanel.Show();
+        }
+
+        private void ServeTable(Table table)
+        {
+            OrderService service = new OrderService();
+            List<Order> orders = _tableService.GetOrdersByTable(table);
+
+            foreach (Order order in orders)
+            {
+                service.ChangeOrderStatus(order, OrderStatus.Served);
+            }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            TablesPanel.Show();
+        }
 
         private void btnLogoff_Click(object sender, EventArgs e)
         {
@@ -165,113 +267,6 @@ namespace ChapeauUI
                     lblFreeTableNumber.Text = table.Number.ToString();
                     break;
             }
-        }
-
-        //Occupied panel
-
-        private void OpenOccupiedTablePanel(Table table)
-        {
-            List<Order> orders = _tableService.GetOrdersByTable(table);
-            TimeSpan waitingTime = TimeSpan.Zero;
-
-            if (orders.Count > 0)
-            {
-                DateTime firstOrderTime = orders.Max(o => o.OrderTime);
-                waitingTime = DateTime.Now - firstOrderTime;
-            }
-            else
-            {
-                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
-                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
-            }
-
-            lblWaitingTime.Text = waitingTime.TotalMinutes.ToString() + " minutes";
-
-            foreach (Order order in orders)
-            {
-                if (order.PreparationLocation == "Bar")
-                {
-                    ChangeBarIcon(order);
-                }
-                else if (order.PreparationLocation == "Kitchen")
-                {
-                    ChangeKitchenIcon(order);
-                }
-            }
-
-            OccupiedTablePanel.Show();
-            OccupiedTableImage.Tag = table;
-            lblOccupiedTableNumber.Text = table.Number.ToString();
-        }
-
-        private void ChangeBarIcon(Order order)
-        {
-            if (order.Status == OrderStatus.Preparing)
-            {
-                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("PreparingBarIcon");
-            }
-            else if (order.Status == OrderStatus.Ready)
-            {
-                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyBarIcon");
-            }
-            else
-            {
-                BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
-            }
-        }
-
-        private void ChangeKitchenIcon(Order order)
-        {
-
-            if (order.Status == OrderStatus.Preparing)
-            {
-                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("PreparingKitchenIcon");
-            }
-            else if (order.Status == OrderStatus.Ready)
-            {
-                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon");
-            }
-            else
-            {
-                KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
-            }
-        }
-
-        //Else
-
-        private void UpdateTables(Table tableToChange, TableStatus tableStatus)
-        {
-            _tableService.ChangeTableStatus(tableToChange, tableStatus);
-            _tables[tableToChange.Number - 1] = _tableService.GetTableById(tableToChange.Number);
-
-            ColoreTables();
-            HideAllPanels();
-            TablesPanel.Show();
-        }
-
-        private void btnTableServe_Click(object sender, EventArgs e)
-        {
-            ServeTable((Table)OccupiedTableImage.Tag);
-            
-            HideAllPanels();
-            TablesPanel.Show();
-        }
-
-        private void ServeTable(Table table)
-        {
-            OrderService service = new OrderService();
-            List<Order> orders = _tableService.GetOrdersByTable(table);
-
-            foreach (Order order in orders)
-            {
-                service.ChangeOrderStatus(order, OrderStatus.Served);
-            }
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            HideAllPanels();
-            TablesPanel.Show();
         }
     }
 }
