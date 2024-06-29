@@ -30,6 +30,58 @@ namespace Model
             Items = new List<OrderItem>();
             PreparationLocation= PrepLocation;
         }
+
+        public bool Compare(Order other)
+        {
+            if (this.Id == other.Id &&
+                this.OrderTime == other.OrderTime &&
+                this.PreparationTime == other.PreparationTime &&
+                this.Status == other.Status &&
+                this.BillID == other.BillID &&
+                this.EmployeeID == other.EmployeeID &&
+                this.Items.Count == other.Items.Count)
+            {
+                return true;
+            }
+            else
+            {
+                return false; 
+            }
+
+        }
+
+        public void UpdateOrderWaitTime()
+        {
+            int waiting = 0;
+            foreach (OrderItem item in this.Items)
+            {
+                if (item.Status != OrderStatus.Ready && item.Status != OrderStatus.Served)
+                {
+                    waiting += item.AuxMenuItem.PreparationTime;
+                }
+
+            }
+            this.PreparationTime = waiting;
+        }
+
+        public void UpdateStatusBasedOnItems()
+        {
+            bool[] itemstatues = {false,false,false,false};
+            for(int i = 0; i < this.Items.Count; i++)
+            {
+                itemstatues[(int)this.Items[i].Status] = true;
+            }
+
+            if (this.Status != OrderStatus.Preparing && itemstatues[1] || (itemstatues[0] && this.Status == OrderStatus.Ready))  
+            {
+                this.Status = OrderStatus.Preparing;
+            }
+            else if (itemstatues[0] == false && itemstatues[1] == false && itemstatues[2])
+            { 
+                this.Status = OrderStatus.Ready;
+            }
+        }
+
     }
 }
 public enum OrderStatus
