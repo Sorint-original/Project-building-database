@@ -28,11 +28,6 @@ namespace Service
             tableDao.ChangeTableStatus(table, tableStatus);
         }
 
-        public List<Order> GetOrdersByTable(Table table)
-        {
-            return tableDao.GetOrdersByTable(table);
-        }
-
         public List<Table> GetAllTables()
         {
             return tableDao.GetAllTables();

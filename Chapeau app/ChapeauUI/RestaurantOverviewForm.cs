@@ -8,6 +8,7 @@ namespace ChapeauUI
     {
         private Timer _timer = new() { Interval = 1000 };
         private TableService _tableService = new();
+        private OrderService _orderService = new();
         private List<Table> _tables = new();
         private List<Order> _orders = new();
 
@@ -34,6 +35,7 @@ namespace ChapeauUI
         {
             UpdateTimeLabel();
             UpdateWaitingTimeLabel();
+
             //_tables = _tableService.GetAllTables();
             //ColoreTables();
         }
@@ -44,12 +46,47 @@ namespace ChapeauUI
             lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
+        private void UpdateWaitingTimeLabel()
+        {
+            TimeSpan waitingTime = TimeSpan.Zero;
+
+            if (_orders.Count > 0)
+            {
+                DateTime firstOrderTime = _orders.Min(o => o.OrderTime);
+                waitingTime = DateTime.Now - firstOrderTime;
+            }
+
+            lblWaitingTime.Text = waitingTime.TotalMinutes.ToString("0") + " minutes";
+        }
+
         //Table buttons
 
         private void btnTable_Click(object sender, EventArgs e)
         {
             Button button = (Button)sender;
             OpenPanelByTableStatus((Table)button.Tag);
+        }
+
+        private void OpenPanelByTableStatus(Table table)
+        {
+            HideAllPanels();
+
+            switch (table.Status)
+            {
+                case TableStatus.Occupied:
+                    OpenOccupiedTablePanel(table);
+                    break;
+                case TableStatus.Reserved:
+                    ReservedTablePanel.Show();
+                    ReservedTableImage.Tag = table;
+                    lblReservedTableNumber.Text = table.Number.ToString();
+                    break;
+                case TableStatus.Empty:
+                    FreeTablePanel.Show();
+                    FreeTableImage.Tag = table;
+                    lblFreeTableNumber.Text = table.Number.ToString();
+                    break;
+            }
         }
 
         //Free table actions
@@ -94,6 +131,14 @@ namespace ChapeauUI
             orderingForm.Show();
         }
 
+        private void btnTableServe_Click(object sender, EventArgs e)
+        {
+            Table table = (Table)OccupiedTableImage.Tag;
+
+            ServeTable(table);
+            SetIcons(table);
+        }
+
         //Colore tables
 
         private void ColoreTables()
@@ -131,8 +176,17 @@ namespace ChapeauUI
 
         private void OpenOccupiedTablePanel(Table table)
         {
-            _orders = _tableService.GetOrdersByTable(table);
-            
+            SetIcons(table);
+
+            OccupiedTablePanel.Show();
+            OccupiedTableImage.Tag = table;
+            lblOccupiedTableNumber.Text = table.Number.ToString();
+        }
+
+        private void SetIcons(Table table)
+        {
+            _orders = _orderService.GetOrdersByTable(table);
+
             BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
             KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
 
@@ -147,23 +201,6 @@ namespace ChapeauUI
                     ChangeKitchenIcon(order);
                 }
             }
-
-            OccupiedTablePanel.Show();
-            OccupiedTableImage.Tag = table;
-            lblOccupiedTableNumber.Text = table.Number.ToString();
-        }
-
-        private void UpdateWaitingTimeLabel()
-        {
-            TimeSpan waitingTime = TimeSpan.Zero;
-
-            if (_orders.Count > 0)
-            {
-                DateTime firstOrderTime = _orders.Max(o => o.OrderTime);
-                waitingTime = DateTime.Now - firstOrderTime;
-            }
-
-            lblWaitingTime.Text = waitingTime.TotalMinutes.ToString("0") + " minutes";
         }
 
         private void ChangeBarIcon(Order order)
@@ -180,7 +217,6 @@ namespace ChapeauUI
 
         private void ChangeKitchenIcon(Order order)
         {
-
             if (order.Status == OrderStatus.Preparing)
             {
                 KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("PreparingKitchenIcon");
@@ -188,6 +224,19 @@ namespace ChapeauUI
             else if (order.Status == OrderStatus.Ready)
             {
                 KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("ReadyKitchenIcon");
+            }
+        }
+
+        private void ServeTable(Table table)
+        {
+            List<Order> orders = _orderService.GetOrdersByTable(table);
+
+            foreach (Order order in orders)
+            {
+                if (order.Status == OrderStatus.Ready)
+                {
+                    _orderService.ChangeOrderStatus(order, OrderStatus.Served);
+                }
             }
         }
 
@@ -201,25 +250,6 @@ namespace ChapeauUI
             ColoreTables();
             HideAllPanels();
             TablesPanel.Show();
-        }
-
-        private void btnTableServe_Click(object sender, EventArgs e)
-        {
-            ServeTable((Table)OccupiedTableImage.Tag);
-
-            HideAllPanels();
-            TablesPanel.Show();
-        }
-
-        private void ServeTable(Table table)
-        {
-            OrderService service = new OrderService();
-            List<Order> orders = _tableService.GetOrdersByTable(table);
-
-            foreach (Order order in orders)
-            {
-                service.ChangeOrderStatus(order, OrderStatus.Served);
-            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -244,28 +274,6 @@ namespace ChapeauUI
                 {
                     control.Hide();
                 }
-            }
-        }
-
-        private void OpenPanelByTableStatus(Table table)
-        {
-            HideAllPanels();
-
-            switch (table.Status)
-            {
-                case TableStatus.Occupied:
-                    OpenOccupiedTablePanel(table);
-                    break;
-                case TableStatus.Reserved:
-                    ReservedTablePanel.Show();
-                    ReservedTableImage.Tag = table;
-                    lblReservedTableNumber.Text = table.Number.ToString();
-                    break;
-                case TableStatus.Empty:
-                    FreeTablePanel.Show();
-                    FreeTableImage.Tag = table;
-                    lblFreeTableNumber.Text = table.Number.ToString();
-                    break;
             }
         }
     }

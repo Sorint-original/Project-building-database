@@ -88,6 +88,11 @@ namespace Service
         {
             orderDao.ChangeOrderStatus(order, orderStatus);
         }
+
+        public List<Order> GetOrdersByTable(Table table)
+        {
+            return orderDao.GetOrdersByTable(table);
+        }
     }
 
 }
