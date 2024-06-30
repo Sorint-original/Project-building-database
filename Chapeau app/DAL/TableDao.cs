@@ -133,19 +133,6 @@ public class TableDao : BaseDao
         return tables;
 
     }
-
-    public List<Order> GetOrdersByTable(Table table)
-    {
-        string query = "SELECT o.* FROM [ORDER] o JOIN BILL b ON o.bill = b.bill_id WHERE b.table_number = @table AND o.status != 'Served' ORDER BY b.table_number";
-
-        SqlParameter[] sqlParameters = new SqlParameter[]
-        {
-            new("@table", SqlDbType.Int) {Value=table.Number}
-        };
-        OrderDao orderDao = new OrderDao();
-
-        return orderDao.ReadTables(ExecuteSelectQuery(query, sqlParameters));
-    }
 }
 
 

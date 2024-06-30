@@ -170,6 +170,12 @@ namespace Service
             orderDao.ChangeOrderStatus(order, orderStatus);
         }
 
+
+        public List<Order> GetOrdersByTable(Table table)
+        {
+            return orderDao.GetOrdersByTable(table);
+        }
+      
         public bool CompareOrderLists(List<Order> list1, List<Order> list2)
         {
             if (list1.Count == list2.Count)
@@ -206,6 +212,7 @@ namespace Service
             {
                 return false;
             }
+
         }
     }
 
