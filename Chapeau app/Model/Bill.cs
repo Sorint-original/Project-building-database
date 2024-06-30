@@ -10,7 +10,7 @@
         public string? Feedback { get; set; }
         public float Tip { get; set; }
 
-        public Bill(int billId, decimal totalPrice, float vat, int guestNumber, int table, string feedback, float tip) // Add 'Model.' to match the accessibility
+        public Bill(int billId, decimal totalPrice, float vat, int guestNumber, int table, string? feedback, float tip) // Add 'Model.' to match the accessibility
         {
             Id = billId;
             TotalPrice = totalPrice;
