@@ -227,8 +227,7 @@ namespace ChapeauUI
             int selectedTable = int.Parse(lblTableNr.Text);
             int billId = GetOrCreateBillId(selectedTable);
             int preparationTime = CountPreparationTime();
-            int orderId = CreateOrder(billId, preparationTime);
-            AddOrderItems(orderId);
+            CreateOrder(billId, preparationTime);
 
             ClearElements();
             RefreshPannels();
@@ -267,33 +266,36 @@ namespace ChapeauUI
         private int CreateNewEmptyBill(int selectedTable, int guestNumber)
         {
             int billId = billService.GetNextBillId();
-            billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, " ", 0));
+            billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, null, 0));
             return billId;
         }
 
-        private int CreateOrder(int billId, int preparationTime)
+        private void CreateOrder(int billId, int preparationTime)
         {
             int orderId = orderService.GetNextOrderId();
             int employeeId = employeeService.GetIdByRole("waiter");
-            orderService.AddOrder(new Order(orderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeId, ""));
-            return orderId;
+            Order order = new Order(orderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeId, null);
+            order.Items = AddOrderItems(orderId);
+            orderService.AddOrder(order);
         }
 
-        private void AddOrderItems(int orderId)
+        private List<OrderItem> AddOrderItems(int orderId)
         {
+            List<OrderItem> items = new List<OrderItem>();
+
             foreach (ListViewItem item in listVOrder.Items)
             {
                 OrderItem orderitem = (OrderItem)item.Tag;
-
                 int itemId = orderitem.MenuItemID;
                 int amount = orderitem.Amount;
                 int menuItemId = orderitem.MenuItemID;
                 OrderStatus status = orderitem.Status;
                 string comment = orderitem.Comment == null ? "" : orderitem.Comment;
-
                 orderItemService.RefreshOrderItemStock(itemId, amount);
-                orderItemService.AddOrderItem(new OrderItem(orderId, menuItemId, amount, status, comment));
+                items.Add(new OrderItem(orderId, menuItemId, amount, status, comment));
             }
+
+            return items;
         }
 
         private int CountPreparationTime()

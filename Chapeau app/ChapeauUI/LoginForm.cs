@@ -50,10 +50,10 @@ namespace ChapeauUI
                     form = new RestaurantOverviewForm();
                     break;
                 case Role.Barman:
-                    form = new BarOrders();
+                    form = new OrderOverview();
                     break;
                 case Role.Chef:
-                    form = new KitchenOrders();
+                    form = new OrderOverview();
                     break;
                 default:
                     form = new Form();
