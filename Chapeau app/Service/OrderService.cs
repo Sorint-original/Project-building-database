@@ -182,38 +182,19 @@ namespace Service
             {
                 for (int i = 0; i < list1.Count; i++)
                 {
-                    if (CompareOrders(list1[i], list2[i]) == false)
-                    {
-                        return true;
-                    }
-                }
-            }
-            else
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool CompareOrders(Order order1, Order order2)
-        {
-            if (order1.Compare(order2))
-            {
-                for (int i = 0; i < order1.Items.Count; i++)
-                {
-                    if (order1.Items[i].Compare(order2.Items[i]) == false)
+                    if (list1[i].Compare( list2[i]) == false)
                     {
                         return false;
                     }
                 }
-                return true;
             }
             else
             {
                 return false;
             }
-
+            return true;
         }
+
     }
 
 }

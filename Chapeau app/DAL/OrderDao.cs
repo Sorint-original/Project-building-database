@@ -71,30 +71,32 @@ namespace DAL
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                OrderStatus status = new OrderStatus();
-                string tablestatus = (string)dr["status"];
-                if (tablestatus == "Preparing")
-                {
-                    status = OrderStatus.Preparing;
-                }
-                else if (tablestatus == "Ready")
-                {
-                    status = OrderStatus.Ready;
-                }
-                else if(tablestatus == "Served")
-                {
-                    status = OrderStatus.Served;
-                }
-                else
-                {
-                    status = OrderStatus.Placed;
-                }
-                Order order = new Order((int)dr["order_id"], (DateTime)dr["order_time"], (int)dr["preparation_time"], status, (int)dr["bill"],(int)dr["employee"], (string)dr["preparation_location"]);
+                Order order = new Order((int)dr["order_id"], (DateTime)dr["order_time"], (int)dr["preparation_time"], GetStatus((string)dr["status"]), (int)dr["bill"],(int)dr["employee"], (string)dr["preparation_location"]);
                 list.Add(order);
             }
 
             return list;
 
+        }
+
+        OrderStatus GetStatus(string stringStatus)
+        {
+            if (stringStatus == "Preparing")
+            {
+                return OrderStatus.Preparing;
+            }
+            else if (stringStatus == "Ready")
+            {
+                return OrderStatus.Ready;
+            }
+            else if (stringStatus == "Served")
+            {
+                return OrderStatus.Served;
+            }
+            else
+            {
+                return OrderStatus.Placed;
+            }
         }
 
         public void Delete(int order_id)

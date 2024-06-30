@@ -123,7 +123,7 @@ namespace ChapeauUI
         private bool UpdateExistingOrderItem(OrderItem orderItem)
         {
             int currentQuantity = orderItem.Amount;
-            int stockQuantity = orderItemService.GetOrderItemStock(orderItem.MenuItemID);
+            int stockQuantity = menuService.GetMenuItemStock(orderItem.MenuItemID);
 
             if (currentQuantity >= stockQuantity)
             {
@@ -289,7 +289,7 @@ namespace ChapeauUI
                 int menuItemId = orderitem.MenuItemID;
                 OrderStatus status = orderitem.Status;
                 string comment = orderitem.Comment;
-                orderItemService.RefreshOrderItemStock(itemId, amount);
+                menuService.RefreshMenuItemStock(itemId, amount);
                 items.Add(new OrderItem(orderId, menuItemId, amount, status, comment));
             }
 

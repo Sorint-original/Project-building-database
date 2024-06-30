@@ -30,27 +30,7 @@ namespace DAL
 
             foreach (DataRow dr in dataTable.Rows)
             {
-
-                OrderStatus status = new OrderStatus();
-                string tablestatus = (string)dr["status"];
                 string comment;
-                if(tablestatus == "Preparing")
-                {
-                    status = OrderStatus.Preparing;
-                }
-                else if(tablestatus =="Ready")
-                {
-                    status = OrderStatus.Ready;
-                }
-                else if (tablestatus == "Served")
-                {
-                    status = OrderStatus.Served;
-                }
-                else
-                {
-                    status = OrderStatus.Placed;
-                }
-
                 try
                 {
                     comment = (string)dr["comment"];
@@ -59,11 +39,31 @@ namespace DAL
                 {
                     comment = null;
                 }
-                OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"], status, comment);
+                OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"], GetStatus((string)dr["status"]), comment);
                 list.Add(item);
             }
 
             return list;
+        }
+
+        OrderStatus GetStatus(string stringStatus)
+        {
+            if (stringStatus == "Preparing")
+            {
+                return OrderStatus.Preparing;
+            }
+            else if (stringStatus == "Ready")
+            {
+                return OrderStatus.Ready;
+            }
+            else if (stringStatus == "Served")
+            {
+                return OrderStatus.Served;
+            }
+            else
+            {
+                return OrderStatus.Placed;
+            }
         }
 
         public void DeleteByOrder(int order_id)
@@ -95,29 +95,6 @@ namespace DAL
 
             ExecuteEditQuery(command, sqlParameters);
         }
-
-        public int GetOrderItemStock(int id)
-        {
-            string query = "SELECT stock FROM MENU_ITEM WHERE [item_id] = @id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
-            {
-            new SqlParameter("@id", id)
-            };
-            DataTable data = ExecuteSelectQuery(query, sqlParameters);
-            return Convert.ToInt32(data.Rows[0][0]);
-        }
-
-        public void RefreshOrderItemStock(int id, int amount)
-        {
-            string query = "UPDATE MENU_ITEM SET stock = stock - @amount WHERE [item_id] = @id";
-            SqlParameter[] sqlParameters = new SqlParameter[]
-            {
-                new SqlParameter("@id", id),
-                new SqlParameter("@amount", amount)
-            };
-            ExecuteEditQuery(query, sqlParameters);
-        }
-
     
     }
 

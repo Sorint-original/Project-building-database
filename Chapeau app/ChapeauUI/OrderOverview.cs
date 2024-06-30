@@ -30,6 +30,7 @@ namespace ChapeauUI
         private string place;
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern int SetScrollPos(IntPtr hWnd, int nBar, int nPos, bool bRedraw);
+
         public OrderOverview()
         {
             InitializeComponent();
@@ -117,7 +118,7 @@ namespace ChapeauUI
         void UpdateOrders()
         {
             List<Order> orders = GetOrders(); 
-            if (orderService.CompareOrderLists(orders, CurrentOrders))
+            if (orderService.CompareOrderLists(orders, CurrentOrders)== false)
             {
                 CurrentOrders = orders;
                 OrderTreeView.Nodes.Clear();
@@ -205,7 +206,7 @@ namespace ChapeauUI
                         categorynodes[j] = new TreeNode(OrderItemText(lists[i][j]));
                         categorynodes[j].Tag = lists[i][j];
                     }
-                    TreeNode Category = new TreeNode(FoodName(i), categorynodes);
+                    TreeNode Category = new TreeNode(FoodCategoryText(i), categorynodes);
                     nodes[currentNode] = Category;
                     currentNode++;
                 }
@@ -214,7 +215,7 @@ namespace ChapeauUI
         }
 
 
-        string FoodName(int type)
+        string FoodCategoryText(int type)
         {
             // 0 = Starter, 1 = Main, 2 = Dessert;
             if(type == 0)
@@ -356,15 +357,7 @@ namespace ChapeauUI
         void ChangeTreeOrderItem(TreeNode SelectedNode)
         {
             OrderItem item = (OrderItem)SelectedNode.Tag;
-            TreeNode OrderNode;
-            if (place == "Kitchen")
-            {
-                OrderNode = SelectedNode.Parent.Parent;
-            }
-            else
-            {
-                OrderNode = SelectedNode.Parent;
-            }
+            TreeNode OrderNode = GetParentOrder(SelectedNode);      
             Order order = (Order)OrderNode.Tag;
             int itemIndex = order.Items.IndexOf(item), orderIndex = CurrentOrders.IndexOf(order);
 
@@ -377,6 +370,18 @@ namespace ChapeauUI
             CurrentOrders[orderIndex] = order;
             OrderNode.Text = OrderText(order);
             orderService.UpdateOrder(order);
+        }
+
+        TreeNode GetParentOrder(TreeNode SelectedNode)
+        {
+            if (place == "Kitchen")
+            {
+                 return SelectedNode.Parent.Parent;
+            }
+            else
+            {
+                return SelectedNode.Parent;
+            }
         }
 
 

@@ -31,25 +31,6 @@ namespace Model
             PreparationLocation= PrepLocation;
         }
 
-        public bool Compare(Order other)
-        {
-            if (this.Id == other.Id &&
-                this.OrderTime == other.OrderTime &&
-                this.PreparationTime == other.PreparationTime &&
-                this.Status == other.Status &&
-                this.BillID == other.BillID &&
-                this.EmployeeID == other.EmployeeID &&
-                this.Items.Count == other.Items.Count)
-            {
-                return true;
-            }
-            else
-            {
-                return false; 
-            }
-
-        }
-
         public void UpdateOrderWaitTime()
         {
             int waiting = 0;
@@ -82,6 +63,41 @@ namespace Model
             }
            
          
+        }
+
+        public bool Compare(Order other)
+        {
+            if (this.Id == other.Id &&
+                this.OrderTime == other.OrderTime &&
+                this.PreparationTime == other.PreparationTime &&
+                this.Status == other.Status &&
+                this.BillID == other.BillID &&
+                this.EmployeeID == other.EmployeeID &&
+                this.Items.Count == other.Items.Count)
+            {
+                if (CompareItems(other))
+                {
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        bool CompareItems(Order other)
+        {
+            for (int i = 0; i < this.Items.Count; i++)
+            {
+                if (this.Items[i].Compare(other.Items[i]) == false)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
     }
