@@ -23,11 +23,11 @@ namespace ChapeauUI
         private EmployeeService employeeService = new EmployeeService();
         private List<OrderItem> orderitems;
         private int orderId;
-        private Table _table;
+        private Table table;
 
         public OrderingForm(Table table)
         {
-            _table = table;
+            this.table = table;
             orderitems = new List<OrderItem>();
             orderId = orderService.GetNextOrderId();
             InitializeComponent();
@@ -39,6 +39,7 @@ namespace ChapeauUI
         private void InitializeComboBoxes()
         {
             comboBoxGuests.DropDownStyle = ComboBoxStyle.DropDownList;
+            lblTableNr.Text = table.Number.ToString();
         }
 
         private void SetupListViewMouseEvents()
@@ -53,14 +54,14 @@ namespace ChapeauUI
             }
         }
 
-        private void ShowMenu(MenuType menuType, string[] parts, ListView[] listViews)
+        private void ShowMenu(MenuType menuType, MenuCategory[] parts, ListView[] listViews)
         {
             HideAll();
             ShowMenuPanels(menuType);
 
             for (int i = 0; i < parts.Length; i++)
             {
-                var menuItems = menuService.GetPartMenu((int)menuType, parts[i]);
+                var menuItems = menuService.GetPartMenu((int)menuType, parts[i].ToString());
                 ShowMenuPart(menuItems, listViews[i]);
             }
         }
@@ -226,8 +227,7 @@ namespace ChapeauUI
             int selectedTable = int.Parse(lblTableNr.Text);
             int billId = GetOrCreateBillId(selectedTable);
             int preparationTime = CountPreparationTime();
-            int orderId = CreateOrder(billId, preparationTime);
-            AddOrderItems(orderId);
+            CreateOrder(billId, preparationTime);
 
             ClearElements();
             RefreshPannels();
@@ -266,33 +266,36 @@ namespace ChapeauUI
         private int CreateNewEmptyBill(int selectedTable, int guestNumber)
         {
             int billId = billService.GetNextBillId();
-            billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, " ", 0));
+            billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, null, 0));
             return billId;
         }
 
-        private int CreateOrder(int billId, int preparationTime)
+        private void CreateOrder(int billId, int preparationTime)
         {
             int orderId = orderService.GetNextOrderId();
             int employeeId = employeeService.GetIdByRole("waiter");
-            orderService.AddOrder(new Order(orderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeId));
-            return orderId;
+            Order order = new Order(orderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeId, null);
+            order.Items = AddOrderItems(orderId);
+            orderService.AddOrder(order);
         }
 
-        private void AddOrderItems(int orderId)
+        private List<OrderItem> AddOrderItems(int orderId)
         {
+            List<OrderItem> items = new List<OrderItem>();
+
             foreach (ListViewItem item in listVOrder.Items)
             {
                 OrderItem orderitem = (OrderItem)item.Tag;
-
                 int itemId = orderitem.MenuItemID;
                 int amount = orderitem.Amount;
                 int menuItemId = orderitem.MenuItemID;
                 OrderStatus status = orderitem.Status;
-                string comment = orderitem.Comment;
-
+                string comment = orderitem.Comment == null ? "" : orderitem.Comment;
                 orderItemService.RefreshOrderItemStock(itemId, amount);
-                orderItemService.AddOrderItem(new OrderItem(orderId, menuItemId, amount, status, comment));
+                items.Add(new OrderItem(orderId, menuItemId, amount, status, comment));
             }
+
+            return items;
         }
 
         private int CountPreparationTime()
@@ -307,7 +310,7 @@ namespace ChapeauUI
 
         private void RefreshPannels()
         {
-            ShowMenu(MenuType.Lunch, new string[] { "Starter", "Main", "Dessert" }, new ListView[] { listVStartersLunch, listVMainsLunch, listVDessertsLunch });
+            ShowMenu(MenuType.Lunch, new MenuCategory[] { MenuCategory.Starter, MenuCategory.Main, MenuCategory.Dessert }, new ListView[] { listVStartersLunch, listVMainsLunch, listVDessertsLunch });
         }
 
         private void ClearElements()
@@ -320,17 +323,17 @@ namespace ChapeauUI
 
         private void btnLunchM_Click(object sender, EventArgs e)
         {
-            ShowMenu(MenuType.Lunch, new string[] { "Starter", "Main", "Dessert" }, new ListView[] { listVStartersLunch, listVMainsLunch, listVDessertsLunch });
+            ShowMenu(MenuType.Lunch, new MenuCategory[] { MenuCategory.Starter, MenuCategory.Main, MenuCategory.Dessert }, new ListView[] { listVStartersLunch, listVMainsLunch, listVDessertsLunch });
         }
 
         private void btnDinnerM_Click(object sender, EventArgs e)
         {
-            ShowMenu(MenuType.Dinner, new string[] { "Starter", "Main", "Entremet", "Dessert" }, new ListView[] { listVStartersDinner, listVMainsDinner, listVEntremetsDinner, listVDessertsDinner });
+            ShowMenu(MenuType.Dinner, new MenuCategory[] { MenuCategory.Starter, MenuCategory.Main, MenuCategory.Entremet, MenuCategory.Dessert }, new ListView[] { listVStartersDinner, listVMainsDinner, listVEntremetsDinner, listVDessertsDinner });
         }
 
         private void btnDrinksM_Click(object sender, EventArgs e)
         {
-            ShowMenu(MenuType.Drinks, new string[] { "Soft Drink", "Beer", "Wine", "Spirit Drink", "Coffee / Tea" }, new ListView[] { listVSoftDrinks, listVSpirit, listVBeers, listVWines, listVCoffee });
+            ShowMenu(MenuType.Drinks, new MenuCategory[] { MenuCategory.SoftDrink, MenuCategory.Beer, MenuCategory.Wine, MenuCategory.SpiritDrink, MenuCategory.Coffee }, new ListView[] { listVSoftDrinks, listVSpirit, listVBeers, listVWines, listVCoffee });
         }
 
         private void btnAddCom_Click(object sender, EventArgs e)
