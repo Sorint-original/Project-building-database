@@ -110,7 +110,7 @@ namespace ChapeauUI
 
             if (existingOrderItem == null)
             {
-                orderitems.Add(new OrderItem(orderId, menuItem.Id, 1, OrderStatus.Placed));
+                orderitems.Add(new OrderItem(orderId, menuItem.Id, 1, OrderStatus.Placed, null));
             }
             else
             {
@@ -178,7 +178,6 @@ namespace ChapeauUI
                 OrderItem orderItem = (OrderItem)selectedItem.Tag;
 
                 UpdateExistingOrderItem(orderItem);
-                selectedItem.SubItems[3].Text = orderItem.Amount.ToString();
                 DisplayOrderItems(orderitems);
             }
             else
@@ -208,7 +207,6 @@ namespace ChapeauUI
             if (orderItem.Amount > 1)
             {
                 orderItem.Amount--;
-                selectedItem.SubItems[3].Text = orderItem.Amount.ToString();
             }
             else
             {
@@ -290,7 +288,7 @@ namespace ChapeauUI
                 int amount = orderitem.Amount;
                 int menuItemId = orderitem.MenuItemID;
                 OrderStatus status = orderitem.Status;
-                string comment = orderitem.Comment == null ? "" : orderitem.Comment;
+                string comment = orderitem.Comment;
                 orderItemService.RefreshOrderItemStock(itemId, amount);
                 items.Add(new OrderItem(orderId, menuItemId, amount, status, comment));
             }

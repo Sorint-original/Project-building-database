@@ -73,7 +73,15 @@ namespace DAL
             sqlParameters[1] = new SqlParameter("@menu_item", item.MenuItemID);
             sqlParameters[2] = new SqlParameter("@amount", item.Amount);
             sqlParameters[3] = new SqlParameter("@status", item.Status.ToString());
-            sqlParameters[4] = new SqlParameter("@comment", item.Comment);
+
+            if (item.Comment != null)
+            {
+                sqlParameters[4] = new SqlParameter("@comment", item.Comment);
+            }
+            else
+            {
+                sqlParameters[4] = new SqlParameter("@comment", DBNull.Value);
+            }
 
             ExecuteEditQuery(command, sqlParameters);
         }
