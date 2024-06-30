@@ -49,9 +49,13 @@ namespace Model
             {
                 return 1;
             }
-            else
+            else if (this.AuxMenuItem.Type == "Dessert")
             {
                 return 2;
+            }
+            else
+            {
+                return 3;
             }
         }
     }

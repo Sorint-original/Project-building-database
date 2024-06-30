@@ -15,7 +15,7 @@ namespace Model
         public int BillID { get; set; }
         public int EmployeeID { get; set; }
 
-        public string PreparationLocation { get; set; }
+        public string? PreparationLocation { get; set; }
 
         public List<OrderItem> Items { get; set; }
 
@@ -72,14 +72,16 @@ namespace Model
                 itemstatues[(int)this.Items[i].Status] = true;
             }
 
-            if (this.Status != OrderStatus.Preparing && itemstatues[1] || (itemstatues[0] && this.Status == OrderStatus.Ready))  
+            if (itemstatues[0] == false && itemstatues[1] == false && itemstatues[2])
+            {
+                this.Status = OrderStatus.Ready;
+            }
+            else if (this.Status != OrderStatus.Preparing && itemstatues[1] || (itemstatues[0] && this.Status == OrderStatus.Ready) || (itemstatues[2] && this.Status == OrderStatus.Placed))  
             {
                 this.Status = OrderStatus.Preparing;
             }
-            else if (itemstatues[0] == false && itemstatues[1] == false && itemstatues[2])
-            { 
-                this.Status = OrderStatus.Ready;
-            }
+           
+         
         }
 
     }

@@ -356,7 +356,15 @@ namespace ChapeauUI
         void ChangeTreeOrderItem(TreeNode SelectedNode)
         {
             OrderItem item = (OrderItem)SelectedNode.Tag;
-            TreeNode OrderNode = SelectedNode.Parent.Parent;
+            TreeNode OrderNode;
+            if (place == "Kitchen")
+            {
+                OrderNode = SelectedNode.Parent.Parent;
+            }
+            else
+            {
+                OrderNode = SelectedNode.Parent;
+            }
             Order order = (Order)OrderNode.Tag;
             int itemIndex = order.Items.IndexOf(item), orderIndex = CurrentOrders.IndexOf(order);
 
