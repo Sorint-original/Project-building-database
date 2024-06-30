@@ -88,6 +88,7 @@ public class BillDao : BaseDao
         {
             float vat;
             float tip;
+            string feedback;
             try
             {
                 tip = (float)dr["tip_amount"];
@@ -104,13 +105,21 @@ public class BillDao : BaseDao
             {
                 vat = 0;
             }
-            Bill bill = new Bill(
+            try
+            {
+                feedback = (string)dr["feedback"];
+            }
+            catch
+            {
+                feedback = null;
+            }
+                Bill bill = new Bill(
                 (int)dr["bill_id"],
                 (decimal)dr["total_price"],
                 vat,
                 (int)dr["guest_number"],
                 (int)dr["table_number"],
-                (string)dr["feedback"],
+                feedback,
                 tip
             ); 
 

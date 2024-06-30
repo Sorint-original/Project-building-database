@@ -33,6 +33,7 @@ namespace DAL
 
                 OrderStatus status = new OrderStatus();
                 string tablestatus = (string)dr["status"];
+                string comment;
                 if(tablestatus == "Preparing")
                 {
                     status = OrderStatus.Preparing;
@@ -49,7 +50,16 @@ namespace DAL
                 {
                     status = OrderStatus.Placed;
                 }
-                OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"], status, (string)dr["comment"]);
+
+                try
+                {
+                    comment = (string)dr["comment"];
+                }
+                catch
+                {
+                    comment = null;
+                }
+                OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"], status, comment);
                 list.Add(item);
             }
 
