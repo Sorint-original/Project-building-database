@@ -33,16 +33,6 @@ namespace Service
             orderItemDao.AddOrderItem(item);
         }
 
-        public int GetOrderItemStock(int id)
-        {
-            return orderItemDao.GetOrderItemStock(id);
-        }
-
-        public void RefreshOrderItemStock(int id, int amount)
-        { 
-           orderItemDao.RefreshOrderItemStock(id, amount);
-        }
-
-       
+      
     }
 }

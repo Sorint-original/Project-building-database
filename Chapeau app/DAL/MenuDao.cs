@@ -113,5 +113,28 @@ namespace DAL
             DataTable dataTable = ExecuteSelectQuery(query, parameters);
             return Convert.ToInt32(dataTable.Rows[0]["preparation_time"]);
         }
+
+        public int GetMenuItemStock(int id)
+        {
+            string query = "SELECT stock FROM MENU_ITEM WHERE [item_id] = @id";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+            new SqlParameter("@id", id)
+            };
+            DataTable data = ExecuteSelectQuery(query, sqlParameters);
+            return Convert.ToInt32(data.Rows[0][0]);
+        }
+
+        public void RefreshMenuItemStock(int id, int amount)
+        {
+            string query = "UPDATE MENU_ITEM SET stock = stock - @amount WHERE [item_id] = @id";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@id", id),
+                new SqlParameter("@amount", amount)
+            };
+            ExecuteEditQuery(query, sqlParameters);
+        }
+
     }
 }
