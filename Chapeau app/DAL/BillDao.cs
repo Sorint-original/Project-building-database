@@ -113,7 +113,7 @@ public class BillDao : BaseDao
             {
                 feedback = null;
             }
-                Bill bill = new Bill(
+            Bill bill = new Bill(
                 (int)dr["bill_id"],
                 (decimal)dr["total_price"],
                 vat,
