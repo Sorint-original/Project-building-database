@@ -62,17 +62,7 @@ namespace DAL
             }
 
         }
-public List<Order> GetOrdersForBill(int bill_id)
-        {
-            string query;
-            query = "SELECT order_id,order_time,preparation_time,status,employee,bill,preparation_location FROM [ORDER] WHERE bill = @bill_id ORDER BY order_time ";
 
-            SqlParameter[] sqlParameters = new SqlParameter[1];
-            sqlParameters[0] = new SqlParameter("@bill_id", bill_id);
-
-            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
-
-        }
 
 
         public List<Order> ReadTables(DataTable dataTable)

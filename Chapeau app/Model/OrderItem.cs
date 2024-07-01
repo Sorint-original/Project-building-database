@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 namespace Model
 {
     public class OrderItem
@@ -11,9 +12,8 @@ namespace Model
         public int MenuItemID { get; set; }
         public int Amount { get; set; } 
         public OrderStatus Status { get; set; }
-        public string? Comment {  get; set; }
+        public string Comment {  get; set; }
         public MenuItem AuxMenuItem { get; set; }
-        
 
         public OrderItem(int orderId,int menuItem,int amount,OrderStatus status,string comment = null) 
         { 

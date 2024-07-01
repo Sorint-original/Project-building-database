@@ -20,13 +20,12 @@ namespace DAL
 
         public void AddSubBill(SubBill subBill)
         {
-            string query = "INSERT INTO SUB_BILL (sub_bill_id, total_price, vat, bill, tip_amount) VALUES (@subBillId, @totalPrice, @vat, @bill, @tipAmount)";
+            string query = "INSERT INTO SUB_BILL (sub_bill_id, total_price, vat, bill) VALUES (@subBillId, @totalPrice, @vat, @bill)";
             SqlParameter[] sqlParameters = new SqlParameter[4];
             sqlParameters[0] = new SqlParameter("@subBillId", subBill.Id);
             sqlParameters[1] = new SqlParameter("@totalPrice", subBill.TotalPrice);
             sqlParameters[2] = new SqlParameter("@vat", subBill.Vat);
             sqlParameters[3] = new SqlParameter("@bill", subBill.BillId);
-            sqlParameters[4] = new SqlParameter("@tipAmount", subBill.TipAmount);
 
             ExecuteEditQuery(query, sqlParameters);
         }
@@ -74,18 +73,10 @@ namespace DAL
                     TotalPrice = (decimal)dr["total_price"],
                     Vat = (float)dr["vat"],
                     BillId = (int)dr["bill"]
-
                 };
                 subBills.Add(subBill);
             }
             return subBills;
-        }
-
-        public int GetLastSubBillId()
-        {
-            string query = "SELECT MAX(sub_bill_id) FROM SUB_BILL";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
-            return ExecuteCountQuery(query, sqlParameters);
         }
     }
 }

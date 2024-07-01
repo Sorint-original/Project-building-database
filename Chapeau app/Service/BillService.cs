@@ -106,27 +106,5 @@ namespace Service
         {
             return _billDao.GetNextBillId();
         }
-
-    public Bill GetBillByTable(int tableNumber)
-    {
-        return _billDao.GetBillByTable(tableNumber);
-    
     }
-
-    public List<int> GetUniqueTableNumberForUnpaidBills()
-    {
-        return _billDao.GetUniqueTableNumberForUnpaidBills();
-    }
-
-    public void UpdatePaidStatus(int billId)
-    {
-        _billDao.UpdatePaidStatus(billId);
-    }
-
-    public void UpdateBill(Bill bill)
-    {
-        _billDao.UpdateBill(bill);
-    }
-}
-
 }

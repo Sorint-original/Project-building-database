@@ -15,19 +15,5 @@ namespace Model
         public decimal Vat {  get; set; }
         public decimal Price { get; set; }
         public int PreparationTime { get; set; }
-
-     /*    public MenuItem(int id, string name, string type, int stock, decimal vat, decimal price, int preparationTime)
-        {
-            Id = id;
-            Name = name;
-            Type = type;
-            Stock = stock;
-            Vat = vat;
-            Price = price;
-            PreparationTime = preparationTime;
-        } */
     }
-
-    
-
 }

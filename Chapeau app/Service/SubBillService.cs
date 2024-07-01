@@ -75,19 +75,7 @@ namespace Service
             catch (Exception ex)
             {
                 
-                throw new Exception($"Asn error occurred while retrieving sub-bills for the bill with ID {billId}.", ex);
-            }
-        }
-        public int GetLastSubBillId()
-        {
-            try
-            {
-                return _subBillDao.GetLastSubBillId();
-            }
-            catch (Exception ex)
-            {
-                
-                throw new Exception("An error occurred while retrieving the last sub-bill ID.", ex);
+                throw new Exception($"An error occurred while retrieving sub-bills for the bill with ID {billId}.", ex);
             }
         }
     }
