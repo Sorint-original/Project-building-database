@@ -10,21 +10,27 @@ public class BillDao : BaseDao
 {
     public void AddBill(Bill bill)
     {
-
         string query = "INSERT INTO BILL (bill_id, total_price, vat, guest_number, table_number, feedback, tip_amount, paid) " +
                        "VALUES (@bill_id, @total_price, @vat, @guest_number, @table_number, @feedback, @tip_amount, 0)";
-        SqlParameter[] sqlParameters = new SqlParameter[]
-        {
-            new SqlParameter("@bill_id", bill.Id),
-            new SqlParameter("@total_price", bill.TotalPrice),
-            new SqlParameter("@vat", bill.Vat),
-            new SqlParameter("@guest_number", bill.GuestNumber),
-            new SqlParameter("@table_number", bill.Table),
-            new SqlParameter("@feedback", bill.Feedback),
-            new SqlParameter("@tip_amount", bill.Tip)
-        };
 
-        ExecuteEditQuery(query, sqlParameters);
+        List<SqlParameter> sqlParameters = new List<SqlParameter>();
+        sqlParameters.Add(new SqlParameter("@bill_id", bill.Id));
+        sqlParameters.Add(new SqlParameter("@total_price", bill.TotalPrice));
+        sqlParameters.Add(new SqlParameter("@vat", bill.Vat));
+        sqlParameters.Add(new SqlParameter("@guest_number", bill.GuestNumber));
+        sqlParameters.Add(new SqlParameter("@table_number", bill.Table));
+        sqlParameters.Add(new SqlParameter("@tip_amount", bill.Tip));
+
+        if (bill.Feedback != null)
+        {
+            sqlParameters.Add(new SqlParameter("@feedback", bill.Feedback));
+        }
+        else
+        {
+            sqlParameters.Add(new SqlParameter("@feedback", DBNull.Value));
+        }
+
+        ExecuteEditQuery(query, sqlParameters.ToArray());
     }
 
     public Bill GetBill(int id)
@@ -109,7 +115,7 @@ public class BillDao : BaseDao
         {
             float vat;
             float tip;
-           
+            string feedback;
             try
             {
                 tip = (float)dr["tip_amount"];
@@ -126,16 +132,22 @@ public class BillDao : BaseDao
             {
                 vat = 0;
             }
-          
+            try
+            {
+                feedback = (string)dr["feedback"];
+            }
+            catch
+            {
+                feedback = null;
+            }
             Bill bill = new Bill(
                 (int)dr["bill_id"],
                 (decimal)dr["total_price"],
                 vat,
                 (int)dr["guest_number"],
                 (int)dr["table_number"],
-                (string)dr["feedback"],
-                tip,
-               (bool)dr["paid"]
+                feedback,
+                tip
             ); 
 
             bills.Add(bill);
