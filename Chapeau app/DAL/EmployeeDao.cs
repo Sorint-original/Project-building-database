@@ -13,7 +13,7 @@ namespace DAL
     {
         public Employee GetEmployee(int id, string password)
         {
-            string query = "SELECT * FROM EMPLOYEE WHERE id = @id AND password = @password";
+            string query = "SELECT id, role, first_name, last_name, date_of_birth, password FROM EMPLOYEE WHERE id = @id AND password = @password";
 
             SqlParameter[] parameters = new SqlParameter[]
             {

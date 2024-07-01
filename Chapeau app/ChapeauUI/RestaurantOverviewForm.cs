@@ -36,8 +36,8 @@ namespace ChapeauUI
             UpdateTimeLabel();
             UpdateWaitingTimeLabel();
 
-            //_tables = _tableService.GetAllTables();
-            //ColoreTables();
+            _tables = _tableService.GetAllTables();
+            ColoreTables();
         }
 
         private void UpdateTimeLabel()
