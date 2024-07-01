@@ -53,7 +53,7 @@ public class TableDao : BaseDao
 
     public Table GetTableById(int number)
     {
-        string query = "SELECT * FROM [TABLE]  WHERE table_number = @table_number;";
+        string query = "SELECT table_number, status, capacity FROM [TABLE]  WHERE table_number = @table_number;";
         SqlParameter[] sqlParameters = new SqlParameter[1];
 
         sqlParameters[0] = new SqlParameter("@table_number", number);
@@ -112,7 +112,7 @@ public class TableDao : BaseDao
     {
         List<Table> tables = new List<Table>();
 
-        string query = "SELECT * FROM TABLE WHERE Status =@Status;";
+        string query = "SELECT table_number, status, capacity FROM TABLE WHERE Status =@Status;";
         SqlParameter[] sqlParameters = new SqlParameter[]
         {
             new SqlParameter ("status", status),
