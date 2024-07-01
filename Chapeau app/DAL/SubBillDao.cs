@@ -21,12 +21,13 @@ namespace DAL
         public void AddSubBill(SubBill subBill)
         {
             string query = "INSERT INTO SUB_BILL (sub_bill_id, total_price, vat, bill, tip_amount) VALUES (@subBillId, @totalPrice, @vat, @bill, @tipAmount)";
-            SqlParameter[] sqlParameters = new SqlParameter[4];
+            SqlParameter[] sqlParameters = new SqlParameter[5];
             sqlParameters[0] = new SqlParameter("@subBillId", subBill.Id);
-            sqlParameters[1] = new SqlParameter("@totalPrice", subBill.TotalPrice);
-            sqlParameters[2] = new SqlParameter("@vat", subBill.Vat);
+            sqlParameters[1] = new SqlParameter("@totalPrice", decimal.Parse(subBill.TotalPrice.ToString()));
+            sqlParameters[2] = new SqlParameter("@vat", decimal.Parse(subBill.Vat.ToString()));
             sqlParameters[3] = new SqlParameter("@bill", subBill.BillId);
             sqlParameters[4] = new SqlParameter("@tipAmount", subBill.TipAmount);
+
 
             ExecuteEditQuery(query, sqlParameters);
         }
@@ -68,14 +69,15 @@ namespace DAL
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                SubBill subBill = new SubBill()
+               /*  SubBill subBill = new SubBill()
                 {
                     Id = (int)dr["sub_bill_id"],
                     TotalPrice = (decimal)dr["total_price"],
                     Vat = (float)dr["vat"],
                     BillId = (int)dr["bill"]
 
-                };
+                }; */
+                SubBill subBill = new SubBill(int.Parse(dr["sub_bill_id"].ToString()), decimal.Parse(dr["total_price"].ToString()), float.Parse(dr["vat"].ToString()), int.Parse(dr["bill"].ToString()));
                 subBills.Add(subBill);
             }
             return subBills;
@@ -83,9 +85,18 @@ namespace DAL
 
         public int GetLastSubBillId()
         {
-            string query = "SELECT MAX(sub_bill_id) FROM SUB_BILL";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
-            return ExecuteCountQuery(query, sqlParameters);
+        string query = "SELECT MAX(sub_bill_id) FROM SUB_BILL";
+        SqlParameter[] sqlParameters = new SqlParameter[0];
+        DataTable result = ExecuteSelectQuery(query, sqlParameters);
+
+      try {  
+        int lastSubBillId = result.Rows.Count > 0 ? Convert.ToInt32(result.Rows[0][0]) : 0;
+        return lastSubBillId;
         }
+        catch { 
+            return -0;
+        };
+      
     }
+}
 }

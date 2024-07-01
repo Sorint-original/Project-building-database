@@ -70,16 +70,15 @@ namespace ChapeauUI
 
             foreach (OrderItem orderItem in orderItems)
             {
-                MenuItem menuItem = menuItemService.GetMenuItemById(orderItem.MenuItemID);
-
-                ListViewItem listViewItem = new ListViewItem(menuItem.Name);
-                listViewItem.SubItems.Add(orderItem.OrderID.ToString());
-                listViewItem.SubItems.Add(menuItem.Name.ToString());
-                listViewItem.SubItems.Add(orderItem.Amount.ToString("0.00€"));
-                listViewItem.SubItems.Add(menuItem.Price.ToString());
-                listViewItem.Tag = orderItem;
-
-                AllBillItemsList.Items.Add(listViewItem);
+                if (CheckIfOrderItemExistsInListView(orderItem, AllBillItemsList))
+                {
+                    IncreaseStockForOrderItem(orderItem, AllBillItemsList);
+                }
+                else
+                {
+                    AddOrderItem(orderItem, AllBillItemsList);
+                }
+               
             }
 
 
@@ -131,13 +130,13 @@ namespace ChapeauUI
 
         private void AddOrderItem(OrderItem orderItem, ListView listView)
         {
-
+                MenuItemService menuItemService = new MenuItemService();
            
                 ListViewItem newItem = new ListViewItem(orderItem.MenuItemID.ToString());
                 newItem.SubItems.Add(orderItem.OrderID.ToString());
                 newItem.SubItems.Add("1");
-                newItem.SubItems.Add(orderItem.Amount.ToString());
-                newItem.SubItems.Add(orderItem.AuxMenuItem.Price.ToString());
+                newItem.SubItems.Add(orderItem.Amount.ToString("0.00€"));
+                newItem.SubItems.Add(menuItemService.GetMenuItemById(orderItem.MenuItemID).Price.ToString());
                 newItem.Tag = orderItem;
                 listView.Items.Add(newItem);
             
@@ -225,8 +224,9 @@ namespace ChapeauUI
         MenuItemService menuItemService = new MenuItemService();
         foreach (OrderItem orderItem in orderItems)
         {
-            if (menuItemService.Vat  != 0)
-          {  MenuItem menuItem = menuItemService.GetMenuItemById(orderItem.MenuItemID);
+            MenuItem menuItem = menuItemService.GetMenuItemById(orderItem.MenuItemID);
+            if (menuItem.Vat  != 0)
+          { 
             vat += menuItem.Price * orderItem.Amount * (menuItem.Vat / 100);}
         }
         return vat;
@@ -236,7 +236,7 @@ namespace ChapeauUI
         BillService billService = new BillService();
         SubBillService subBillService = new SubBillService();
      
-        BillService billService = new BillService();
+      
 
        List<OrderItem> orderItems = new List<OrderItem>();
        Bill  bill = billService.GetBillByTable(Convert.ToInt32(TableNumberBox.Text));
@@ -250,12 +250,16 @@ namespace ChapeauUI
 
         decimal priceBeforeVat =    CalculatePriceForOrderItems(orderItems);
         decimal vatAmount = CalculateVatForOrderItems(orderItems);
-        decimal totalPrice = priceBeforeVat + vatAmount;
+        decimal totalPrice = priceBeforeVat + (decimal)vatAmount;
+       
 
-        decimal tipAmount = TipAmountField.Value;
+        decimal tipAmount = TipAmountField.Text == "" ? 0 : Convert.ToDecimal(TipAmountField.Text);
+
+
 
         int subBillId = subBillService.GetLastSubBillId() + 1;
-         SubBill subBill = new SubBill(subBillId, totalPrice, vat, bill.Id, menuItems, tipAmount);
+        //TODO:add list of menu items or order items to subbil to be able to display in summary window
+         SubBill subBill = new SubBill(subBillId, totalPrice, (float)vatAmount, bill.Id, tipAmount);
 
          string feedBack = FeedbackField.Text;
          billService.UpdateFeedback(bill.Id, feedBack);
@@ -316,8 +320,8 @@ namespace ChapeauUI
                 highVat += menuItem.Price * orderItem.Amount * (menuItem.Vat / 100);
             }
         }
-        LowVatField.Text = lowVat.ToString("0.00€");
-        HighVatField.Text = highVat.ToString("0.00€");
+        VatLowValue.Text = lowVat.ToString("0.00€");
+        VatHighValue.Text = highVat.ToString("0.00€");
      }
 
       private void FinalizePaymentButton_Click(object sender, EventArgs e)
@@ -330,10 +334,16 @@ namespace ChapeauUI
         private void RemoveItemButton_Click(object sender, EventArgs e)
         {
             MoveOrderItemToAllItemsList();
+            List<OrderItem> orderItems = new List<OrderItem>();
+            foreach (ListViewItem item in CurentItemsPayableList.Items)
+            {
+                OrderItem orderItem = (OrderItem)item.Tag;
+                orderItems.Add(orderItem);
+            }
             decimal priceBeforeVat = CalculatePriceForOrderItems(orderItems);
             decimal vatAmount = CalculateVatForOrderItems(orderItems);
             decimal totalPrice = priceBeforeVat + vatAmount;
-            TotalPriceField.Text = totalPrice.ToString("0.00€");
+            TotalValue.Text = totalPrice.ToString("0.00€");
             SetLowAndHighVatForSelectedOrderItems();
         }
 
@@ -342,10 +352,16 @@ namespace ChapeauUI
         private void AddItemButton_Click(object sender, EventArgs e)
         {
             MoveOrderItemToCurrentPayableList();
+            List<OrderItem> orderItems = new List<OrderItem>();
+            foreach (ListViewItem item in CurentItemsPayableList.Items)
+            {
+                OrderItem orderItem = (OrderItem)item.Tag;
+                orderItems.Add(orderItem);
+            }
             decimal priceBeforeVat = CalculatePriceForOrderItems(orderItems);
             decimal vatAmount = CalculateVatForOrderItems(orderItems);
             decimal totalPrice = priceBeforeVat + vatAmount;
-            TotalPriceField.Text = totalPrice.ToString("0.00€");
+            TotalValue.Text = totalPrice.ToString("0.00€");
             SetLowAndHighVatForSelectedOrderItems();
         }
 

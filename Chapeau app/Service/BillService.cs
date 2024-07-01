@@ -120,13 +120,10 @@ namespace Service
 
     public void UpdatePaidStatus(int billId)
     {
-        _billDao.UpdatePaidStatus(billId);
+        _billDao.UpdatePaid(billId);
     }
 
-    public void UpdateBill(Bill bill)
-    {
-        _billDao.UpdateBill(bill);
-    }
+
 }
 
 }

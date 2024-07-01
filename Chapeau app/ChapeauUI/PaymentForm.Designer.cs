@@ -140,7 +140,7 @@
             FinalizyePaymentButton.TabIndex = 5;
             FinalizyePaymentButton.Text = "Finalize Payment";
             FinalizyePaymentButton.UseVisualStyleBackColor = true;
-            FinalizyePaymentButton.Click += FinalizyePaymentButton_Click;
+            FinalizyePaymentButton.Click += FinalizePaymentButton_Click;
             // 
             // PaymentTypeBox
             // 
