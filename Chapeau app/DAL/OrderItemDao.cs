@@ -49,7 +49,8 @@ namespace DAL
                 {
                     status = OrderStatus.Placed;
                 }
-                OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"], status, (string)dr["comment"]);
+                string? comment = dr["comment"] is DBNull ? null : (string)dr["comment"];
+                OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"], status, comment);
                 list.Add(item);
             }
 
@@ -110,6 +111,8 @@ namespace DAL
             DataTable data = ExecuteSelectQuery(query, sqlParameters);
             return Convert.ToInt32(data.Rows[0][0]);
         }
+
+
     }
 
 }

@@ -84,6 +84,11 @@ namespace Service
             }
         }
 
+        public List<Order>  GetOrdersForBill(int billId)
+        {
+           return orderDao.GetOrdersForBill(billId);
+        }
+
         public void ChangeOrderStatus(Order order, OrderStatus orderStatus)
         {
             orderDao.ChangeOrderStatus(order, orderStatus);

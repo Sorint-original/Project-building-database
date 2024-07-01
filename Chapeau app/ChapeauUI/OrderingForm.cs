@@ -267,7 +267,7 @@ namespace ChapeauUI
         private int CreateNewEmptyBill(int selectedTable, int guestNumber)
         {
             int billId = billService.GetNextBillId();
-            billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, " ", 0));
+            billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, " ", 0, false));
             return billId;
         }
 
