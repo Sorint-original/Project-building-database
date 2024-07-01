@@ -130,6 +130,7 @@
             RemoveItemButton.TabIndex = 4;
             RemoveItemButton.Text = "Remove Item";
             RemoveItemButton.UseVisualStyleBackColor = true;
+            RemoveItemButton.Click += RemoveItemButton_Click;
             // 
             // FinalizyePaymentButton
             // 
@@ -139,6 +140,7 @@
             FinalizyePaymentButton.TabIndex = 5;
             FinalizyePaymentButton.Text = "Finalize Payment";
             FinalizyePaymentButton.UseVisualStyleBackColor = true;
+            FinalizyePaymentButton.Click += FinalizyePaymentButton_Click;
             // 
             // PaymentTypeBox
             // 

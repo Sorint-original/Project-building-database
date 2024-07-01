@@ -55,6 +55,25 @@ public class BillDao : BaseDao
         ExecuteEditQuery(query, sqlParameters);
     }
 
+    public void UpdatePaid(int billId)
+    {
+        // Update paid status in database
+        string query = "UPDATE Bill SET paid = 1 WHERE bill_id = @id";
+        SqlParameter[] sqlParameters = new SqlParameter[1];
+        sqlParameters[0] = new SqlParameter("@id", billId);
+        ExecuteEditQuery(query, sqlParameters);
+    }
+
+    public void UpdateTotalPrice(int billId, decimal totalPrice)
+    {
+        // Update total price in database
+        string query = "UPDATE Bill SET total_price = @total_price WHERE bill_id = @id";
+        SqlParameter[] sqlParameters = new SqlParameter[2];
+        sqlParameters[0] = new SqlParameter("@total_price", totalPrice);
+        sqlParameters[1] = new SqlParameter("@id", billId);
+        ExecuteEditQuery(query, sqlParameters);
+    }
+
     public void UpdateTip(int billId, float tip)
     {
         // Update tip in database

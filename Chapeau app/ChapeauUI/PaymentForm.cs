@@ -14,6 +14,7 @@ namespace ChapeauUI
 {
     public partial class PaymentForm : Form
     {
+    
         public PaymentForm()
         {
             InitializeComponent();
@@ -206,6 +207,64 @@ namespace ChapeauUI
         
     }
 
+    private  decimal CalculatePriceForOrderItems(List<OrderItem> orderItems)
+    {
+        decimal totalPrice = 0;
+        MenuItemService menuItemService = new MenuItemService();
+        foreach (OrderItem orderItem in orderItems)
+        {
+            MenuItem menuItem = menuItemService.GetMenuItemById(orderItem.MenuItemID);
+            totalPrice += menuItem.Price * orderItem.Amount;
+        }
+        return totalPrice;
+    }
+
+    private decimal CalculateVatForOrderItems(List<OrderItem> orderItems)
+    {
+        decimal vat = 0;
+        MenuItemService menuItemService = new MenuItemService();
+        foreach (OrderItem orderItem in orderItems)
+        {
+            if (menuItemService.Vat  != 0)
+          {  MenuItem menuItem = menuItemService.GetMenuItemById(orderItem.MenuItemID);
+            vat += menuItem.Price * orderItem.Amount * (menuItem.Vat / 100);}
+        }
+        return vat;
+    }
+
+    private void FinalizePayment()  {
+        BillService billService = new BillService();
+        SubBillService subBillService = new SubBillService();
+     
+        BillService billService = new BillService();
+
+       List<OrderItem> orderItems = new List<OrderItem>();
+       Bill  bill = billService.GetBillByTable(Convert.ToInt32(TableNumberBox.Text));
+      
+       
+
+        foreach (ListViewItem item in CurentItemsPayableList.Items) {
+            OrderItem orderItem = (OrderItem)item.Tag;
+            orderItems.Add(orderItem);
+        }
+
+        decimal priceBeforeVat =    CalculatePriceForOrderItems(orderItems);
+        decimal vatAmount = CalculateVatForOrderItems(orderItems);
+        decimal totalPrice = priceBeforeVat + vatAmount;
+
+        decimal tipAmount = TipAmountField.Value;
+
+        int subBillId = subBillService.GetLastSubBillId() + 1;
+         SubBill subBill = new SubBill(subBillId, totalPrice, vat, bill.Id, menuItems, tipAmount);
+
+         string feedBack = FeedbackField.Text;
+         billService.UpdateFeedback(bill.Id, feedBack);
+
+        subBillService.AddSubBill(subBill);
+
+    CurentItemsPayableList.Items.Clear();
+    }
+
     private void MoveOrderItemToAllItemsList()
      {
 
@@ -240,15 +299,54 @@ namespace ChapeauUI
      }
      }
 
+     private void SetLowAndHighVatForSelectedOrderItems() {
+        decimal lowVat = 0;
+        decimal highVat = 0;
+        MenuItemService menuItemService = new MenuItemService();
+        foreach (ListViewItem item in CurentItemsPayableList.Items)
+        {
+            OrderItem orderItem = (OrderItem)item.Tag;
+            MenuItem menuItem = menuItemService.GetMenuItemById(orderItem.MenuItemID);
+            if (menuItem.Vat == 9)
+            {
+                lowVat += menuItem.Price * orderItem.Amount * (menuItem.Vat / 100);
+            }
+            if (menuItem.Vat == 21)
+            {
+                highVat += menuItem.Price * orderItem.Amount * (menuItem.Vat / 100);
+            }
+        }
+        LowVatField.Text = lowVat.ToString("0.00€");
+        HighVatField.Text = highVat.ToString("0.00€");
+     }
+
+      private void FinalizePaymentButton_Click(object sender, EventArgs e)
+        {
+            FinalizePayment();
+        }
+
    
 
-  
+        private void RemoveItemButton_Click(object sender, EventArgs e)
+        {
+            MoveOrderItemToAllItemsList();
+            decimal priceBeforeVat = CalculatePriceForOrderItems(orderItems);
+            decimal vatAmount = CalculateVatForOrderItems(orderItems);
+            decimal totalPrice = priceBeforeVat + vatAmount;
+            TotalPriceField.Text = totalPrice.ToString("0.00€");
+            SetLowAndHighVatForSelectedOrderItems();
+        }
 
 
 
         private void AddItemButton_Click(object sender, EventArgs e)
         {
             MoveOrderItemToCurrentPayableList();
+            decimal priceBeforeVat = CalculatePriceForOrderItems(orderItems);
+            decimal vatAmount = CalculateVatForOrderItems(orderItems);
+            decimal totalPrice = priceBeforeVat + vatAmount;
+            TotalPriceField.Text = totalPrice.ToString("0.00€");
+            SetLowAndHighVatForSelectedOrderItems();
         }
 
         private void CurentItemsPayableList_SelectedIndexChanged(object sender, EventArgs e)

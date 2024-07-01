@@ -117,6 +117,16 @@ namespace Service
     {
         return _billDao.GetUniqueTableNumberForUnpaidBills();
     }
+
+    public void UpdatePaidStatus(int billId)
+    {
+        _billDao.UpdatePaidStatus(billId);
+    }
+
+    public void UpdateBill(Bill bill)
+    {
+        _billDao.UpdateBill(bill);
+    }
 }
 
 }
