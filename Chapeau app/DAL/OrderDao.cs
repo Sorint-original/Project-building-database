@@ -81,32 +81,30 @@ public List<Order> GetOrdersForBill(int bill_id)
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                Order order = new Order((int)dr["order_id"], (DateTime)dr["order_time"], (int)dr["preparation_time"], GetStatus((string)dr["status"]), (int)dr["bill"],(int)dr["employee"], (string)dr["preparation_location"]);
+                OrderStatus status = new OrderStatus();
+                string tablestatus = (string)dr["status"];
+                if (tablestatus == "Preparing")
+                {
+                    status = OrderStatus.Preparing;
+                }
+                else if (tablestatus == "Ready")
+                {
+                    status = OrderStatus.Ready;
+                }
+                else if(tablestatus == "Served")
+                {
+                    status = OrderStatus.Served;
+                }
+                else
+                {
+                    status = OrderStatus.Placed;
+                }
+                Order order = new Order((int)dr["order_id"], (DateTime)dr["order_time"], (int)dr["preparation_time"], status, (int)dr["bill"],(int)dr["employee"], (string)dr["preparation_location"]);
                 list.Add(order);
             }
 
             return list;
 
-        }
-
-        OrderStatus GetStatus(string stringStatus)
-        {
-            if (stringStatus == "Preparing")
-            {
-                return OrderStatus.Preparing;
-            }
-            else if (stringStatus == "Ready")
-            {
-                return OrderStatus.Ready;
-            }
-            else if (stringStatus == "Served")
-            {
-                return OrderStatus.Served;
-            }
-            else
-            {
-                return OrderStatus.Placed;
-            }
         }
 
         public void Delete(int order_id)
@@ -183,19 +181,6 @@ public List<Order> GetOrdersForBill(int bill_id)
             };
 
             ExecuteEditQuery(query, sqlParameters);
-        }
-
-        public List<Order> GetOrdersByTable(Table table)
-        {
-            string query = "SELECT o.* FROM [ORDER] o JOIN BILL b ON o.bill = b.bill_id WHERE b.table_number = @table AND o.status != 'Served' ORDER BY b.table_number";
-
-            SqlParameter[] sqlParameters = new SqlParameter[]
-            {
-            new("@table", SqlDbType.Int) {Value=table.Number}
-            };
-            OrderDao orderDao = new OrderDao();
-
-            return orderDao.ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
     }
 }

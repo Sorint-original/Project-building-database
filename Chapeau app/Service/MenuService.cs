@@ -36,15 +36,5 @@ namespace Service
         { 
             return menuDao.GetPreparationTimeByName(name);
         }
-
-        public int GetMenuItemStock(int id)
-        {
-            return menuDao.GetMenuItemStock(id);
-        }
-
-        public void RefreshMenuItemStock(int id, int amount)
-        {
-            menuDao.RefreshMenuItemStock(id, amount);
-        }
     }
 }

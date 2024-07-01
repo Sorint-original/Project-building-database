@@ -1,6 +1,6 @@
 ﻿namespace ChapeauUI
 {
-    partial class OrderOverview
+    partial class KitchenOrders
     {
         /// <summary>
         /// Required designer variable.

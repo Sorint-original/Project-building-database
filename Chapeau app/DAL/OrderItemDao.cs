@@ -30,14 +30,24 @@ namespace DAL
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                string comment;
-                try
+
+                OrderStatus status = new OrderStatus();
+                string tablestatus = (string)dr["status"];
+                if(tablestatus == "Preparing")
                 {
-                    comment = (string)dr["comment"];
+                    status = OrderStatus.Preparing;
                 }
-                catch
+                else if(tablestatus =="Ready")
                 {
-                    comment = null;
+                    status = OrderStatus.Ready;
+                }
+                else if (tablestatus == "Served")
+                {
+                    status = OrderStatus.Served;
+                }
+                else
+                {
+                    status = OrderStatus.Placed;
                 }
                 string? comment = dr["comment"] is DBNull ? null : (string)dr["comment"];
                 OrderItem item = new OrderItem( (int)dr["order_id"], (int)dr["menu_item"], (int)dr["amount"], status, comment);
@@ -45,26 +55,6 @@ namespace DAL
             }
 
             return list;
-        }
-
-        OrderStatus GetStatus(string stringStatus)
-        {
-            if (stringStatus == "Preparing")
-            {
-                return OrderStatus.Preparing;
-            }
-            else if (stringStatus == "Ready")
-            {
-                return OrderStatus.Ready;
-            }
-            else if (stringStatus == "Served")
-            {
-                return OrderStatus.Served;
-            }
-            else
-            {
-                return OrderStatus.Placed;
-            }
         }
 
         public void DeleteByOrder(int order_id)
@@ -84,15 +74,7 @@ namespace DAL
             sqlParameters[1] = new SqlParameter("@menu_item", item.MenuItemID);
             sqlParameters[2] = new SqlParameter("@amount", item.Amount);
             sqlParameters[3] = new SqlParameter("@status", item.Status.ToString());
-
-            if (item.Comment != null)
-            {
-                sqlParameters[4] = new SqlParameter("@comment", item.Comment);
-            }
-            else
-            {
-                sqlParameters[4] = new SqlParameter("@comment", DBNull.Value);
-            }
+            sqlParameters[4] = new SqlParameter("@comment", item.Comment);
 
             ExecuteEditQuery(command, sqlParameters);
         }

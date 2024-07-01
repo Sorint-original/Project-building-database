@@ -110,7 +110,7 @@ namespace ChapeauUI
 
             if (existingOrderItem == null)
             {
-                orderitems.Add(new OrderItem(orderId, menuItem.Id, 1, OrderStatus.Placed, null));
+                orderitems.Add(new OrderItem(orderId, menuItem.Id, 1, OrderStatus.Placed));
             }
             else
             {
@@ -123,7 +123,7 @@ namespace ChapeauUI
         private bool UpdateExistingOrderItem(OrderItem orderItem)
         {
             int currentQuantity = orderItem.Amount;
-            int stockQuantity = menuService.GetMenuItemStock(orderItem.MenuItemID);
+            int stockQuantity = orderItemService.GetOrderItemStock(orderItem.MenuItemID);
 
             if (currentQuantity >= stockQuantity)
             {
@@ -178,6 +178,7 @@ namespace ChapeauUI
                 OrderItem orderItem = (OrderItem)selectedItem.Tag;
 
                 UpdateExistingOrderItem(orderItem);
+                selectedItem.SubItems[3].Text = orderItem.Amount.ToString();
                 DisplayOrderItems(orderitems);
             }
             else
@@ -207,6 +208,7 @@ namespace ChapeauUI
             if (orderItem.Amount > 1)
             {
                 orderItem.Amount--;
+                selectedItem.SubItems[3].Text = orderItem.Amount.ToString();
             }
             else
             {
@@ -225,7 +227,8 @@ namespace ChapeauUI
             int selectedTable = int.Parse(lblTableNr.Text);
             int billId = GetOrCreateBillId(selectedTable);
             int preparationTime = CountPreparationTime();
-            CreateOrder(billId, preparationTime);
+            int orderId = CreateOrder(billId, preparationTime);
+            AddOrderItems(orderId);
 
             ClearElements();
             RefreshPannels();
@@ -264,36 +267,33 @@ namespace ChapeauUI
         private int CreateNewEmptyBill(int selectedTable, int guestNumber)
         {
             int billId = billService.GetNextBillId();
-            billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, null, 0, false));
+            billService.AddBill(new Bill(billId, 0, 0, guestNumber, selectedTable, " ", 0, false));
             return billId;
         }
 
-        private void CreateOrder(int billId, int preparationTime)
+        private int CreateOrder(int billId, int preparationTime)
         {
             int orderId = orderService.GetNextOrderId();
             int employeeId = employeeService.GetIdByRole("waiter");
-            Order order = new Order(orderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeId, null);
-            order.Items = AddOrderItems(orderId);
-            orderService.AddOrder(order);
+            orderService.AddOrder(new Order(orderId, DateTime.Now, preparationTime, OrderStatus.Placed, billId, employeeId, ""));
+            return orderId;
         }
 
-        private List<OrderItem> AddOrderItems(int orderId)
+        private void AddOrderItems(int orderId)
         {
-            List<OrderItem> items = new List<OrderItem>();
-
             foreach (ListViewItem item in listVOrder.Items)
             {
                 OrderItem orderitem = (OrderItem)item.Tag;
+
                 int itemId = orderitem.MenuItemID;
                 int amount = orderitem.Amount;
                 int menuItemId = orderitem.MenuItemID;
                 OrderStatus status = orderitem.Status;
-                string comment = orderitem.Comment;
-                menuService.RefreshMenuItemStock(itemId, amount);
-                items.Add(new OrderItem(orderId, menuItemId, amount, status, comment));
-            }
+                string comment = orderitem.Comment == null ? "" : orderitem.Comment;
 
-            return items;
+                orderItemService.RefreshOrderItemStock(itemId, amount);
+                orderItemService.AddOrderItem(new OrderItem(orderId, menuItemId, amount, status, comment));
+            }
         }
 
         private int CountPreparationTime()
