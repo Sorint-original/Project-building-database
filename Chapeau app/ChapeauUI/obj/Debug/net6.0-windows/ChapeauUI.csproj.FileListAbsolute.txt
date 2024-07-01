@@ -75,3 +75,10 @@ C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau ap
 C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.genruntimeconfig.cache
 C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ref\ChapeauUI.dll
 C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\bin\Debug\net6.0-windows\System.ClientModel.dll
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.LoginForm.resources
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.OrderingForm.resources
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.OrderOverview.resources
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.PaymentForm.resources
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.Properties.Resources.resources
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.RestaurantOverviewForm.resources
+C:\Users\pssor\OneDrive\Desktop\work\github\Project-building-database\Chapeau app\ChapeauUI\obj\Debug\net6.0-windows\ChapeauUI.csproj.GenerateResource.cache

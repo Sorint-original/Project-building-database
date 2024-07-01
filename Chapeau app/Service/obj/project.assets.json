@@ -704,6 +704,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Azure.Core": "1.35.0",
           "Microsoft.Data.SqlClient": "5.2.0",
           "Model": "1.0.0",
           "System.Configuration.ConfigurationManager": "8.0.0",
@@ -720,6 +721,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Azure.Core": "1.35.0",
           "Microsoft.Data.SqlClient": "5.2.0",
           "System.Configuration.ConfigurationManager": "8.0.0",
           "System.Data.SqlClient": "4.8.6"
@@ -2140,6 +2142,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Azure.Core >= 1.35.0",
       "DAL >= 1.0.0",
       "Microsoft.Data.SqlClient >= 5.2.0",
       "Model >= 1.0.0",
@@ -2204,6 +2207,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Azure.Core": {
+            "target": "Package",
+            "version": "[1.35.0, )"
+          },
           "Microsoft.Data.SqlClient": {
             "target": "Package",
             "version": "[5.2.0, )"
@@ -2233,7 +2240,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
