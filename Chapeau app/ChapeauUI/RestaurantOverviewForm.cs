@@ -187,20 +187,49 @@ namespace ChapeauUI
         {
             _orders = _orderService.GetOrdersByTable(table);
 
+            List<Order> barOrders = GetBarOrders();
+            List<Order> kitchenOrders = GetKitchenOrders();
+
             BarOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoBarIcon");
             KitchenOrdersIcon.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("NoKitchenIcon");
 
+            if (barOrders.Count > 0)
+            {
+                Order oldestBarOrder = barOrders.OrderBy(o => o.OrderTime).FirstOrDefault();
+                ChangeBarIcon(oldestBarOrder);
+            }
+
+            if (kitchenOrders.Count > 0)
+            {
+                Order oldestKitchenOrder = kitchenOrders.OrderBy(o => o.OrderTime).FirstOrDefault();
+                ChangeKitchenIcon(oldestKitchenOrder);
+            }
+        }
+
+        private List<Order> GetBarOrders()
+        {
+            List<Order> barOrders = new();
             foreach (Order order in _orders)
             {
                 if (order.PreparationLocation == "Bar")
                 {
-                    ChangeBarIcon(order);
-                }
-                else if (order.PreparationLocation == "Kitchen")
-                {
-                    ChangeKitchenIcon(order);
+                    barOrders.Add(order);
                 }
             }
+            return barOrders;
+        }
+
+        private List<Order> GetKitchenOrders()
+        {
+            List<Order> kitchenOrders = new();
+            foreach (Order order in _orders)
+            {
+                if (order.PreparationLocation == "Kitchen")
+                {
+                    kitchenOrders.Add(order);
+                }
+            }
+            return kitchenOrders;
         }
 
         private void ChangeBarIcon(Order order)
