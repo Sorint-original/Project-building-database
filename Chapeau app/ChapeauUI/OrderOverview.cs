@@ -67,7 +67,7 @@ namespace ChapeauUI
             if(GlobalVariables.CurrentEmployee.Role == Role.Chef)
             {
                 this.Text = "Kitchen Orders";
-                place = "kitchen";
+                place = "Kitchen";
             }
             else
             {
