@@ -98,6 +98,7 @@
             CurentItemsPayableList.Size = new Size(205, 284);
             CurentItemsPayableList.TabIndex = 2;
             CurentItemsPayableList.UseCompatibleStateImageBehavior = false;
+            CurentItemsPayableList.SelectedIndexChanged += CurentItemsPayableList_SelectedIndexChanged;
             // 
             // columnHeader4
             // 

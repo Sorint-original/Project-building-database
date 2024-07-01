@@ -18,6 +18,7 @@ namespace ChapeauUI
         {
             InitializeComponent();
             InitializeTableNumberBox();
+            InitializePaymentTypeBox();
         }
 
         private void InitializePaymentTypeBox()
@@ -71,10 +72,11 @@ namespace ChapeauUI
                 MenuItem menuItem = menuItemService.GetMenuItemById(orderItem.MenuItemID);
 
                 ListViewItem listViewItem = new ListViewItem(menuItem.Name);
-                listViewItem.SubItems.Add(ordedrItem.OrderID.ToString());
+                listViewItem.SubItems.Add(orderItem.OrderID.ToString());
                 listViewItem.SubItems.Add(menuItem.Name.ToString());
                 listViewItem.SubItems.Add(orderItem.Amount.ToString("0.00€"));
                 listViewItem.SubItems.Add(menuItem.Price.ToString());
+                listViewItem.Tag = orderItem;
 
                 AllBillItemsList.Items.Add(listViewItem);
             }
@@ -83,53 +85,175 @@ namespace ChapeauUI
 
         }
 
-        private void UpdateSelectedBillItemsList()
+  
+        private void IncreaseStockForOrderItem(OrderItem orderItem, ListView listView) {
+
+         
+                foreach (ListViewItem listViewItem in listView.Items)
+                {
+                    OrderItem listViewOrderItem = (OrderItem)listViewItem.Tag;
+                    if (listViewOrderItem.OrderID == orderItem.OrderID)
+                    {
+                        int currentAmount = Int32.Parse(listViewItem.SubItems[2].Text);
+                        listViewItem.SubItems[2].Text = (currentAmount + 1).ToString();
+                        break;
+                    }
+                }
+            
+        }
+
+        private void DecreaseStockForOrderItem(OrderItem orderItem, ListView listView)
+        {
+           
+
+         
+
+                foreach (ListViewItem listViewItem in listView.Items)
+                {
+                    OrderItem listViewOrderItem = (OrderItem)listViewItem.Tag;
+                    if (listViewOrderItem.OrderID == orderItem.OrderID)
+                    {
+                        int currentAmount = Int32.Parse(listViewItem.SubItems[2].Text);
+                        if (currentAmount > 1)
+                        {
+                            listViewItem.SubItems[2].Text = (currentAmount - 1).ToString();
+                        }
+                        else
+                        {
+                            listView.Items.Remove(listViewItem);
+                        }
+                        break;
+                    }
+                }
+            
+        }
+
+        private void AddOrderItem(OrderItem orderItem, ListView listView)
         {
 
-
-            int selectedBillItemId = AllBillItemsList.SelectedItems[0].Index;
-            string  selectedBillItemName = AllBillItemsList.SelectedItems[0].SubItems[1].Text;
-            int selectedBillItemAmount = AllBillItemsList.SelectedItems[0].SubItems[2].Text;
-            decimal selectedBillItemPrice = AllBillItemsList.SelectedItems[0].SubItems[3].Text;
-
-            //TODO check if the item is already in the list => increase amount or add new item
-
-            ListViewItem listViewItem = new ListViewItem(selectedBillItemName);
-            listViewItem.SubItems.Add(selectedBillItemId.ToString());
-            listViewItem.SubItems.Add(selectedBillItemAmount.ToString());
-            listViewItem.SubItems.Add(selectedBillItemPrice.ToString());
-
-            SelectedBillItemsList.Items.Add(listViewItem);
-
-
-            if (amount > 1)
-            {
-                AllBillItemsList.SelectedItems[0].SubItems[2].Text = (amount - 1).ToString();
-            }
-            else
-            {
-                AllBillItemsList.Items.RemoveAt(AllBillItemsList.SelectedItems[0].Index);
-            }
-        }
-
-        private void RemoveSelectedBillItem() {
-
-            //TODO check if the item is already in the list => increase amount or add new item
            
-            int SelectedBillitemAmount = Convert.ToInt32(SelectedBillItemsList.SelectedItems[0].SubItems[2].Text);
-            if (SelectedBillitemAmount > 1)
+                ListViewItem newItem = new ListViewItem(orderItem.MenuItemID.ToString());
+                newItem.SubItems.Add(orderItem.OrderID.ToString());
+                newItem.SubItems.Add("1");
+                newItem.SubItems.Add(orderItem.Amount.ToString());
+                newItem.SubItems.Add(orderItem.AuxMenuItem.Price.ToString());
+                newItem.Tag = orderItem;
+                listView.Items.Add(newItem);
+            
+        }
+
+        private void RemoveOrderItem(OrderItem orderItem, ListView listView)
+        {
+      
+                foreach (ListViewItem listViewItem in listView.Items)
+                {
+                    OrderItem listViewOrderItem = (OrderItem)listViewItem.Tag;
+                    if (listViewOrderItem.OrderID == orderItem.OrderID)
+                    {
+                        listView.Items.Remove(listViewItem);
+                        break;
+                    }
+                }
+            
+        }
+        
+        private bool CheckIfOrderItemExistsInListView(OrderItem selectedOrderItem, ListView listView)  {
+             bool itemExists = false;
+            foreach (ListViewItem item in listView.Items)
             {
-                SelectedBillItemsList.SelectedItems[0].SubItems[2].Text = (SelectedBillitemAmount - 1).ToString();
+                OrderItem orderItem = (OrderItem)item.Tag;
+                if (orderItem.OrderID == selectedOrderItem.OrderID)
+                {
+                    itemExists = true;
+                    break;
+                }
+            }
+            return  itemExists;
+
+        }
+    private void MoveOrderItemToCurrentPayableList() {
+        var selectedOrderItems = AllBillItemsList.SelectedItems;
+
+        List<OrderItem> orderItems = new List<OrderItem>();
+        foreach (ListViewItem item in selectedOrderItems)
+        {
+            OrderItem orderItem = (OrderItem)item.Tag;
+            orderItems.Add(orderItem);
+        }
+
+        foreach (OrderItem orderItem in orderItems)
+        {
+         int selectedOrderItemAmount = orderItem.Amount;
+            if (selectedOrderItemAmount > 1)
+            {
+                DecreaseStockForOrderItem(orderItem, AllBillItemsList);
             }
             else
             {
-                SelectedBillItemsList.Items.RemoveAt(SelectedBillItemsList.SelectedItems[0].Index);
+                RemoveOrderItem(orderItem, AllBillItemsList);
+            }  
+           if (CheckIfOrderItemExistsInListView(orderItem, CurentItemsPayableList))
+            {
+                IncreaseStockForOrderItem(orderItem, CurentItemsPayableList);
             }
+            else
+            {
+                AddOrderItem(orderItem, CurentItemsPayableList);
+            }
+
+            
         }
+        
+    }
+
+    private void MoveOrderItemToAllItemsList()
+     {
+
+        var selectedOrderItems = CurentItemsPayableList.SelectedItems;
+
+        List<OrderItem> orderItems = new List<OrderItem>();
+        foreach (ListViewItem item in selectedOrderItems)
+        {
+            OrderItem orderItem = (OrderItem)item.Tag;
+            orderItems.Add(orderItem);
+        }
+
+        foreach (OrderItem orderItem in orderItems)
+        {
+            int selectedOrderItemAmount = orderItem.Amount;
+            if (selectedOrderItemAmount > 1)
+            {
+                DecreaseStockForOrderItem(orderItem, CurentItemsPayableList);
+            }
+            else
+            {
+                RemoveOrderItem(orderItem, CurentItemsPayableList);
+            }
+            if (CheckIfOrderItemExistsInListView(orderItem, AllBillItemsList))
+            {
+                IncreaseStockForOrderItem(orderItem, AllBillItemsList);
+            }
+            else
+            {
+                AddOrderItem(orderItem, AllBillItemsList);
+            }
+     }
+     }
+
+   
+
+  
+
+
 
         private void AddItemButton_Click(object sender, EventArgs e)
         {
-            UpdateSelectedBillItemsList();
+            MoveOrderItemToCurrentPayableList();
+        }
+
+        private void CurentItemsPayableList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
